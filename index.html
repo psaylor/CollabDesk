@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<!--
+  COLLABDESK PROTOTYPE:
+  	Patricia Saylor
+  	Divya Bajekal
+  	Jonathan Lui
+  	Benjamin Xie
+
+-->
+<html>
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<title>CollabDesk</title>
+
+	<!-- Load style sheets -->
+	<link rel="stylesheet" href="jquery-ui-1.10.2/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+
+	<!-- Load any supplemental Javascript libraries here -->
+	<script type="text/javascript" src="jquery-ui-1.10.2/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="jquery-ui-1.10.2/ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+
+	<!-- Load our own Javascript files here -->
+	<script type="text/javascript" src="message.js"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var msg = new Message('text', 'author', ['tag1', 'tag2'], 'note', false, false);
+		console.log(msg);
+		$('body').html(msg.toString());
+		console.log(Message.HIGH_PRIORITY);
+		
+	});
+	</script>
+
+</head>
+
+<body>
+
+
+</body>
+
+</html>
