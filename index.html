@@ -23,15 +23,24 @@
 	<script type="text/javascript" src="jquery-ui-1.10.2/ui/jquery-ui.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 
-	<!-- Load our own Javascript files here -->
+	<!-- Load our own Javascript files and stylesheets here -->
 	<script type="text/javascript" src="message.js"></script>
+	<script type="text/javascript" src="database.js"></script>
+	<script type="text/javascript" src="preloadData.js"></script>
+	<link rel="stylesheet" href="styles.css" />
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		var msg = new Message('text', 'author', ['tag1', 'tag2'], 'note', false, false);
+
+		// example of creating a message and getting day and time
+		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
 		console.log(msg);
-		$('body').html(msg.toString());
-		console.log(Message.HIGH_PRIORITY);
+		$('.span2').html(msg.toString());
+		msg.getDay();
+		msg.getTime();
+
+		// view the preloaded database
+		console.log(db);
 		
 	});
 	</script>
@@ -39,7 +48,15 @@
 </head>
 
 <body>
-
+<div class="container-fluid">
+	<div class="fluid-row">
+		<div class="span2 browse">Browse Pane</div>
+		<div class="span10">
+			<div class="fluid-row reading">Reading Pane</div>
+			<div class="fluid-row create">Creating Pane</div>
+		</div>
+	</div>
+</div>
 
 </body>
 

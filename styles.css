@@ -1,0 +1,12 @@
+.browse {
+	background-color: gray;
+}
+
+.reading {
+	background-color: purple;
+	height: 50%;
+}
+
+.create {
+	background-color: green;
+}
