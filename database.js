@@ -48,11 +48,28 @@ var Database = function() {
 		return result;
 	}
 
+	this.getReadMessages = function() {
+		var result = {};
+		for (var i = 0; i < this.messages.length; i++) {
+			if (this.unread.indexOf(i) == -1) {
+				// the index of the message is not in the unread list
+				// so it is read
+				result[id] = this.messages[i];
+			}
+		}
+		console.log(result);
+		return result;
+	}
+
 	// removes the message with message_id from the unread list
 	this.markRead = function(message_id) {
 		var index = this.unread.indexOf(message_id);
 		this.unread.splice(index, 1);
 	}
 
+	// returns the message object with message_id
+	this.getMessage = function(message_id) {
+		return this.messages[message_id];
+	}
 }
 
