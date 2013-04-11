@@ -1,5 +1,6 @@
 .browse {
 	background-color: gray;
+	width: 33%;
 }
 
 .reading {
@@ -9,4 +10,29 @@
 
 .create {
 	background-color: green;
+}
+
+.side {
+	display: inline-block;
+}
+
+.floatRight {
+	float: right;
+}
+
+.floatLeft {
+	float: left;
+}
+.logo {
+}
+
+.spacing {
+	/*padding-top: 8px;
+	padding-bottom: 2px;*/
+	padding-right: 20px;
+}
+
+img.avatar {
+	height: 50px;
+	width: 50px;
 }

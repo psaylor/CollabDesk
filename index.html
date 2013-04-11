@@ -35,7 +35,7 @@
 		// example of creating a message and getting day and time
 		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
 		console.log(msg);
-		$('.span2').html(msg.toString());
+		$('.browse').html(msg.toString());
 		msg.getDay();
 		msg.getTime();
 
@@ -48,14 +48,29 @@
 </head>
 
 <body>
-<div class="container-fluid">
-	<div class="fluid-row">
-		<div class="span2 browse">Browse Pane</div>
-		<div class="span10">
-			<div class="fluid-row reading">Reading Pane</div>
-			<div class="fluid-row create">Creating Pane</div>
+	<div class="loginHeader row-fluid btn disabled">
+		<div class="span8"> 
+			<div class="">
+				<h3 class="logo side floatLeft">CollabDesk</h3>
+			</div>
+		</div>
+		<div class="span4"> 
+			<div class="">
+				<div class="avatar side">
+					<img class="avatar" src="images/generic_avatar.jpg"/>
+				</div>
+				<h3 class=" side">Sally</h3>
+			</div>
 		</div>
 	</div>
+
+	<div class="container-fluid">
+		<div class="browse side">Browse Pane</div>
+		<div class="side">
+			<div class="reading">Reading Pane</div>
+			<div class="create">Creating Pane</div>
+	</div>
+
 </div>
 
 </body>
