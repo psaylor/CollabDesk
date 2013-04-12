@@ -28,15 +28,18 @@
 	<script type="text/javascript" src="database.js"></script>
 	<script type="text/javascript" src="preloadData.js"></script>
 	<script type="text/javascript" src="readMessage.js"></script>
+	<script type="text/javascript" src="search.js"></script>	
 	<link rel="stylesheet" href="styles.css" />
 
 	<script type="text/javascript">
 	$(document).ready(function(){
 
+		var search = new Search();		
+
 		// example of creating a message and getting day and time
 		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
 		console.log(msg);
-		$('.browse').html(msg.toString());
+		$('#date').html(msg.toString());
 		msg.getDay();
 		msg.getTime();
 
@@ -44,6 +47,25 @@
 		console.log(db);
 		// display a static message in the reading pane (until this is called from browsing pane)
 		displayMessage(3);
+
+		/***********
+		* Listeners
+		************/
+		$("#search-tbox").keydown(function(event){
+			if(event.which==13){ //checking for 'enter'
+				var inp=$(this).val();
+				console.log("Listening to ENTER. input is "+inp);
+				console.log(search.getMessageIDs(inp,db));
+			}
+		});
+
+		$("#search-tbox").autocomplete({
+			source: function(request, response){
+				//console.log("request");
+				//console.log(request);
+				response(search.getMessageTitles(request.term.toLowerCase(),db));
+			}
+		});
 	});
 	</script>
 
@@ -69,7 +91,10 @@
 	<div class="container-fluid">
 
 		<!-- browse pane -->
-			<div class="browse side floatLeft left">Browse Pane</div>
+			<div class="browse side floatLeft left">Browse Pane
+			<div id="date"></div>
+			<input type="text" id="search-tbox" autofocus />
+		</div>
 			
 		<div class="side floatRight right">
 
