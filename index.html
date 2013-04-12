@@ -28,15 +28,18 @@
 	<script type="text/javascript" src="database.js"></script>
 	<script type="text/javascript" src="preloadData.js"></script>
 	<script type="text/javascript" src="readMessage.js"></script>
+	<script type="text/javascript" src="createMessage.js"></script>
+	<script type="text/javascript" src="search.js"></script>	
 	<link rel="stylesheet" href="styles.css" />
 
 	<script type="text/javascript">
 	$(document).ready(function(){
+		var search = new Search();		
 
 		// example of creating a message and getting day and time
 		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
 		console.log(msg);
-		$('.browse').html(msg.toString());
+		$('#date').html(msg.toString());
 		msg.getDay();
 		msg.getTime();
 
@@ -44,6 +47,43 @@
 		console.log(db);
 		// display a static message in the reading pane (until this is called from browsing pane)
 		displayMessage(3);
+
+		/*
+		Submits the form when the user clicks the Submit button
+		*/
+		$("#submitBtn").click(function() {
+			console.log("reached here");
+			//console.debug("submit button clicked");
+			submit();
+		});
+
+		/*
+		Submits the form when the user has focus on the Submit button and presses enter
+		*/
+		$("#submitBtn").keydown(function (e) {
+			if (e.which == 13) {
+				submit();
+			}
+		});
+
+		/***********
+		* Listeners
+		************/
+		$("#search-tbox").keydown(function(event){
+			if(event.which==13){ //checking for 'enter'
+				var inp=$(this).val();
+				console.log("Listening to ENTER. input is "+inp);
+				console.log(search.getMessageIDs(inp,db));
+			}
+		});
+
+		$("#search-tbox").autocomplete({
+			source: function(request, response){
+				//console.log("request");
+				//console.log(request);
+				response(search.getMessageTitles(request.term.toLowerCase(),db));
+			}
+		});
 	});
 	</script>
 
@@ -69,8 +109,10 @@
 	<div class="container-fluid">
 
 		<!-- browse pane -->
-			<div class="browse side floatLeft left">Browse Pane</div>
-			
+			<div class="browse side floatLeft left">Browse Pane
+				<div id="date"></div>
+				<input type="text" id="search-tbox" autofocus />
+			</div>
 		<div class="side floatRight right">
 
 		<!-- reading pane -->
@@ -158,9 +200,10 @@
 				</div>
 
 			<!-- Submit -->
+
 				<div class="controls-row floatRight">
-					<button type="submit" class="btn btn-primary">Submit Message</button>
-					<button type="button" class="btn">Cancel</button>
+					<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
+					<button type="button" id="cancelBtn" class="btn">Cancel</button>
 				</div>
 			</fieldset>
 			</form>

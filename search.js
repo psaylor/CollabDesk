@@ -3,25 +3,61 @@
  * 
  */
 
-/*
-* Given a string, return a list of message ids representing messages
-* whose tags or titles or messages match the search request
-*
-*/
- var search=function(inp){
- 	var message_list = this.getAllMessages();
- 	var matching_messages = [];
+var Search = function(){
+	
+	/*
+	* Given a string, return a list of message ids representing messages
+	* whose title, text (message), tags match the search request
+	*
+	*/
+	 this.getMessageIDs=function(input, database){
+	 	var message_list = database.getAllMessages();
+	 	var matching_messages = [];
+	 	var msg;
+	 	var title;
+	 	var text;
+	 	var inp = input.toLowerCase();
 
- 	for(msg in message_list){
- 		if(msg.tags.indexOf(inp)>-1) { //check if value is in tag list
- 			matching_messages.push(msg);
- 		}
- 		else if(msg.title.indexOf(inp)>-1){
- 			matching_messages.push(msg);
- 		}
- 		else if(msg.text.indexOf(inp)>-1){
- 			matching_messages.push(msg);
- 		}
- 	}
- 	return matching_messages;
- };
+	 	for(id in message_list){
+	 		msg = db.getMessage(id);
+	 		title = msg.title.toLowerCase();
+	 		text = msg.text.toLowerCase();
+
+	 		//console.log("title: "+title);
+	 		//console.log("text: "+text);
+	 		//console.log(msg);
+	 		if(title.indexOf(inp)>-1){
+	 			matching_messages.push(id);
+	 		}
+	 		else if(text.indexOf(inp)>-1){
+	 			matching_messages.push(id);
+	 		}
+	 		else if(msg.tags.length>0){
+	 			for(index in msg.tags){
+	 				//console.log("tag:");
+	 				//console.log(msg.tags[index]);
+	 				if(msg.tags[index].indexOf(input)>-1){
+	 					matching_messages.push(id);
+	 				}
+	 			}
+	 		}
+	 	}
+	 	return matching_messages;
+	 };
+
+	/*
+	* Given a string, return a list of message titles representing messages
+	* whose title, text (message), tags match the search request
+	*/
+	 this.getMessageTitles=function(input, database){
+	 	var msgIDs = this.getMessageIDs(input, database);
+	 	var msgTitles = [];
+
+	 	for(index in msgIDs){
+	 		console.log(index+" corresponds to msgID "+msgIDs[index]);
+	 		msgTitles.push(database.getMessage(msgIDs[index]).title);
+	 	}
+	 	console.log(msgTitles);
+	 	return msgTitles;
+	 }
+};

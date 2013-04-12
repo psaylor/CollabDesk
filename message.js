@@ -82,7 +82,9 @@ var Message = function(title, text, author, tags, type, priority, alert, date) {
 	// takes a Reply object and adds it to the end of the Message's list of replies; adds all of the reply's tags to the messages list of tags
 	this.addReply = function(reply){
 		this.replies.push(reply);
-		this.tags.push(reply.tags);
+		for (index in reply.tags){
+			this.tags.push(reply.tags[index].toLowerCase()); //tags MUST be lowercase (for search)
+		}
 	}
 
 
