@@ -112,7 +112,7 @@ var Message = function(title, text, author, tags, type, priority, alert, date) {
 		a Date object, encompassing the date and time of the response's creation; if not provided, will use current date and time 
 
  */
-var Reply = function(text, author, tags, date) {
+var Reply = function(title, text, author, tags, date) {
 	////////////////////////////////////////////////
     // Representation
     //////////
@@ -120,6 +120,7 @@ var Reply = function(text, author, tags, date) {
 	this.text = text;
 	this.author = author;
 	this.tags = tags;
+	this.title = title;
 	if (date){
 		this.date = date;
 	} else {
@@ -131,7 +132,7 @@ var Reply = function(text, author, tags, date) {
 	//////////
 	// returns a (slightly) human readable string for the message object
 	this.toString = function(){			
-		var output = this.date + ': ' + this.author + ': ' + this.text + '->'+ this.tags;
+		var output = this.title + ': ' + this.date + ': ' + this.author + ': ' + this.text + '->'+ this.tags;
 		return output;
 	}
 

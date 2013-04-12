@@ -60,11 +60,12 @@ var db = new Database();
 
 	var msg = new Message(title, text, author, tags, type, priority, alert, date);
 
+	title = 'Fixed';
 	text = 'Jacinto came by and fixed it. All better =]';
 	author = 'Sam';
 	tags = ['fixed'];
 	var date = new Date('19 Mar, 2013 15:31:00');
-	var reply = new Reply(text, author, tags, date);
+	var reply = new Reply(title, text, author, tags, date);
 	msg.addReply(reply);
 	db.addMessage(msg);
 
