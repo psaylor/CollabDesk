@@ -68,7 +68,59 @@
 		<div class="browse side">Browse Pane</div>
 		<div class="side">
 			<div class="reading">Reading Pane</div>
-			<div class="create">Creating Pane</div>
+			<div class="create">
+				<table id="messageForm">
+					<th id="messageFormHeader">New Message Form</th>
+					<tr id="templatesRow">
+						<td id="templatesLabel">
+							<label>Templates</label>
+						</td>
+						<td id="templatesSelectorCell">
+							<select>
+								<option value="default">None Selected</option>
+								<option value="package">Missing Package</option>
+								<option value="key">Missing Key</option>
+								<option value="athena">Ran Out of Printer Paper</option>
+							</select>
+						</td>
+						<td id="noteIssueSelector"></td>
+					</tr>
+					<tr id="titleRow">
+						<td id="titleLabel">
+							<label>Title</label>
+						</td "titleInputCell">
+						<td>
+							<input id="titleBox" name="title_entry" type="text">
+						</td>
+						<td id="PrioritySelector"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td id="messageLabel">
+							<label>Message</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input id="messageBox" name="message_entry" type="text">
+						</td>
+					</tr>
+					<tr id="tagsLabel">
+						<td>
+							<label>Tags (Optional)</label>
+						</tr>
+					<tr>
+						<td>
+							<input id="tagBox" name="tag_entry" type="text">
+						</td>
+					</tr>
+					<tr id="bottomRow"></tr>
+				</table>
+			</div>
 	</div>
 
 </div>
