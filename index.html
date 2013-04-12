@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="message.js"></script>
 	<script type="text/javascript" src="database.js"></script>
 	<script type="text/javascript" src="preloadData.js"></script>
+	<script type="text/javascript" src="readMessage.js"></script>
 	<link rel="stylesheet" href="styles.css" />
 
 	<script type="text/javascript">
@@ -41,7 +42,8 @@
 
 		// view the preloaded database
 		console.log(db);
-		
+		// display a static message in the reading pane (until this is called from browsing pane)
+		displayMessage(3);
 	});
 	</script>
 
@@ -72,34 +74,62 @@
 		<div class="side floatRight right">
 
 		<!-- reading pane -->
-			<div class="reading">Reading Pane
-				<div class="originalMsg">Original Message Div
-					<div class="originalMsgHeader">Original Message title</div>
-					<div class="originalMsgBody">Original Message text</div>
-				</div>
-				<div class="reply">Reply Div
-					<div class="replyHeader">reply title</div>
-					<div class="replyBody">reply text</div>
-				</div>
-				<div class="hashtags">Hashtag Div</div>
-				<div class="replyButton">Reply button</div>
-			</div>
+            <div class="reading">Reading Pane
+                <div class="originalMsg">
+                    <div class="originalMsgHeader"></div>
+                    <div class="originalMsgBody"></div>
+                </div>
+                <div class="replies"></div>
+                <div class="hashtags"></div>
+                <div class="replyButton">Reply button</div>
+            </div>
 
 		<!-- create message pane -->
 			<div class="create">
 				<div class="createHeader">
 					<h4 class="floatLeft">Create New Message</h4>
 					<img class="floatRight" src="images/caret-down-grey.png"/>
-					<div class="clear"> </div>
+					<div class="clear"></div>
 				</div>
 
-				<div class="floatLeft">
-					baljdfaljdf
+				<form class="form-horizontal">
+					<div class="floatLeft">
+						<div class="control-group">
+							<label class="control-label" for="inputTemplates">Templates</label>
+							<div class="controls">
+								<input type="select" id="inputTemplates" placeholder="Other">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputTitle">Title</label>
+							<div class="controls">
+						    	<input type="title" id="inputTitle" placeholder="Title">
+						    </div>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							<button type="submit" class="btn">Submit Message</button>
+						</div>
+					</div>
+
+				</form>
+
+				<!-- <div>
+					<div class="floatLeft">
+						<div class="singleLine">
+							<h5>Templates</h5>
+							<input/>
+						</div>
+						<h5>Title</h5>
+					</div>
+					<div class="floatRight">
+						
+					</div>
+					<div class="clear"></div>
 				</div>
-				<div class="floatRight">
-					abdljadljf
-				</div>
-			</div>
+			</div> -->
 			<!-- <div class="create">
 				<table id="messageForm">
 					<th id="messageFormHeader">New Message Form</th>
