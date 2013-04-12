@@ -20,17 +20,23 @@
 }
 
 .right {
-	width: 66%;
+	width: 58%;
 }
 .left {
-	width: 33%;
+	width: 35%;
 }
 .floatRight {
 	float: right;
+	padding-right: 10px;
 }
 
 .floatLeft {
 	float: left;
+	padding-left: 10px;
+}
+
+.clear {
+	clear: both;
 }
 .logo {
 
