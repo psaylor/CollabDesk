@@ -63,6 +63,20 @@ img.avatar {
 	width: 50px;
 }
 
+img.captain {
+	height: 30px;
+	width: 30px;
+}
+
+img.high_pri {
+	height: 30px;
+	width: 30px;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
 #messageForm {
 	border-color: 2px solid;
 	border-radius: 5px;

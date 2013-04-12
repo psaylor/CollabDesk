@@ -9,15 +9,23 @@ var displayMessage = function(message_id) {
 	var msg = db.getMessage(message_id);
 
 	// Display original message
-	$('.originalMsgHeader').html(msg.title);
+	$('.originalMsgTitle').html(msg.type + ": " + msg.title);
  	$('.originalMsgBody').html(msg.text);
+
+  // Display/hide appropriate icons
+  if(msg.alert == Message.NO_ALERT) {
+    $('.captain').addClass('hidden');
+  }
+  if(msg.priority == Message.LOW_PRI) {
+    $('.high_pri').addClass('hidden');
+  }
 
  	var replies = msg.replies;
  	for (var i=0; i< replies.length; i++) {
  		var reply = replies[i];
 
  		// Display heading for reply
- 		var replyHeaderDiv = $(document.createElement('div'))
+ 		var replyHeaderDiv = $(document.createElement('h5'))
   			.addClass('replyHeader')
   			.html('Re: ' + msg.title);
   		$('.replies').append(replyHeaderDiv);
