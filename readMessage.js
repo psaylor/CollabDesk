@@ -43,6 +43,6 @@ var displayMessage = function(message_id) {
  		tags += msg.tags[j];
  		tags += " ";
  	}
- 	$('.hashtags').html(tags);
+ 	// $('.hashtags').html(tags);
 
 };

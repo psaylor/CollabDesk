@@ -46,7 +46,7 @@
 		// view the preloaded database
 		console.log(db);
 		// display a static message in the reading pane (until this is called from browsing pane)
-		displayMessage(3);
+		// displayMessage(3);
 
 		/*
 		Submits the form when the user clicks the Submit button
@@ -116,8 +116,8 @@
 		<div class="side floatRight right">
 
 		<!-- reading pane -->
-            <div class="reading">
-                <div class="originalMsg">
+            <div class="reading wrapper">
+                <!-- <div class="originalMsg">
                     <div class="originalMsgHeader">
                     	<h4 class="originalMsgTitle floatLeft"></h4>
 						<div class="high_pri floatRight"><img class="high_pri" src="images/high_pri.jpg"/></div>
@@ -128,10 +128,45 @@
                 </div>
                 <div class="replies"></div>
                 <div class="hashtags"></div>
-                <button type="button" class="replyButton floatRight">Reply</button>
+                <button type="button" class="replyButton floatRight">Reply</button> -->
+           
+           		<div class="originalMsg">
+           			<div class="originalMessageHeader">
+		                <legend id="readMessageTitle">Missing Package
+		                	<div class="high_pri floatRight"><img class="high_pri" src="images/high_pri.jpg"/></div>
+							<div class="captain floatRight"><img class="captain" src="images/captain.jpg"/></div>
+							<div class="clear"></div>
+		                </legend>
+		            </div>
+
+		            <div class="originalMessageSubHeader">
+
+		            </div>
+
+		            <div class="originalMsgBody">
+		            	The mailboxes need fixing
+		            </div>
+
+		            <div class="replies">
+		            	fixed
+		            </div>
+
+	                <div class="hashtags" style="bottom:20px;">
+						 <div class="floatLeft tag">#mailboxes</div>
+						 <div class="floatLeft tag">#Jacinto</div>
+						 <div class="clear"></div>
+	                </div>
+
+	                <div class="alignRight alignBottom">
+		                <button type="button" class="replyButton btn">Reply</button>
+		            </div>
+	            </div>
+
             </div>
 
+
 		<!-- create message pane -->
+		<div class="create">
 
 			<form class="form">
 			<fieldset>
@@ -143,49 +178,50 @@
 
 			<!-- Select Template -->
 			<div class="controls-row">
-			<div class="span5">
-				<div class="control-group">
-				  	<label class="control-label"></label>
-				  	<div class="controls">
-				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      	<option>Other...</option>
-				      	<option>High Priority</option>
-				      	<option>Alert Desk Captain</option>
-				    </select>
-				  	</div>
+				<div class="span5">
+					<div class="control-group">
+					  	<label class="control-label"></label>
+					  	<div class="controls">
+					    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
+					      	<option>Other...</option>
+					      	<option>High Priority</option>
+					      	<option>Alert Desk Captain</option>
+					    </select>
+					  	</div>
+					</div>
+
+				<!-- Title -->
+					<div class="control-group">
+					  	<label class="control-label"></label>
+					  	<div class="controls">
+					    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
+					    
+					  	</div>
+					</div>
 				</div>
 
-			<!-- Title -->
-				<div class="control-group">
-				  	<label class="control-label"></label>
-				  	<div class="controls">
-				    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
-				    
-				  	</div>
+				<!-- Multiple Radios -->
+				<div class="span4">
+					<div class="control-group">
+					  <label class="control-label"></label>
+					  <div class="controls">
+					    <label class="radio">
+					      <input type="radio" name="radios" value="Option one" checked="checked">
+					      Note or Issue
+					    </label>
+					    <label class="radio">
+					      <input type="radio" name="radios" value="Option two">
+					      High Priority
+					    </label>
+					    <label class="radio">
+					      <input type="radio" name="radios" value="Option two">
+					      Alert Desk Captain
+					    </label>
+					  </div>
+					</div>
 				</div>
 			</div>
-
-			<!-- Multiple Radios -->
-			<div class="span4">
-				<div class="control-group">
-				  <label class="control-label"></label>
-				  <div class="controls">
-				    <label class="radio">
-				      <input type="radio" name="radios" value="Option one" checked="checked">
-				      Note or Issue
-				    </label>
-				    <label class="radio">
-				      <input type="radio" name="radios" value="Option two">
-				      High Priority
-				    </label>
-				    <label class="radio">
-				      <input type="radio" name="radios" value="Option two">
-				      Alert Desk Captain
-				    </label>
-				  </div>
-				</div>
-			</div>
-			</div>
+			
 			<!-- Message Text Area -->
 				<div class="control-group controls-row">
 					<div class="controls span8">                     
@@ -198,25 +234,25 @@
 				  <div class="controls span8">
 					<div class="input-prepend input-xlarge">
 				    	<span class="add-on">#</span>
-				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
+				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text"/>
 				    </div>
 				    
 				  </div>
 				</div>
 
 			<!-- Submit -->
-
 				<div class="controls-row floatRight">
 					<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
 					<button type="button" id="cancelBtn" class="btn">Cancel</button>
 				</div>
+
 			</fieldset>
 			</form>
 
 			
 		</div>
 
-</div>
+		</div>
 
 </body>
 
