@@ -90,29 +90,29 @@
 			<fieldset>
 
 			<!-- Form Name -->
-			<legend>Create New Message</legend>
+			<legend>Create New Message <i class="icon-chevron-down"></i></legend>
 
 			<!-- Select Template -->
 			<div class="controls-row">
 			<div class="span5">
 				<div class="control-group">
-				  <label class="control-label"></label>
-				  <div class="controls">
+				  	<label class="control-label"></label>
+				  	<div class="controls">
 				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      <option>Other...</option>
-				      <option>High Priority</option>
-				      <option>Alert Desk Captain</option>
+				      	<option>Other...</option>
+				      	<option>High Priority</option>
+				      	<option>Alert Desk Captain</option>
 				    </select>
-				  </div>
+				  	</div>
 				</div>
 
 			<!-- Title -->
 				<div class="control-group">
-				  <label class="control-label"></label>
-				  <div class="controls">
+				  	<label class="control-label"></label>
+				  	<div class="controls">
 				    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
 				    
-				  </div>
+				  	</div>
 				</div>
 			</div>
 
@@ -138,27 +138,25 @@
 			</div>
 			</div>
 			<!-- Message Text Area -->
-				<div class="control-group">
-				  <label class="control-label"></label>
-				  <div class="controls">                     
+				<div class="control-group controls-row">
+					<div class="controls span8">                     
 				    <textarea id="textarea" name="textarea" class="input-block-level">Your message here.</textarea>
-				  </div>
+				  	</div>
 				</div>
 
 			<!-- Tags -->
-				<div class="control-group">
-				  <label class="control-label"></label>
-				  <div class="controls">
-				    <div class="input-prepend">
-				      <span class="add-on">#</span>
-				      <input id="prependedtext" name="prependedtext" class="input-block-level" placeholder="#tags" type="text">
+				<div class="control-group controls-row">
+				  <div class="controls span8">
+					<div class="input-prepend input-xlarge">
+				    	<span class="add-on">#</span>
+				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
 				    </div>
 				    
 				  </div>
 				</div>
 
 			<!-- Submit -->
-				<div class="form-actions floatRight">
+				<div class="controls-row floatRight">
 					<button type="submit" class="btn btn-primary">Submit Message</button>
 					<button type="button" class="btn">Cancel</button>
 				</div>
