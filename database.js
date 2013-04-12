@@ -48,6 +48,7 @@ var Database = function() {
 		return result;
 	}
 
+	// returns a dictionary mapping message_id -> Message() objects for read messages
 	this.getReadMessages = function() {
 		var result = {};
 		for (var i = 0; i < this.messages.length; i++) {
@@ -61,6 +62,15 @@ var Database = function() {
 		return result;
 	}
 
+	//returns an array of Message() objects, where their index in the array is their message_id
+	this.getAllMessages = function() {
+		var result = new Array();
+		for (id in this.messages) {
+			result[id] = this.messages[id];
+		}
+		return result;
+	}
+
 	// removes the message with message_id from the unread list
 	this.markRead = function(message_id) {
 		var index = this.unread.indexOf(message_id);
@@ -71,5 +81,6 @@ var Database = function() {
 	this.getMessage = function(message_id) {
 		return this.messages[message_id];
 	}
+
 }
 
