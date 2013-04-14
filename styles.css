@@ -89,6 +89,14 @@ img.high_pri {
 
 }
 
+.originalMessageHeader {
+	border-bottom: 1px solid gray;
+}
+
+.parentWidth {
+	width: 100%;
+}
+
 .alignBottom {
 	position: absolute;
 	bottom: 5px;
