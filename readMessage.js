@@ -21,21 +21,32 @@ var displayMessage = function(message_id) {
   }
 
  	var replies = msg.replies;
+  var reply;
+  var replyDiv;
+  var replyHeaderDiv;
+  var replyBodyDiv;
  	for (var i=0; i< replies.length; i++) {
- 		var reply = replies[i];
+ 	  reply = replies[i];
+
+    // Create new div for each reply
+    replyDiv = $(document.createElement('div'))
+        .addClass('reply')
+        .addClass('controls-row');
 
  		// Display heading for reply
- 		var replyHeaderDiv = $(document.createElement('h5'))
+ 		replyHeaderDiv = $(document.createElement('h5'))
   			.addClass('replyHeader')
   			.html('Re: ' + msg.title);
-  		$('.replies').append(replyHeaderDiv);
+  	$(replyDiv).append(replyHeaderDiv);
 
-  		// Display text for reply
-  		var replyBodyDiv = $(document.createElement('div'))
+  	// Display text for reply
+  	replyBodyDiv = $(document.createElement('div'))
   			.addClass('replyBody')
         .addClass('span12')
   			.html(reply.text);
-  		$('.replies').append(replyBodyDiv);
+  	$(replyDiv).append(replyBodyDiv);
+
+    $('.replies').append(replyDiv);
  	}
 
  	// Display tags

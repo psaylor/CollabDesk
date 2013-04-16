@@ -8,8 +8,7 @@
 	position: relative;
 	width: 100%;
 	height: 300px;
-	border-bottom: solid orange 2px;
-	border-left: solid orange 2px;
+	border-bottom: solid black 1px;
 }
 
 .create {
@@ -132,20 +131,12 @@ img.high_pri {
 	width: 80%;
 }
 
-.originalMsgHeader {
-	border-bottom: solid gray 1px;
-}
-
 .originalMsg {
-	border-bottom: solid gray 1px;
-}
-
-.replyHeader {
-	border-bottom: solid gray 1px;
+	border-bottom: solid LightGray 1px;
 }
 
 .reply {
-	border-bottom: solid gray 1px;
+	border-bottom: solid LightGray 1px;
 }
 	
 .alignBottom {
