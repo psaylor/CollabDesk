@@ -28,4 +28,3 @@ function submit() {
 
 	reset();
 }
-

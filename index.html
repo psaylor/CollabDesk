@@ -40,14 +40,21 @@
 		// example of creating a message and getting day and time
 		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
 		console.log(msg);
-		$('#date').html(msg.toString());
-		msg.getDay();
-		msg.getTime();
 
 		// view the preloaded database
 		console.log(db);
 		// display a static message in the reading pane (until this is called from browsing pane)
 		displayMessage(3);
+
+		$("#cancelBtn").click(function() {
+			reset();
+		});
+
+		$("#cancelBtn").click(function(e) {
+			if (e.which == 13) {
+				reset();
+			}
+		});
 
 		/*
 		Submits a reply when the reply button is clicked in the reading pane
@@ -130,10 +137,14 @@
 						<div class="captain floatRight"><img class="captain" src="images/captain.jpg"/></div>
 						<div class="clear"></div>
                     </h4>
-                    <div class="originalMsgBody span12"></div>
+                    <div class="originalMsgBody controls-row">
+                    	<div class="originalMsgDetails"></div>
+                    		<div class="authorPic"><img class="authorPic floatLeftNoPadding" src="images/generic_avatar.jpg"/></div>
+                    		<div class="originalMsgDetailsText floatLeft"></div>
+                    	<div class="originalMsgText span12 offset1"></div>
+                    </div>
                 </div>
-                <div class="replies controls-row">
-                </div>
+                <div class="replies"></div>
                 <div class="alignBottom parentWidth">
                 	<div class="hashtags"></div>
                 	<button type="button" class="replyButton btn floatRight">Reply</button>
@@ -158,8 +169,8 @@
 				  	<div class="controls">
 				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
 				      	<option>Other...</option>
-				      	<option>High Priority</option>
-				      	<option>Alert Desk Captain</option>
+				      	<option>Missing Package</option>
+				      	<option>Missing Person</option>
 				    </select>
 				  	</div>
 				</div>
@@ -190,9 +201,6 @@
 				      <input type="checkbox" value="Option two">
 				      Alert Desk Captain
 				    </label>
-				   <!--  <div id="Div1" class="checkBox">&nbsp;</div>
-					<label for="Div1">
-    				Lorem ipsum dolor sit amet</label><br /> -->
 				  </div>
 				</div>
 			</div>
