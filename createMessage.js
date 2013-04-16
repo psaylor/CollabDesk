@@ -1,4 +1,10 @@
 function reset() {
+	$("#submitBtn").html("Submit Message");
+
+	// Reset the form title bar to default
+	var formTitleBar = "New message <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
+	
+	$("#formTitle").html(formTitleBar);
 	$("#textinput").val("");
 	$("#textarea").val("Your message here");
 	$("#prependedtext").val("");

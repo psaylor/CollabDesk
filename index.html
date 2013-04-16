@@ -49,20 +49,32 @@
 		// display a static message in the reading pane (until this is called from browsing pane)
 		displayMessage(3);
 
+		$("#cancelBtn").click(function() {
+			reset();
+		})
+
 		/*
 		Submits a reply when the reply button is clicked in the reading pane
 		*/
 		$(".replyButton").click(function() {
-			$("#formTitle").html("Create Reply");
 			openReplyForm();
+		});
+
+		$(".replyButton").keydown(function(e) {
+			if (e.which == 13) {
+				openReplyForm();
+			}
 		});
 
 		/*
 		Submits the form when the user clicks the Submit button
 		*/
 		$("#submitBtn").click(function() {
-			$("#formTitle").html("New Message");
-			submit();
+			if ($("submitBtn").html() == "Submit Message") {
+				submit();
+			} else {
+				submitReply();
+			}
 		});
 
 		/*
@@ -70,7 +82,11 @@
 		*/
 		$("#submitBtn").keydown(function (e) {
 			if (e.which == 13) {
-				submit();
+				if ($("submitBtn").html() == "Submit Message") {
+					submit();
+				} else {
+					submitReply();
+				}
 			}
 		});
 
@@ -149,7 +165,7 @@
 
 			<!-- Form Name -->
 			<legend id="formTitle">New Message 
-				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
+				<div class="floatRight btn"><i class="icon-chevron-down" id="chevronDown"></i></div>
 			</legend>
 
 			<!-- Select Template -->
@@ -200,7 +216,7 @@
 			<!-- Message Text Area -->
 				<div class="control-group controls-row">
 					<div class="controls span8">                     
-				    <textarea id="textarea" name="textarea" class="input-block-level">Your message here.</textarea>
+				    <textarea id="textarea" name="textarea" class="input-block-level">Your message here</textarea>
 				  	</div>
 				</div>
 
