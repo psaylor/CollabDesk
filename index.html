@@ -35,7 +35,12 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		var search = new Search();		
+		var search = new Search();
+		var browsePane = new BrowsePane();		
+		$("tbody").append(browsePane.getAllMessageHTML(db));
+		$("tbody").append(browsePane.getAllMessageHTML(db));
+		$("tbody").append(browsePane.getAllMessageHTML(db));
+		$("tbody").append(browsePane.getAllMessageHTML(db));		
 
 		// example of creating a message and getting day and time
 		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
