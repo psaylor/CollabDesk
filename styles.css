@@ -60,14 +60,15 @@
 }
 
 /* For Browse Pane */
-.table{
+#message-table{
 	border-collapse: collapse;
 	border-spacing: 0;
-	height:3em;
+	height:37em;
 	overflow: auto;
 }
 .table tr{
-	border-top: 1px solid #DDDDDD;
+	border-top: 2px solid #DDDDDD;
+	border-bottom: 2px solid #DDDDDD;	
     line-height: 18px;
     padding: 8px;
     text-align: left;

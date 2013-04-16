@@ -1,7 +1,7 @@
 /** BROWSE PANE DOCUMENTATION
  * Handles functionality for Browse Pane, which displays all the messages
  */
-
+ss////////////////////////sssssssssssssssssssssssssssssssssssss
 var BrowsePane = function(){
 	/**
 	* Converts a message to HTML to be displayed in the BrowserPane
@@ -23,16 +23,20 @@ var BrowsePane = function(){
 	};
 
 	/**
-	* Post all messages stored in database onto browser pane
-	*
+	* Given a list of messages, return the html corresponding to the id of the filtered 
 	*/
-	this.getAllMessageHTML=function(database)	{
-		var msgList = database.getAllMessages(); //list of message objects
-		var output="";
-		for (var i=msgList.length-1; i>=0; i--){
-			output+=this.getMessageHTML(msgList[i]);
+	this.getSelectedMessagesHTML=function(messageList){
+		var output = "";
+		for (i in messageList){
+			output+=getMessageHTML(messageList(i));
 		}
-		return output
+		return output;
+	};
+
+	/**
+	* Gets all undread messages and returns the html of them
+	*/
+	this.getUnreadMessagesHTML=function(messageList){
 
 	};
 
@@ -43,5 +47,13 @@ var BrowsePane = function(){
 	this.moveReadMessage=function(message){
 
 	};
+
+	/**
+	* Creates tables for each date and sorts messages accordingly
+	*
+	*/
+	this.getDatedMessagesHTML=function(messageList){
+		
+	}
 
 };
