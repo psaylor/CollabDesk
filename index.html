@@ -49,6 +49,16 @@
 		// display a static message in the reading pane (until this is called from browsing pane)
 		displayMessage(3);
 
+		$("#cancelBtn").click(function() {
+			reset();
+		})
+
+		$("#cancelBtn").click(function(e) {
+			if (e.which == 13) {
+				reset();
+			}
+		})
+
 		/*
 		Submits a reply when the reply button is clicked in the reading pane
 		*/
@@ -200,7 +210,7 @@
 			<!-- Message Text Area -->
 				<div class="control-group controls-row">
 					<div class="controls span8">                     
-				    <textarea id="textarea" name="textarea" class="input-block-level">Your message here</textarea>
+				    <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
 				  	</div>
 				</div>
 
