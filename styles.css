@@ -175,8 +175,8 @@ input[type=checkbox] {
 .loginHeader {
 	border-bottom: 1px solid LightSteelBlue;
 	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-	margin-bottom: 10px;
-}
+/*	margin-bottom: 10px;
+*/}
 
 .loginHeader h3 {
 	margin: 0px;
