@@ -1,6 +1,6 @@
 function reset() {
 	$("#textinput").val("");
-	$("#textarea").val("Your message here");
+	$("#textarea").val("");
 	$("#prependedtext").val("");
 	// reset the template to the default value
 }
