@@ -122,10 +122,26 @@
 	<div class="container-fluid blue">
 
 		<!-- browse pane -->
-			<div class="browse side floatLeft left white">Browse Pane
-				<div id="date"></div>
-				<input type="text" id="search-tbox" autofocus />
+			<div class="browse side floatLeft left white">
+				<div class="row-fluid">
+					<div class="input-append span11	">
+						<input type="text" class="input-block-level" id="search-tbox" autofocus />
+						<span class="add-on btn"><i class="icon-search"></i></span>
+					</div>
+				</div>
+				<div id="message-table">
+					<table class ="table">
+						<thead>
+						</thead>
+						
+						<tbody>
+							<!--Messages added from db here-->						
+						</tbody>
+					</table>
+				</div>
 			</div>
+
+		<!-- right side of layout: read and create -->		
 		<div class="side floatRight right">
 
 		<!-- reading pane -->
