@@ -1,13 +1,12 @@
 function reset() {
 	$("#textinput").val("");
-	$("#textarea").val("");
+	$("#textarea").val("Your message here");
 	$("#prependedtext").val("");
 	// reset the template to the default value
 }
 
 function submit() {
 	var title = $("#textinput").val();
-	console.log("reached here");
 	var text = $("#textarea").val();
 	var tags = $("#prependedtext").val();
 
@@ -17,8 +16,6 @@ function submit() {
 	for (var i = 0; i < tags.length; i++) {
 		tags[i] = tags[i].replace(/\s/g, '');
 	}
-
-	console.log("reached here");
 
 	var author = 'Kayla';
 	var type = Message.NOTE;

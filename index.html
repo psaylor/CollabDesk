@@ -29,6 +29,7 @@
 	<script type="text/javascript" src="preloadData.js"></script>
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
+	<script type="text/javascript" src="createReply.js"></script>
 	<script type="text/javascript" src="search.js"></script>	
 	<link rel="stylesheet" href="styles.css" />
 
@@ -49,11 +50,18 @@
 		displayMessage(3);
 
 		/*
+		Submits a reply when the reply button is clicked in the reading pane
+		*/
+		$(".replyButton").click(function() {
+			$("#formTitle").html("Create Reply");
+			openReplyForm();
+		});
+
+		/*
 		Submits the form when the user clicks the Submit button
 		*/
 		$("#submitBtn").click(function() {
-			console.log("reached here");
-			//console.debug("submit button clicked");
+			$("#formTitle").html("New Message");
 			submit();
 		});
 
@@ -140,7 +148,7 @@
 			<fieldset>
 
 			<!-- Form Name -->
-			<legend>Create New Message 
+			<legend id="formTitle">New Message 
 				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
 			</legend>
 
