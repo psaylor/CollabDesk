@@ -49,32 +49,20 @@
 		// display a static message in the reading pane (until this is called from browsing pane)
 		displayMessage(3);
 
-		$("#cancelBtn").click(function() {
-			reset();
-		})
-
 		/*
 		Submits a reply when the reply button is clicked in the reading pane
 		*/
 		$(".replyButton").click(function() {
+			$("#formTitle").html("Create Reply");
 			openReplyForm();
-		});
-
-		$(".replyButton").keydown(function(e) {
-			if (e.which == 13) {
-				openReplyForm();
-			}
 		});
 
 		/*
 		Submits the form when the user clicks the Submit button
 		*/
 		$("#submitBtn").click(function() {
-			if ($("submitBtn").html() == "Submit Message") {
-				submit();
-			} else {
-				submitReply();
-			}
+			$("#formTitle").html("New Message");
+			submit();
 		});
 
 		/*
@@ -82,11 +70,7 @@
 		*/
 		$("#submitBtn").keydown(function (e) {
 			if (e.which == 13) {
-				if ($("submitBtn").html() == "Submit Message") {
-					submit();
-				} else {
-					submitReply();
-				}
+				submit();
 			}
 		});
 
