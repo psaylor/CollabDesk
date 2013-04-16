@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="message.js"></script>
 	<script type="text/javascript" src="database.js"></script>
 	<script type="text/javascript" src="preloadData.js"></script>
+	<script type="text/javascript" src="BrowsePane.js"></script>
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="search.js"></script>	
@@ -34,7 +35,10 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		var search = new Search();		
+		var search = new Search();
+		var browsePane = new BrowsePane();		
+		$("tbody").append(browsePane.getMessageHTML(db.getMessage(1)));
+		$("tbody").append(browsePane.getMessageHTML(db.getMessage(2)));
 
 		// example of creating a message and getting day and time
 		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
@@ -112,6 +116,23 @@
 			<div class="browse side floatLeft left">Browse Pane
 				<div id="date"></div>
 				<input type="text" id="search-tbox" autofocus />
+				<div id="message-table">
+					<table class ="table">
+						<thead>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<div class="message">
+										<div class = "title">Missing Package</div>
+										<div class = "text">Jack came by to pick up his missing package. It may have a goat in it; we are not sure. Who carries a goat anyways?
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		<div class="side floatRight right">
 

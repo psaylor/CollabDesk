@@ -58,6 +58,36 @@
 	padding-right: 20px;
 }
 
+/* For Browse Pane */
+.table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	overflow: auto;
+}
+.table tr{
+	border-top: 1px solid #DDDDDD;
+    line-height: 18px;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+    height:5em;
+}
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #F5F5F5;
+}
+.table .title{
+	font-size: 1.5em;
+	text-align: left;
+}
+.table .text{
+	margin-top:0.75em;
+	margin-left:1em;
+	word-spacing: 0.1em;
+	line-height:1.4em;
+	font-size: 1em;
+	text-align: left;
+}
+
 img.avatar {
 	height: 50px;
 	width: 50px;

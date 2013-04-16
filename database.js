@@ -31,7 +31,7 @@ var Database = function() {
 		for (var i = 0; i < msg.tags.length; i++) {
 			var tag = msg.tags[i];
 			if(tag[0] && this.tags.indexOf(tag) == -1) {
-				this.tags.push(tag[0].toLowerCase()); //tags MUST be lowercase (for search)
+				this.tags.push(tag[0]);
 			}
 		};
 	}

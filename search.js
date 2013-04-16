@@ -26,17 +26,17 @@ var Search = function(){
 	 		//console.log("title: "+title);
 	 		//console.log("text: "+text);
 	 		//console.log(msg);
-	 		if(title.indexOf(inp)>-1){
+	 		if(title.indexOf(inp)>-1){ //searching match for title
 	 			matching_messages.push(id);
 	 		}
-	 		else if(text.indexOf(inp)>-1){
+	 		else if(text.indexOf(inp)>-1){ //searching match in message
 	 			matching_messages.push(id);
 	 		}
-	 		else if(msg.tags.length>0){
+	 		else if(msg.tags.length>0){ //searching match in tag list
 	 			for(index in msg.tags){
 	 				//console.log("tag:");
 	 				//console.log(msg.tags[index]);
-	 				if(msg.tags[index].indexOf(input)>-1){
+	 				if(msg.tags[index].toLowerCase().indexOf(input)>-1){
 	 					matching_messages.push(id);
 	 				}
 	 			}

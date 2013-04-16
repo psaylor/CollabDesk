@@ -83,7 +83,7 @@ var Message = function(title, text, author, tags, type, priority, alert, date) {
 	this.addReply = function(reply){
 		this.replies.push(reply);
 		for (index in reply.tags){
-			this.tags.push(reply.tags[index].toLowerCase()); //tags MUST be lowercase (for search)
+			this.tags.push(reply.tags[index]);
 		}
 	}
 
