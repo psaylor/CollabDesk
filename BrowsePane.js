@@ -26,7 +26,13 @@ var BrowsePane = function(){
 	* Post all messages stored in database onto browser pane
 	*
 	*/
-	this.postAllMessages=function(database)	{
+	this.getAllMessageHTML=function(database)	{
+		var msgList = database.getAllMessages(); //list of message objects
+		var output="";
+		for (var i=msgList.length-1; i>=0; i--){
+			output+=this.getMessageHTML(msgList[i]);
+		}
+		return output
 
 	};
 
