@@ -33,16 +33,24 @@ var displayMessage = function(message_id) {
   		// Display text for reply
   		var replyBodyDiv = $(document.createElement('div'))
   			.addClass('replyBody')
+        .addClass('span12')
   			.html(reply.text);
   		$('.replies').append(replyBodyDiv);
  	}
 
- 	// Format hashtags as a (somewhat readable) string
- 	var tags = "";
+ 	// Display tags
+  var tag;
+  var tagDiv;
  	for (var j=0; j<msg.tags.length; j++) {
- 		tags += msg.tags[j];
- 		tags += " ";
+ 		tag = msg.tags[j];
+    tagDiv = $(document.createElement('div'))
+        .addClass('floatLeft')
+        .addClass('tag')
+        .html("#"+tag);
+      $('.hashtags').append(tagDiv);
  	}
- 	$('.hashtags').html(tags);
+  var clearDiv = $(document.createElement('div'))
+        .addClass('clear');
+  $('.hashtags').append(clearDiv);
 
 };
