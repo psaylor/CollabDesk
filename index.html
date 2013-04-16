@@ -45,9 +45,6 @@
 		// example of creating a message and getting day and time
 		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
 		console.log(msg);
-		$('#date').html(msg.toString());
-		msg.getDay();
-		msg.getTime();
 
 		// view the preloaded database
 		console.log(db);
@@ -115,9 +112,13 @@
 	<div class="container-fluid">
 
 		<!-- browse pane -->
-			<div class="browse side floatLeft left">Browse Pane
-				<div id="date"></div>
-				<input type="text" id="search-tbox" autofocus />
+			<div class="browse side floatLeft left">
+				<div class="row-fluid">
+					<div class="input-append span11	">
+						<input type="text" class="input-block-level" id="search-tbox" autofocus />
+						<span class="add-on btn"><i class="icon-search"></i></span>
+					</div>
+				</div>
 				<div id="message-table">
 					<table class ="table">
 						<thead>
@@ -129,6 +130,8 @@
 					</table>
 				</div>
 			</div>
+
+		<!-- right side of layout: read and create -->
 		<div class="side floatRight right">
 
 		<!-- reading pane -->
