@@ -181,3 +181,11 @@ input[type=checkbox] {
 .loginHeader h3 {
 	margin: 0px;
 }
+
+.container-fluid {
+	background: LightSteelBlue;
+}
+
+.white {
+	background: white;
+}
