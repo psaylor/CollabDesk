@@ -72,9 +72,16 @@ img.avatar {
 img.captain {
 	height: 30px;
 	width: 30px;
+	vertical-align: middle;
 }
 
 img.high_pri {
+	height: 30px;
+	width: 30px;
+	vertical-align: middle;
+}
+
+img.authorPic {
 	height: 30px;
 	width: 30px;
 }
@@ -132,6 +139,10 @@ img.high_pri {
 }
 
 .originalMsg {
+	border-bottom: solid LightGray 1px;
+}
+
+.originalMsgHeader {
 	border-bottom: solid LightGray 1px;
 }
 
