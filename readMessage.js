@@ -28,8 +28,7 @@ var displayMessage = function(message_id) {
 
     // Create new div for each reply
     var replyDiv = $(document.createElement('div'))
-        .addClass('reply')
-        .addClass('controls-row');
+        .addClass('reply controls-row');
     $('.replies').append(replyDiv);
 
  		// Create new div for heading (title)
@@ -40,8 +39,7 @@ var displayMessage = function(message_id) {
 
   	// Create new div for body
   	var replyBodyDiv = $(document.createElement('div'))
-  			.addClass('replyBody')
-        .addClass('controls-row');
+  			.addClass('replyBody controls-row');
   	$(replyDiv).append(replyBodyDiv);
 
     // Create new div for body details (author, time, date, picture)
@@ -58,15 +56,13 @@ var displayMessage = function(message_id) {
 
     // Create new div for body details text (author, time, date)
     var replyDetailsTextDiv = $(document.createElement('div'))
-        .addClass('replyDetailsText')
-        .addClass('floatLeft')
+        .addClass('replyDetailsText floatLeft')
         .html(reply.author + " at " + reply.getTime() + " on " + reply.getDay());
     $(replyDetailsDiv).append(replyDetailsTextDiv);
 
     // Create new div for body text (actual text of reply)
     var replyTextDiv = $(document.createElement('div'))
-        .addClass('replyText')
-        .addClass('span12 offset1')
+        .addClass('replyText span12 offset1')
         .html(reply.text);
     $(replyBodyDiv).append(replyTextDiv);
  	}
@@ -75,8 +71,7 @@ var displayMessage = function(message_id) {
   for (var j=0; j<msg.tags.length; j++) {
  		var tag = msg.tags[j];
     var tagDiv = $(document.createElement('div'))
-        .addClass('floatLeft')
-        .addClass('tag')
+        .addClass('floatLeft tag')
         .html("#"+tag);
       $('.hashtags').append(tagDiv);
  	}
