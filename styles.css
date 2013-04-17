@@ -174,14 +174,43 @@
 		font-size: 1.5em;
 	}
 
+	.originalMsgBody {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.originalMsgDetailsText {
+		padding-left: 10px;
+	}
+
+	.originalMsgText {
+		padding-top: 10px;
+	}
+
 	.reply {
 		border-bottom: solid LightGray 1px;
-		padding-top: 5px;
-		padding-bottom: 5px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.replyHeader {
+		font-size: 1.2em;
+	}
+
+	.replyBody {
+		padding-top: 10px;
+	}
+
+	.replyDetailsText {
+		padding-left: 10px;
+	}
+
+	.replyText {
+		padding-top: 10px;
 	}
 
 	.replyButton {
-		margin-right: 50px;
+		margin-right: 20px;
 	}
 
 	.alignBottom {
