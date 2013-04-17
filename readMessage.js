@@ -14,12 +14,12 @@ var displayMessage = function(message_id) {
   $('.originalMsgText').html(msg.text);
 
   // Display/hide appropriate icons
-  if(msg.alert == Message.NO_ALERT) {
-    $('.captain').addClass('hidden');
-  }
-  if(msg.priority == Message.LOW_PRI) {
-    $('.high_pri').addClass('hidden');
-  }
+  // if(msg.alert == Message.NO_ALERT) {
+  //   $('.captain').addClass('hidden');
+  // }
+  // if(msg.priority == Message.LOW_PRI) {
+  //   $('.high_pri').addClass('hidden');
+  // }
 
   // Display replies
  	var replies = msg.replies;
@@ -32,7 +32,7 @@ var displayMessage = function(message_id) {
     $('.replies').append(replyDiv);
 
  		// Create new div for heading (title)
- 		var replyHeaderDiv = $(document.createElement('h5'))
+ 		var replyHeaderDiv = $(document.createElement('div'))
   			.addClass('replyHeader')
   			.html('Re: ' + msg.title);
   	$(replyDiv).append(replyHeaderDiv);

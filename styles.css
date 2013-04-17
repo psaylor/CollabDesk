@@ -55,6 +55,10 @@
 		clear: both;
 	}
 
+	.clearRight {
+		clear: right;
+	}
+
 	.hidden {
 		visibility: hidden;
 	}
@@ -136,11 +140,14 @@
 	img.captain {
 		height: 30px;
 		width: 30px;
+		float: right;
+		margin-right: 10px;
 	}
 
 	img.high_pri {
 		height: 30px;
 		width: 30px;
+		float: right;
 	}
 
 	img.authorPic {
@@ -154,6 +161,11 @@
 
 	.originalMsgHeader {
 		border-bottom: solid LightGray 1px;
+	}
+
+	.originalMsgTitle {
+		float: left;
+		font-size: 1.5em;
 	}
 
 	.reply {
