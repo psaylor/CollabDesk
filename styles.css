@@ -154,11 +154,13 @@
 		height: 30px;
 		width: 30px;
 		float: right;
+		margin-bottom: 10px;
 	}
 
 	img.authorPic {
 		height: 30px;
 		width: 30px;
+		margin-bottom: 10px;
 	}
 
 	.originalMsg {
@@ -172,25 +174,22 @@
 	.originalMsgTitle {
 		float: left;
 		font-size: 1.5em;
+		padding-top: 10px;
 	}
 
 	.originalMsgBody {
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding-top: 5px;
+		padding-bottom: 5px;
 	}
 
 	.originalMsgDetailsText {
 		padding-left: 10px;
 	}
 
-	.originalMsgText {
-		padding-top: 10px;
-	}
-
 	.reply {
 		border-bottom: solid LightGray 1px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding-top: 5px;
+		padding-bottom: 5px;
 	}
 
 	.replyHeader {
@@ -203,10 +202,6 @@
 
 	.replyDetailsText {
 		padding-left: 10px;
-	}
-
-	.replyText {
-		padding-top: 10px;
 	}
 
 	.replyButton {
