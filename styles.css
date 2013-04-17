@@ -55,6 +55,10 @@
 		clear: both;
 	}
 
+	.clearRight {
+		clear: right;
+	}
+
 	.hidden {
 		visibility: hidden;
 	}
@@ -95,15 +99,18 @@
 		height: 100%;
 		padding-top: 0.5em;
 	}
-
 	#message-table{
 		border-collapse: collapse;
 		border-spacing: 0;
 		height:43.5em;
 		overflow: auto;
 	}
-
-	.table tr{
+	.table thead{
+		background-color: GRAY;
+		color: WHITE;
+		padding: 2px;
+	}
+	.table tbody tr{
 		border-top: 1px solid LightGray;
 		border-bottom: 1px solid LightGray;	
 	    line-height: 18px;
@@ -112,16 +119,13 @@
 	    vertical-align: top;
 	    height:5em;
 	}
-
 	.table tbody tr:hover td {
 	    background-color: LightGray;
 	}
-
 	.table .title{
 		font-size: 1.5em;
 		text-align: left;
 	}
-
 	.table .text{
 		margin-top:0.75em;
 		margin-left:1em;
@@ -142,11 +146,14 @@
 	img.captain {
 		height: 30px;
 		width: 30px;
+		float: right;
+		margin-right: 10px;
 	}
 
 	img.high_pri {
 		height: 30px;
 		width: 30px;
+		float: right;
 	}
 
 	img.authorPic {
@@ -162,8 +169,19 @@
 		border-bottom: solid LightGray 1px;
 	}
 
+	.originalMsgTitle {
+		float: left;
+		font-size: 1.5em;
+	}
+
 	.reply {
 		border-bottom: solid LightGray 1px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	.replyButton {
+		margin-right: 50px;
 	}
 
 	.alignBottom {
@@ -250,6 +268,3 @@
 		width: 80%;
 	}
 
-	input[type=checkbox] {
-		background: purple;
-	}

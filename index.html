@@ -27,9 +27,10 @@
 	<script type="text/javascript" src="message.js"></script>
 	<script type="text/javascript" src="database.js"></script>
 	<script type="text/javascript" src="preloadData.js"></script>
-	<!--<script type="text/javascript" src="readMessage.js"></script> -->
+	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
+	<script type="text/javascript" src="templates.js"></script>
 	<script type="text/javascript" src="search.js"></script>
 	<script type="text/javascript" src="BrowsePane.js"></script>
 	<link rel="stylesheet" href="styles.css" />
@@ -38,17 +39,10 @@
 	$(document).ready(function(){
 		var search = new Search();
 		var browsePane = new BrowsePane();		
-		$("tbody").append(browsePane.getAllMessageHTML(db));
-		$("tbody").append(browsePane.getAllMessageHTML(db));
-		$("tbody").append(browsePane.getAllMessageHTML(db));
-		$("tbody").append(browsePane.getAllMessageHTML(db));		
+		$("#message-table").append(browsePane.getAllDatedMessagesHTML(db, "0301", [0,2]));
 
-		$('#alert').simpleImageCheck({
-			image: 'images/captain.jpg',
-			imageChecked: 'images/generic_avatar.jpg',
-
-		});
 		// $("body").css("overflow", "hidden");
+		console.log(msg);
 
 		// view the preloaded database
 		console.log(db);
@@ -63,6 +57,10 @@
 			if (e.which == 13) {
 				reset();
 			}
+		});
+
+		$("#selectTemplate").change(function() {
+			fillTemplate();
 		});
 
 		/*
@@ -143,7 +141,9 @@
 					<table class ="table">
 						<thead>
 							<tr>
-								Unread
+								<th>
+									Unread!
+								</th>
 							</tr>
 						</thead>
 						
@@ -160,24 +160,26 @@
 		<!-- reading pane -->
             <div class="reading pane white">
                 <div class="originalMsg">
-                    <h4 class="originalMsgHeader">
-                    	<div class="originalMsgTitle floatLeftNoPadding">Missing Package</div>
-						<div class="high_pri floatRight"><img class="high_pri" src="images/high_pri.jpg"/></div>
-						<div class="captain floatRight"><img class="captain" src="images/captain.jpg"/></div>
-						<div class="clear"></div>
-                    </h4>
+                    <div class="originalMsgHeader">
+                    	<div class="originalMsgTitle"></div>
+						<div class="high_pri"><img class="high_pri" src="images/high_pri.jpg"/></div>
+						<div class="captain"><img class="captain" src="images/captain.jpg"/></div>
+						<div style="clear:right"></div>
+                    </div>
                     <div class="originalMsgBody">
                     	<div class="originalMsgDetails"></div>
-                    		<div class="authorPic"><img class="authorPic floatLeftNoPadding" src="images/generic_avatar.jpg"/></div>
-                    		<div class="originalMsgDetailsText floatLeft"></div>
-                    	<div class="originalMsgText offset1"></div>
+                    	<table>
+                    		<tr>
+                    			<td><div class="authorPic"><img class="authorPic" src="images/generic_avatar.jpg"/></div></td>
+                    			<td><div class="originalMsgDetailsText"></div></td>
+                    		</tr>
+                    	</table>
+                    	<div class="originalMsgText"></div>
                     </div>
                 </div>
                 <div class="replies"></div>
                 <div class="alignBottom parentWidth">
-                	<div class="hashtags">
-                		<div class="tag">#tag1</div>
-                	</div>
+                	<div class="hashtags"></div>
                 	<button type="button" class="replyButton btn floatRight">Reply</button>
                 </div>
             </div>
@@ -203,9 +205,11 @@
 				  	<label class="control-label"></label>
 				  	<div class="controls">
 				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      	<option>Other...</option>
-				      	<option>Missing Package</option>
-				      	<option>Missing Person</option>
+				      	<option value="default">None Selected</option>
+				      	<option value="missingPackage">Missing Package</option>
+				      	<option value="lostKey">Lost Key</option>
+				      	<option value="reOrder">Re-Order Supplies</option>
+				      	<option value="foundPackage">Found Package</option>
 				    </select>
 				  	</div>
 				</div>
@@ -231,20 +235,7 @@
 				  			<!-- <button type="button" class="btn" id="i-btn">Issue</button> -->
 				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign"></i> High Priority</button>
 				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope"></i> Alert</button>
-				  		</div>
-
-				    <!-- <label class="checkbox" for="noteIssue">
-				      <input id="noteIssue" type="checkbox" class="note issue" value="Option one" checked="checked">
-				      Note or Issue
-				    </label>
-				    <label class="checkbox" for="hi_pri">
-				      <input type="checkbox" id="hi_pri" value="Option two">
-				      High Priority
-				    </label>
-				    <label class="checkbox" for="alert">
-				      <input type="checkbox" id="alert" value="Option two">
-				      Alert Desk Captain
-				    </label> -->
+			  			</div>
 				  </div>
 				</div>
 			</div>
@@ -277,11 +268,10 @@
 			</fieldset>
 			</form>
 		</div>
-			</div>
+			
 		</div>
 
 </div>
 
 </body>
-
 </html>
