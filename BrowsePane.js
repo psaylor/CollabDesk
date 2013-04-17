@@ -13,12 +13,12 @@ var BrowsePane = function(){
 		if(msg.text.length>125){ //if message was truncated to display
 			text+="...";
 		}
-		console.log("title: "+title);
-		console.log("text:" +text);
+		//console.log("title: "+title);
+		//console.log("text:" +text);
 
 		var output ="<tr><td><div class='message'><div class='title'>"
 					+title+"</div><div class='text'>"+text+"</div></div></td></tr>";
-		console.log(output);
+		//console.log(output);
 		return output;
 	};
 
@@ -48,7 +48,81 @@ var BrowsePane = function(){
 	* Creates tables for each date and sorts messages accordingly
 	*
 	*/
-	this.getDatedMessagesHTML=function(messageList){
+	this.getAllDatedMessagesHTML=function(database){
+		var hash = {};
+		var msg;
+		var date; //string
+		var dateList=[];
+		var month; //string
+		var day; //string
+		var output="";
+		for (index in database.getAllMessages()){
+			msg=database.getMessage(index);
+			//console.log(msg);
+			date= msg.date;
+			console.log(date);
+
+			//setting 2 digit month
+			if(date.getMonth()+1<10){
+				month="0"+(date.getMonth()+1).toString();
+			}
+			else{
+				month=(date.getMonth()+1).toString();
+			}
+			console.log(month);
+
+			//setting 2 digit day
+			if(date.getDate().length<2){
+				day="0"+date.getDate();
+			}
+			else{
+				day=date.getDate();
+			}
+			console.log(day);
+
+			date=month+day; //4 numbers (as string)
+			
+			if(dateList.indexOf(date)<0){
+				dateList.push(date);				
+			}
+
+			//adding to hashtable
+			if(hash.hasOwnProperty(date)){
+				hash[date].push(index);
+			}
+			else{
+				hash[date]=[index];
+			}
+		}
+
+		dateList.reverse();
+		//console.log("dates: "+dateList);
+		console.log(hash);
+		for(index in dateList){
+			date = dateList[index];
+			output+=this.getDateTableHTML(db, date, hash[date])
+		}
+		//console.log("output is "+output);
+		return output;
+
+	}
+
+	/**
+	* Creates a table to group all messages by a specific date
+	* date: string of length 4 representing month(first 2 digits), day(next 2 digits)
+	* 
+	*/
+	this.getDateTableHTML=function(database, date, messageIdList){
+		var outputDate=date.substring(0,2)+"/"+date.substring(2);
+		var output="<table class='table' id='"+date+"'><thead><tr><th>"+outputDate
+					+"</th></tr></thead><tbody>";
+		var msg;
+		for(index in messageIdList){
+			msg = database.getMessage(messageIdList[index]);
+			output+=this.getMessageHTML(msg);
+		}
+		output+="</tbody></table>";
+		return output;
 
 	}
 

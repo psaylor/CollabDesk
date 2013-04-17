@@ -38,10 +38,7 @@
 	$(document).ready(function(){
 		var search = new Search();
 		var browsePane = new BrowsePane();		
-		$("tbody").append(browsePane.getAllMessageHTML(db));
-		$("tbody").append(browsePane.getAllMessageHTML(db));
-		$("tbody").append(browsePane.getAllMessageHTML(db));
-		$("tbody").append(browsePane.getAllMessageHTML(db));		
+		$("#message-table").append(browsePane.getAllDatedMessagesHTML(db, "0301", [0,2]));
 
 		// $("body").css("overflow", "hidden");
 		// example of creating a message and getting day and time
@@ -51,7 +48,7 @@
 		// view the preloaded database
 		console.log(db);
 		// display a static message in the reading pane (until this is called from browsing pane)
-		displayMessage(3);
+		//displayMessage(3);
 
 		$("#cancelBtn").click(function() {
 			reset();
@@ -141,7 +138,9 @@
 					<table class ="table">
 						<thead>
 							<tr>
-								Unread
+								<th>
+									Unread!
+								</th>
 							</tr>
 						</thead>
 						
