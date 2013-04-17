@@ -172,6 +172,10 @@
 		border-bottom: solid LightGray 1px;
 	}
 
+	.replyButton {
+		margin-right: 50px;
+	}
+
 	.alignBottom {
 		position: absolute;
 		bottom: 5px;
