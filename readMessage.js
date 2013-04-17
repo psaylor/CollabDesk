@@ -73,7 +73,7 @@ var displayMessage = function(message_id) {
     var tagDiv = $(document.createElement('div'))
         .addClass('tag')
         .html("#"+tag);
-      $('.hashtags').append(tagDiv);
+    $('.hashtags').append(tagDiv);
  	}
 
 };
