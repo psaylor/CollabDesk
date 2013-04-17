@@ -70,15 +70,19 @@
 	}
 
 	.gap {
-		margin-top: 8px;
-		/*width: 100%;*/
-		height: 1px;
+		margin-top: 4px;
+		margin-bottom: 4px;
+		height: 2px;
 	}
-	
+
 	.spacing {
 		/*padding-top: 8px;
 		padding-bottom: 2px;*/
 		padding-right: 20px;
+	}
+
+	.pane {
+		padding: 10px;
 	}
 
 
@@ -95,7 +99,6 @@
 */
 	.reading {
 		position: relative;
-		/*width: 100%;*/
 		height: 300px;
 		border-bottom: solid black 1px;
 	}
@@ -150,7 +153,6 @@
 	CREATE PANE
 */
 	.create {
-		background-color: green;
 		height: 50%;
 	}
 
