@@ -1,4 +1,6 @@
 function openReplyForm() {
+	$("select#selectTemplate").val("None Selected");
+
 	var formTitleBar = "Reply <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
 	$("#formTitle").html(formTitleBar);
 
@@ -51,4 +53,6 @@ function submitReply() {
 	$("#textarea").val("");
 	$("#prependedtext").val("");
 	// reset the template to the default value
+
+	$("select#selectTemplate").val("None Selected");
 }
