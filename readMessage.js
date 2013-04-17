@@ -62,7 +62,7 @@ var displayMessage = function(message_id) {
 
     // Create new div for body text (actual text of reply)
     var replyTextDiv = $(document.createElement('div'))
-        .addClass('replyText span12 offset1')
+        .addClass('replyText offset1')
         .html(reply.text);
     $(replyBodyDiv).append(replyTextDiv);
  	}

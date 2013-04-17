@@ -44,4 +44,30 @@ var BrowsePane = function(){
 
 	};
 
+	/**
+	* Creates tables for each date and sorts messages accordingly
+	*
+	*/
+	this.getDatedMessagesHTML=function(messageList){
+
+	}
+
+	/**
+	* Given a list of messages, return the html corresponding to the id of the filtered 
+	*/
+	this.getSelectedMessagesHTML=function(messageList){
+		var output = "";
+		for (i in messageList){
+			output+=getMessageHTML(messageList(i));
+		}
+		return output;
+	};
+
+	/**
+	* Gets all undread messages and returns the html of them
+	*/
+	this.getUnreadMessagesHTML=function(messageList){
+
+	};
+
 };

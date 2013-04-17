@@ -44,6 +44,7 @@
 		$("tbody").append(browsePane.getAllMessageHTML(db));
 		$("tbody").append(browsePane.getAllMessageHTML(db));		
 
+		// $("body").css("overflow", "hidden");
 		// example of creating a message and getting day and time
 		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
 		console.log(msg);
@@ -131,9 +132,10 @@
 	</div>
 
 	<div class="container-fluid blue">
+		<div class="container-spacing">
 
 		<!-- browse pane -->
-			<div class="browse side floatLeft left white">
+			<div class="browse pane floatLeftNoPadding left white">
 				<div class="row-fluid">
 					<div class="input-append span11	">
 						<input type="text" class="input-block-level" id="search-tbox" autofocus />
@@ -143,6 +145,9 @@
 				<div id="message-table">
 					<table class ="table">
 						<thead>
+							<tr>
+								Unread
+							</tr>
 						</thead>
 						
 						<tbody>
@@ -153,33 +158,39 @@
 			</div>
 
 		<!-- right side of layout: read and create -->		
-		<div class="side floatRight right">
+		<div class="right">
 
 		<!-- reading pane -->
-            <div class="reading white">
-                <div class="originalMsg controls-row">
+            <div class="reading pane white">
+                <div class="originalMsg">
                     <h4 class="originalMsgHeader">
-                    	<div class="originalMsgTitle floatLeftNoPadding"></div>
+                    	<div class="originalMsgTitle floatLeftNoPadding">Missing Package</div>
 						<div class="high_pri floatRight"><img class="high_pri" src="images/high_pri.jpg"/></div>
 						<div class="captain floatRight"><img class="captain" src="images/captain.jpg"/></div>
 						<div class="clear"></div>
                     </h4>
-                    <div class="originalMsgBody controls-row">
+                    <div class="originalMsgBody">
                     	<div class="originalMsgDetails"></div>
                     		<div class="authorPic"><img class="authorPic floatLeftNoPadding" src="images/generic_avatar.jpg"/></div>
                     		<div class="originalMsgDetailsText floatLeft"></div>
-                    	<div class="originalMsgText span12 offset1"></div>
+                    	<div class="originalMsgText offset1"></div>
                     </div>
                 </div>
                 <div class="replies"></div>
                 <div class="alignBottom parentWidth">
-                	<div class="hashtags"></div>
+                	<div class="hashtags">
+                		<div class="tag">#tag1</div>
+                	</div>
                 	<button type="button" class="replyButton btn floatRight">Reply</button>
                 </div>
             </div>
 
+        <!-- gap between read and create panes -->
+        <div class="gap"></div>
+
+
 		<!-- create message pane -->
-			<div class="create white">
+			<div class="create pane white">
 			<form class="form">
 			<fieldset>
 
@@ -234,6 +245,7 @@
 				</div>
 			</div>
 			</div>
+
 			<!-- Message Text Area -->
 				<div class="control-group controls-row">
 					<div class="controls span8">                     
