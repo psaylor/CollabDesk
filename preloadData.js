@@ -86,4 +86,29 @@ var db = new Database();
 	priority = Message.LOW_PRI;
 	alert = true;
 	var date = new Date('22 Mar, 2013 15:30:00');
+	var msg = new Message(title, text, author, tags, type, priority, alert, date);
+	db.addMessage(msg);
+
+// message 6
+	title = 'East Elevator down';
+	text = 'Campus facilities came by to look at the eat tower elevator. He said it was a safety danger and that he has shut off the elevator for tonight. He will return tomorrow morning. I have put signs up on each floor.';
+	author = "Bobby";
+	tags = ['elevator', 'east tower'];
+	type = Message.NOTE;
+	priority = Message.LOW_PRI;
+	alert = true;
+	var date = new Date('22 Mar, 2013 15:30:00');
+	var msg = new Message(title, text, author, tags, type, priority, alert, date);
+	db.addMessage(msg);
 	
+// message 7
+	title = 'All Elevators down';
+	text = 'Campus facilities came by to look at the elevators. He said it was a safety danger and that he has shut off the elevator for tonight. He will return tomorrow morning. I have put signs up on each floor.';
+	author = "Bobby";
+	tags = ['elevator', 'west tower', 'east tower'];
+	type = Message.NOTE;
+	priority = Message.LOW_PRI;
+	alert = true;
+	var date = new Date('22 Mar, 2013 15:30:00');
+	var msg = new Message(title, text, author, tags, type, priority, alert, date);
+	db.addMessage(msg);

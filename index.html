@@ -33,6 +33,7 @@
 	<script type="text/javascript" src="templates.js"></script>
 	<script type="text/javascript" src="search.js"></script>
 	<script type="text/javascript" src="BrowsePane.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
 	<link rel="stylesheet" href="styles.css" />
 
 	<script type="text/javascript">
@@ -127,14 +128,13 @@
 	</div>
 
 	<div class="container-fluid blue">
-		<div class="container-spacing">
 
 		<!-- browse pane -->
-			<div class="browse pane floatLeftNoPadding left white">
+			<div class="browse floatLeftNoPadding left white">
 				<div class="row-fluid">
 					<div class="input-append span11	">
 						<input type="text" class="input-block-level" id="search-tbox" autofocus />
-						<span class="add-on btn"><i class="icon-search"></i></span>
+						<span class="add-on btn"><i class="icon-search icon-color"></i></span>
 					</div>
 				</div>
 				<div id="message-table">
@@ -162,8 +162,10 @@
                 <div class="originalMsg">
                     <div class="originalMsgHeader">
                     	<div class="originalMsgTitle"></div>
-						<div class="high_pri"><img class="high_pri" src="images/high_pri.jpg"/></div>
-						<div class="captain"><img class="captain" src="images/captain.jpg"/></div>
+						<div class="high_pri"><i class="icon-exclamation-sign icon-color"></i>
+							<!-- <img class="high_pri" src="images/high_pri.jpg"/> --></div>
+						<div class="captain"><i class="icon-envelope icon-color"></i>
+							<!-- <img class="captain" src="images/captain.jpg"/> --></div>
 						<div style="clear:right"></div>
                     </div>
                     <div class="originalMsgBody">
@@ -194,7 +196,7 @@
 			<fieldset>
 
 			<!-- Form Name -->
-			<legend id="formTitle">New Message
+			<legend id="formTitle">Create New Message
 				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
 			</legend>
 
@@ -231,10 +233,10 @@
 				  		<div class="btn-group" data-toggle="buttons-checkbox">
 				  			<!-- <img src="images/note.png" type="button"/>
 				  			<img src="images/issue.png" type="button" /> -->
-				  			<button type="button" class="btn" id="ni-btn">Note</button>
+				  			<button type="button" class="btn" id="ni-btn"><i class="icon-info-sign icon-color"></i> Note</button>
 				  			<!-- <button type="button" class="btn" id="i-btn">Issue</button> -->
-				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign"></i> High Priority</button>
-				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope"></i> Alert</button>
+				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
+				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert</button>
 			  			</div>
 				  </div>
 				</div>
@@ -251,8 +253,8 @@
 			<!-- Tags -->
 				<div class="control-group controls-row">
 				  <div class="controls span8">
-					<div class="input-prepend input-xlarge">
-				    	<span class="add-on">#</span>
+					<div class="input-prepend input-xlarge" id="tags-input">
+				    	<span class="add-on" id="hashtag">#</span>
 				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
 				    </div>
 				    

@@ -29,7 +29,7 @@
 
 	.right {
 		/*width: %;*/
-		margin-left: 450px;
+		margin-left: 425px;
 		padding-left: 10px;
 	}
 
@@ -64,8 +64,9 @@
 	}
 
 	.container-fluid {
-		background: LightSteelBlue;
-		padding: 10px;
+		background: LightBlue;
+		padding: 0px 10px 0px 0px;
+		border-bottom: 1px solid black;
 
 	}
 
@@ -88,8 +89,13 @@
 	.pane {
 		padding: 10px;
 		border-radius: 4px;
+		margin: 10px;
 	}
 
+	.icon {
+		height: 20px;
+		width: 20px;
+	}
 
 /*
 	BROWSE PANE
@@ -98,11 +104,12 @@
 		width: 425px;
 		height: 100%;
 		padding-top: 0.5em;
+		border:0px;
 	}
 	#message-table{
 		border-collapse: collapse;
 		border-spacing: 0;
-		height:43.5em;
+		height:700px;
 		overflow: auto;
 	}
 	.table thead{
