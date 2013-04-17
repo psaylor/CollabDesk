@@ -43,10 +43,12 @@
 		$("tbody").append(browsePane.getAllMessageHTML(db));
 		$("tbody").append(browsePane.getAllMessageHTML(db));		
 
+		$('#alert').simpleImageCheck({
+			image: 'images/captain.jpg',
+			imageChecked: 'images/generic_avatar.jpg',
+
+		});
 		// $("body").css("overflow", "hidden");
-		// example of creating a message and getting day and time
-		var msg = new Message('LOST PACKAGE', 'Mary lost a package', 'Jiayi', ['tag1', 'tag2'], 'note', false, false);
-		console.log(msg);
 
 		// view the preloaded database
 		console.log(db);
@@ -218,22 +220,31 @@
 				</div>
 			</div>
 
-			<!-- Multiple Radios -->
+			<!-- Multiple Checkboxes -->
 			<div class="span4">
 				<div class="control-group">
-				  <div class="controls">
-				    <label class="checkbox">
-				      <input type="checkbox" class="note issue"value="Option one" checked="checked">
+				  	<div class="controls">
+				  		<div class="btn-group" data-toggle="buttons-checkbox">
+				  			<!-- <img src="images/note.png" type="button"/>
+				  			<img src="images/issue.png" type="button" /> -->
+				  			<button type="button" class="btn" id="ni-btn">Note</button>
+				  			<!-- <button type="button" class="btn" id="i-btn">Issue</button> -->
+				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign"></i> High Priority</button>
+				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope"></i> Alert</button>
+				  		</div>
+
+				    <!-- <label class="checkbox" for="noteIssue">
+				      <input id="noteIssue" type="checkbox" class="note issue" value="Option one" checked="checked">
 				      Note or Issue
 				    </label>
-				    <label class="checkbox">
-				      <input type="checkbox" value="Option two">
+				    <label class="checkbox" for="hi_pri">
+				      <input type="checkbox" id="hi_pri" value="Option two">
 				      High Priority
 				    </label>
-				    <label class="checkbox">
-				      <input type="checkbox" value="Option two">
+				    <label class="checkbox" for="alert">
+				      <input type="checkbox" id="alert" value="Option two">
 				      Alert Desk Captain
-				    </label>
+				    </label> -->
 				  </div>
 				</div>
 			</div>

@@ -83,6 +83,7 @@
 
 	.pane {
 		padding: 10px;
+		border-radius: 4px;
 	}
 
 
@@ -94,28 +95,33 @@
 		height: 100%;
 		padding-top: 0.5em;
 	}
+
 	#message-table{
 		border-collapse: collapse;
 		border-spacing: 0;
 		height:43.5em;
 		overflow: auto;
 	}
+
 	.table tr{
-		border-top: 2px solid #DDDDDD;
-		border-bottom: 2px solid #DDDDDD;	
+		border-top: 1px solid LightGray;
+		border-bottom: 1px solid LightGray;	
 	    line-height: 18px;
 	    padding: 8px;
 	    text-align: left;
 	    vertical-align: top;
 	    height:5em;
 	}
+
 	.table tbody tr:hover td {
-	    background-color: #C0C0C0;
+	    background-color: LightGray;
 	}
+
 	.table .title{
 		font-size: 1.5em;
 		text-align: left;
 	}
+
 	.table .text{
 		margin-top:0.75em;
 		margin-left:1em;
@@ -131,7 +137,6 @@
 	.reading {
 		position: relative;
 		height: 300px;
-		border-bottom: solid black 1px;
 	}
 
 	img.captain {
