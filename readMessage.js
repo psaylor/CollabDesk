@@ -47,18 +47,28 @@ var displayMessage = function(message_id) {
         .addClass('replyDetails');
     $(replyBodyDiv).append(replyDetailsDiv);
 
+    // Add table for body details divs to appear side by side
+    var replyTable = $(document.createElement('table'));
+    var replyRow = $(document.createElement('tr'));
+    $(replyTable).append(replyRow);
+    var authorCell = $(document.createElement('td'));
+    $(replyRow).append(authorCell);
+    var textCell = $(document.createElement('td'));
+    $(replyRow).append(textCell);
+    $(replyDetailsDiv).append(replyTable);
+
     // Create new div for author picture
     var authorPicDiv = $(document.createElement('div'))
         .addClass('authorPic');
     var authorPicImg = $("<img class='authorPic', src='images/generic_avatar.jpg'>");
     $(authorPicDiv).append(authorPicImg);
-    $(replyDetailsDiv).append(authorPicDiv);
+    $(authorCell).append(authorPicDiv);
 
     // Create new div for body details text (author, time, date)
     var replyDetailsTextDiv = $(document.createElement('div'))
         .addClass('replyDetailsText')
         .html(reply.author + " at " + reply.getTime() + " on " + reply.getDay());
-    $(replyDetailsDiv).append(replyDetailsTextDiv);
+    $(textCell).append(replyDetailsTextDiv);
 
     // Create new div for body text (actual text of reply)
     var replyTextDiv = $(document.createElement('div'))
