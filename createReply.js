@@ -5,6 +5,8 @@ function openReplyForm() {
 	var title = $(".originalMsgTitle").html();
 	$("#textinput").val(title);
 
+	$("#textarea").val("");
+
 	// Grabs the tags in the original message to automatically fill in the reply
 	var tagObj = $("div.tag");
 	var tags = Array();
@@ -46,7 +48,7 @@ function submitReply() {
 	$("#formTitle").html(formTitleBar);
 
 	$("#textinput").val("");
-	$("#textarea").val("Your message here");
+	$("#textarea").val("");
 	$("#prependedtext").val("");
 	// reset the template to the default value
 }
