@@ -7,6 +7,8 @@ function reset() {
 	var formTitleBar = "New message <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
 	$("#formTitle").html(formTitleBar);
 	$("#submitBtn").html("Submit Message");
+
+	$("select#selectTemplate").val("None Selected");
 }
 
 function submit() {
