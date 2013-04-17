@@ -14,12 +14,12 @@ var displayMessage = function(message_id) {
   $('.originalMsgText').html(msg.text);
 
   // Display/hide appropriate icons
-  if(msg.alert == Message.NO_ALERT) {
-    $('.captain').addClass('hidden');
-  }
-  if(msg.priority == Message.LOW_PRI) {
-    $('.high_pri').addClass('hidden');
-  }
+  // if(msg.alert == Message.NO_ALERT) {
+  //   $('.captain').addClass('hidden');
+  // }
+  // if(msg.priority == Message.LOW_PRI) {
+  //   $('.high_pri').addClass('hidden');
+  // }
 
   // Display replies
  	var replies = msg.replies;
@@ -28,18 +28,18 @@ var displayMessage = function(message_id) {
 
     // Create new div for each reply
     var replyDiv = $(document.createElement('div'))
-        .addClass('reply controls-row');
+        .addClass('reply');
     $('.replies').append(replyDiv);
 
  		// Create new div for heading (title)
- 		var replyHeaderDiv = $(document.createElement('h5'))
+ 		var replyHeaderDiv = $(document.createElement('div'))
   			.addClass('replyHeader')
   			.html('Re: ' + msg.title);
   	$(replyDiv).append(replyHeaderDiv);
 
   	// Create new div for body
   	var replyBodyDiv = $(document.createElement('div'))
-  			.addClass('replyBody controls-row');
+  			.addClass('replyBody');
   	$(replyDiv).append(replyBodyDiv);
 
     // Create new div for body details (author, time, date, picture)
@@ -50,19 +50,19 @@ var displayMessage = function(message_id) {
     // Create new div for author picture
     var authorPicDiv = $(document.createElement('div'))
         .addClass('authorPic');
-    var authorPicImg = $("<img class='authorPic floatLeftNoPadding', src='images/generic_avatar.jpg'>");
+    var authorPicImg = $("<img class='authorPic', src='images/generic_avatar.jpg'>");
     $(authorPicDiv).append(authorPicImg);
     $(replyDetailsDiv).append(authorPicDiv);
 
     // Create new div for body details text (author, time, date)
     var replyDetailsTextDiv = $(document.createElement('div'))
-        .addClass('replyDetailsText floatLeft')
+        .addClass('replyDetailsText')
         .html(reply.author + " at " + reply.getTime() + " on " + reply.getDay());
     $(replyDetailsDiv).append(replyDetailsTextDiv);
 
     // Create new div for body text (actual text of reply)
     var replyTextDiv = $(document.createElement('div'))
-        .addClass('replyText offset1')
+        .addClass('replyText')
         .html(reply.text);
     $(replyBodyDiv).append(replyTextDiv);
  	}
@@ -71,12 +71,9 @@ var displayMessage = function(message_id) {
   for (var j=0; j<msg.tags.length; j++) {
  		var tag = msg.tags[j];
     var tagDiv = $(document.createElement('div'))
-        .addClass('floatLeft tag')
+        .addClass('tag')
         .html("#"+tag);
-      $('.hashtags').append(tagDiv);
+    $('.hashtags').append(tagDiv);
  	}
-  var clearDiv = $(document.createElement('div'))
-        .addClass('clear');
-  $('.hashtags').append(clearDiv);
 
 };

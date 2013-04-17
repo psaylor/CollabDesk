@@ -27,9 +27,10 @@
 	<script type="text/javascript" src="message.js"></script>
 	<script type="text/javascript" src="database.js"></script>
 	<script type="text/javascript" src="preloadData.js"></script>
-	<!--<script type="text/javascript" src="readMessage.js"></script> -->
+	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
+	<script type="text/javascript" src="templates.js"></script>
 	<script type="text/javascript" src="search.js"></script>
 	<script type="text/javascript" src="BrowsePane.js"></script>
 	<link rel="stylesheet" href="styles.css" />
@@ -48,7 +49,7 @@
 		// view the preloaded database
 		console.log(db);
 		// display a static message in the reading pane (until this is called from browsing pane)
-		//displayMessage(3);
+		displayMessage(3);
 
 		$("#cancelBtn").click(function() {
 			reset();
@@ -58,6 +59,10 @@
 			if (e.which == 13) {
 				reset();
 			}
+		});
+
+		$("#selectTemplate").change(function() {
+			fillTemplate();
 		});
 
 		/*
@@ -127,7 +132,7 @@
 		<div class="container-spacing">
 
 		<!-- browse pane -->
-			<div class="browse floatLeft left white">
+			<div class="browse pane floatLeftNoPadding left white">
 				<div class="row-fluid">
 					<div class="input-append span11	">
 						<input type="text" class="input-block-level" id="search-tbox" autofocus />
@@ -155,27 +160,25 @@
 		<div class="right">
 
 		<!-- reading pane -->
-            <div class="reading white">
-                <div class="originalMsg controls-row">
-                    <h4 class="originalMsgHeader">
-                    	<div class="originalMsgTitle floatLeftNoPadding">Missing Package</div>
-						<div class="high_pri floatRight"><img class="high_pri" src="images/high_pri.jpg"/></div>
-						<div class="captain floatRight"><img class="captain" src="images/captain.jpg"/></div>
-						<div class="clear"></div>
-                    </h4>
-                    <div class="originalMsgBody controls-row">
+            <div class="reading pane white">
+                <div class="originalMsg">
+                    <div class="originalMsgHeader">
+                    	<div class="originalMsgTitle"></div>
+						<div class="high_pri"><img class="high_pri" src="images/high_pri.jpg"/></div>
+						<div class="captain"><img class="captain" src="images/captain.jpg"/></div>
+						<div style="clear:right"></div>
+                    </div>
+                    <div class="originalMsgBody">
                     	<div class="originalMsgDetails"></div>
-                    		<div class="authorPic"><img class="authorPic floatLeftNoPadding" src="images/generic_avatar.jpg"/></div>
-                    		<div class="originalMsgDetailsText floatLeft"></div>
-                    	<div class="originalMsgText offset1"></div>
+                    		<div class="authorPic"><img class="authorPic" src="images/generic_avatar.jpg"/></div>
+                    		<div class="originalMsgDetailsText"></div>
+                    	<div class="originalMsgText"></div>
                     </div>
                 </div>
                 <div class="replies"></div>
                 <div class="alignBottom parentWidth">
-                	<div class="hashtags">
-                		<div class="tag">#tag1</div>
-                	</div>
-                	<button type="button" class="replyButton btn floatRight">Reply</button>
+                	<div class="hashtags"></div>
+                	<button type="button" class="replyButton btn">Reply</button>
                 </div>
             </div>
 
@@ -184,7 +187,7 @@
 
 
 		<!-- create message pane -->
-			<div class="create white">
+			<div class="create pane white">
 			<form class="form">
 			<fieldset>
 
@@ -200,9 +203,11 @@
 				  	<label class="control-label"></label>
 				  	<div class="controls">
 				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      	<option>Other...</option>
-				      	<option>Missing Package</option>
-				      	<option>Missing Person</option>
+				      	<option value="default">None Selected</option>
+				      	<option value="missingPackage">Missing Package</option>
+				      	<option value="lostKey">Lost Key</option>
+				      	<option value="reOrder">Re-Order Supplies</option>
+				      	<option value="foundPackage">Found Package</option>
 				    </select>
 				  	</div>
 				</div>
@@ -265,7 +270,7 @@
 			</fieldset>
 			</form>
 		</div>
-			</div>
+			
 		</div>
 
 </div>

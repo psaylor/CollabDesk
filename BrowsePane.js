@@ -143,5 +143,4 @@ var BrowsePane = function(){
 	this.getUnreadMessagesHTML=function(messageList){
 
 	};
-
 };
