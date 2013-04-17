@@ -30,6 +30,7 @@
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
+	<script type="text/javascript" src="templates.js"></script>
 	<script type="text/javascript" src="search.js"></script>
 	<script type="text/javascript" src="BrowsePane.js"></script>
 	<link rel="stylesheet" href="styles.css" />
@@ -60,6 +61,10 @@
 			if (e.which == 13) {
 				reset();
 			}
+		});
+
+		$("#selectTemplate").change(function() {
+			fillTemplate();
 		});
 
 		/*
@@ -190,9 +195,11 @@
 				  	<label class="control-label"></label>
 				  	<div class="controls">
 				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      	<option>Other...</option>
-				      	<option>Missing Package</option>
-				      	<option>Missing Person</option>
+				      	<option value="default">None Selected</option>
+				      	<option value="missingPackage">Missing Package</option>
+				      	<option value="lostKey">Lost Key</option>
+				      	<option value="reOrder">Re-Order Supplies</option>
+				      	<option value="foundPackage">Found Package</option>
 				    </select>
 				  	</div>
 				</div>
