@@ -151,12 +151,12 @@
 		height: 300px;
 	}
 
-	i.captain {
+	.captain {
 		float: right;
 		margin-bottom: 10px;
 	}
 
-	i.high_pri {
+	.high_pri {
 		float: right;
 		margin-right: 10px;
 		margin-bottom: 10px;
