@@ -11,10 +11,8 @@
 	}
 
 	.loginHeader {
-		border-bottom: 1px solid LightSteelBlue;
-		background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-	/*	margin-bottom: 10px;
-	*/}
+		background-image: linear-gradient(to bottom, #339966, #009966);
+	}
 
 	.loginHeader h3 {
 		margin: 0px;
@@ -28,9 +26,7 @@
 	}
 
 	.right {
-		/*width: %;*/
 		margin-left: 425px;
-		padding-left: 10px;
 	}
 
 	.floatRight {
@@ -64,10 +60,12 @@
 	}
 
 	.container-fluid {
-		background: LightBlue;
-		padding: 0px 10px 0px 0px;
+		background: LightGray;
+		padding: 0px 0px 0px 0px;
 		border-bottom: 1px solid black;
-
+		border-right: 1px solid black;
+		position: relative;
+		width: 1200px;
 	}
 
 	.white {
@@ -81,8 +79,6 @@
 	}
 
 	.spacing {
-		/*padding-top: 8px;
-		padding-bottom: 2px;*/
 		padding-right: 20px;
 	}
 
@@ -105,18 +101,24 @@
 		height: 100%;
 		padding-top: 0.5em;
 		border:0px;
+		float: left;
+		border-right: 1px solid GRAY;
 	}
+
 	#message-table{
 		border-collapse: collapse;
 		border-spacing: 0;
-		height:700px;
+		height:650px;
 		overflow: auto;
 	}
+
 	.table thead{
-		background-color: GRAY;
-		color: WHITE;
+		background-color: white;
+		color: black;
+		border-bottom: 1px solid black;
 		padding: 2px;
 	}
+
 	.table tbody tr{
 		border-top: 1px solid LightGray;
 		border-bottom: 1px solid LightGray;	
@@ -150,17 +152,14 @@
 		height: 300px;
 	}
 
-	img.captain {
-		height: 30px;
-		width: 30px;
+	i.captain {
 		float: right;
-		margin-right: 10px;
+		margin-bottom: 10px;
 	}
 
-	img.high_pri {
-		height: 30px;
-		width: 30px;
+	i.high_pri {
 		float: right;
+		margin-right: 10px;
 		margin-bottom: 10px;
 	}
 
@@ -181,7 +180,6 @@
 	.originalMsgTitle {
 		float: left;
 		font-size: 1.5em;
-		padding-top: 10px;
 	}
 
 	.originalMsgBody {
@@ -217,7 +215,7 @@
 
 	.alignBottom {
 		position: absolute;
-		bottom: 5px;
+		bottom: 10px;
 	}
 
 	.parentWidth {
@@ -230,7 +228,7 @@
 		line-height: 12px;
 		padding: 5px 7px;
 		border-radius: 3px;
-		background: LightSteelBlue;
+		background: #66CC99;
 		margin: 5px 4px;
 	}
 
@@ -238,7 +236,12 @@
 	CREATE PANE
 */
 	.create {
-		height: 50%;
+		position: absolute;
+		bottom: 0px;
+		width: 772px;
+		left: 426px;
+		float: left;
+		border: 1px solid GRAY;
 	}
 
 	.leftForm {
@@ -254,4 +257,3 @@
 	#formTitle { 
 		padding-left: 3px;
 	}
-

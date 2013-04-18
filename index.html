@@ -147,7 +147,7 @@
 			<div class="clear"></div>
 	</div>
 
-	<div class="container-fluid blue">
+	<div class="container-fluid">
 
 		<!-- browse pane -->
 			<div class="browse floatLeftNoPadding left white">
@@ -170,10 +170,8 @@
                 <div class="originalMsg">
                     <div class="originalMsgHeader">
                     	<div class="originalMsgTitle"></div>
-						<div class="high_pri"><i class="icon-exclamation-sign icon-color"></i>
-							<!-- <img class="high_pri" src="images/high_pri.jpg"/> --></div>
-						<div class="captain"><i class="icon-envelope icon-color"></i>
-							<!-- <img class="captain" src="images/captain.jpg"/> --></div>
+						<div class="captain"><i class="icon-envelope icon-color captain"></i></div>
+						<div class="high_pri"><i class="icon-exclamation-sign icon-color high_pri"></i></div>
 						<div style="clear:right"></div>
                     </div>
                     <div class="originalMsgBody">
@@ -190,16 +188,17 @@
                 <div class="replies"></div>
                 <div class="alignBottom parentWidth">
                 	<div class="hashtags"></div>
-                	<button type="button" class="replyButton btn floatRight">Reply</button>
+                	<button type="button" class="replyButton btn btn-primary floatRight">Reply</button>
                 </div>
             </div>
+        </div>
 
         <!-- gap between read and create panes -->
         <div class="gap"></div>
 
 
 		<!-- create message pane -->
-			<div class="create pane white">
+			<div class="create white">
 			<form class="form">
 			<fieldset>
 
@@ -239,10 +238,7 @@
 				<div class="control-group">
 				  	<div class="controls">
 				  		<div class="btn-group" data-toggle="buttons-checkbox">
-				  			<!-- <img src="images/note.png" type="button"/>
-				  			<img src="images/issue.png" type="button" /> -->
-				  			<button type="button" class="btn" id="ni-btn"><i class="icon-info-sign icon-color"></i> Note</button>
-				  			<!-- <button type="button" class="btn" id="i-btn">Issue</button> -->
+				  			<button type="button" class="btn" id="ni-btn"><i class="icon-info-sign icon-color icon-note"></i> Note</button>
 				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
 				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert</button>
 			  			</div>
@@ -279,7 +275,6 @@
 			</form>
 		</div>
 			
-		</div>
 
 </div>
 
