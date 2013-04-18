@@ -39,8 +39,9 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var search = new Search();
-		var browsePane = new BrowsePane();		
-		$("#message-table").append(browsePane.getAllDatedMessagesHTML(db, "0301", [0,2]));
+		var browsePane = new BrowsePane();
+
+		browsePane.updateBrowsePane("message-table",db);
 
 		// $("body").css("overflow", "hidden");
 		console.log(msg);
@@ -49,6 +50,10 @@
 		console.log(db);
 		// display a static message in the reading pane (until this is called from browsing pane)
 		displayMessage(3);
+
+		$(".message").click(function(){
+			var focusedId=$(this).attr("id"); //id of message that is clicked
+		});
 
 		$("#cancelBtn").click(function() {
 			reset();
@@ -68,7 +73,6 @@
 		Submits a reply when the reply button is clicked in the reading pane
 		*/
 		$(".replyButton").click(function() {
-			$("#formTitle").html("Create Reply");
 			openReplyForm();
 		});
 
@@ -76,16 +80,23 @@
 		Submits the form when the user clicks the Submit button
 		*/
 		$("#submitBtn").click(function() {
-			$("#formTitle").html("New Message");
-			submit();
+			if ($("#formTitle").html() == "Create New Message") {
+				submit();
+			} else {
+				submitReply();
+			}
 		});
 
 		/*
 		Submits the form when the user has focus on the Submit button and presses enter
 		*/
 		$("#submitBtn").keydown(function (e) {
-			if (e.which == 13) {
-				submit();
+				if (e.which == 13) {
+					if ($("#formTitle").html() == "Create New Message") {
+					submit();
+				} else {
+					submitReply();
+				}
 			}
 		});
 
@@ -127,7 +138,7 @@
 			<div class="clear"></div>
 	</div>
 
-	<div class="container-fluid blue">
+	<div class="container-fluid">
 
 		<!-- browse pane -->
 			<div class="browse floatLeftNoPadding left white">
@@ -138,19 +149,7 @@
 					</div>
 				</div>
 				<div id="message-table">
-					<table class ="table">
-						<thead>
-							<tr>
-								<th>
-									Unread!
-								</th>
-							</tr>
-						</thead>
-						
-						<tbody>
-							<!--Messages added from db here-->						
-						</tbody>
-					</table>
+					<!--MESSAGES DYNAMICALLY ADDED HERE-->
 				</div>
 			</div>
 
@@ -162,10 +161,8 @@
                 <div class="originalMsg">
                     <div class="originalMsgHeader">
                     	<div class="originalMsgTitle"></div>
-						<div class="high_pri"><i class="icon-exclamation-sign icon-color"></i>
-							<!-- <img class="high_pri" src="images/high_pri.jpg"/> --></div>
-						<div class="captain"><i class="icon-envelope icon-color"></i>
-							<!-- <img class="captain" src="images/captain.jpg"/> --></div>
+						<div class="captain"><i class="icon-envelope icon-color captain"></i></div>
+						<div class="high_pri"><i class="icon-exclamation-sign icon-color high_pri"></i></div>
 						<div style="clear:right"></div>
                     </div>
                     <div class="originalMsgBody">
@@ -182,91 +179,92 @@
                 <div class="replies"></div>
                 <div class="alignBottom parentWidth">
                 	<div class="hashtags"></div>
-                	<button type="button" class="replyButton btn btn-primary floatRight">Reply</button>
+                	<button type="button" class="replyButton btn floatRight">Reply</button>
                 </div>
             </div>
         </div>
+
         <!-- gap between read and create panes -->
         <div class="gap"></div>
 
 
 		<!-- create message pane -->
 			<div class="create white">
-				<form class="form">
-				<fieldset>
+			<form class="form">
+			<fieldset>
 
-				<!-- Form Name -->
-				<legend id="formTitle">  Create New Message
-					<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
-				</legend>
+			<!-- Form Name -->
+			<legend id="formTitle">Create New Message
+				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
+			</legend>
 
-				<!-- Select Template -->
-				<div class="controls-row">
-				<div class="span5">
-					<div class="control-group">
-					  	<label class="control-label"></label>
-					  	<div class="controls">
-					    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-					      	<option value="default">None Selected</option>
-					      	<option value="missingPackage">Missing Package</option>
-					      	<option value="lostKey">Lost Key</option>
-					      	<option value="reOrder">Re-Order Supplies</option>
-					      	<option value="foundPackage">Found Package</option>
-					    </select>
-					  	</div>
-					</div>
-
-				<!-- Title -->
-					<div class="control-group">
-					  	<label class="control-label"></label>
-					  	<div class="controls">
-					    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
-					    
-					  	</div>
-					</div>
+			<!-- Select Template -->
+			<div class="controls-row">
+			<div class="span5">
+				<div class="control-group">
+				  	<label class="control-label"></label>
+				  	<div class="controls">
+				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
+				      	<option value="default">None Selected</option>
+				      	<option value="missingPackage">Missing Package</option>
+				      	<option value="lostKey">Lost Key</option>
+				      	<option value="reOrder">Re-Order Supplies</option>
+				      	<option value="foundPackage">Found Package</option>
+				    </select>
+				  	</div>
 				</div>
 
-				<!-- Multiple Checkboxes -->
-				<div class="span4">
-					<div class="control-group">
-					  	<div class="controls">
-					  		<div class="btn-group" data-toggle="buttons-checkbox">
-					  			<button type="button" class="btn" id="ni-btn"><i class="icon-info-sign icon-color icon-note"></i> Note</button>
-					  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
-					  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert</button>
-				  			</div>
-					  </div>
-					</div>
+			<!-- Title -->
+				<div class="control-group">
+				  	<label class="control-label"></label>
+				  	<div class="controls">
+				    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
+				    
+				  	</div>
 				</div>
-				</div>
-
-				<!-- Message Text Area -->
-					<div class="control-group controls-row">
-						<div class="controls span8">                     
-					    <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
-					  	</div>
-					</div>
-
-				<!-- Tags -->
-					<div class="control-group controls-row">
-					  <div class="controls span8">
-						<div class="input-prepend input-xlarge" id="tags-input">
-					    	<span class="add-on" id="hashtag">#</span>
-					    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
-					    </div>
-					    
-					  </div>
-					</div>
-
-				<!-- Submit -->
-
-					<div class="controls-row floatRight">
-						<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
-						<button type="button" id="cancelBtn" class="btn">Cancel</button>
-					</div>
-				</fieldset>
-				</form>
 			</div>
+
+			<!-- Multiple Checkboxes -->
+			<div class="span4">
+				<div class="control-group">
+				  	<div class="controls">
+				  		<div class="btn-group" data-toggle="buttons-checkbox">
+				  			<button type="button" class="btn" id="ni-btn"><i class="icon-info-sign icon-color icon-note"></i> Note</button>
+				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
+				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert</button>
+			  			</div>
+				  </div>
+				</div>
+			</div>
+			</div>
+
+			<!-- Message Text Area -->
+				<div class="control-group controls-row">
+					<div class="controls span8">                     
+				    <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
+				  	</div>
+				</div>
+
+			<!-- Tags -->
+				<div class="control-group controls-row">
+				  <div class="controls span8">
+					<div class="input-prepend input-xlarge" id="tags-input">
+				    	<span class="add-on" id="hashtag">#</span>
+				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
+				    </div>
+				    
+				  </div>
+				</div>
+
+			<!-- Submit -->
+
+				<div class="controls-row floatRight">
+					<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
+					<button type="button" id="cancelBtn" class="btn">Cancel</button>
+				</div>
+			</fieldset>
+			</form>
+		</div>
 			
 
 </div>

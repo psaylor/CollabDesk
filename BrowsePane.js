@@ -3,11 +3,27 @@
  */
 
 var BrowsePane = function(){
+	
+	////////////////////
+	//"PUBLIC" FUNCTIONS
+	////////////////////
+
+	this.updateBrowsePane=function(divID, database){
+		$("#"+divID).empty();
+		$("#"+divID).append(this.getUnreadMessagesHTML(db));
+		$("#"+divID).append(this.getAllDatedMessagesHTML(db));
+	}
+
+
+	//////////////////
+	//helper functions
+	//////////////////
+
 	/**
 	* Converts a message to HTML to be displayed in the BrowserPane
 	*
 	*/
-	this.getMessageHTML=function(msg){
+	this.getMessageHTML=function(msg, index){
 		var title = msg.title;
 		var text = msg.text.substring(0,125);
 		if(msg.text.length>125){ //if message was truncated to display
@@ -16,7 +32,7 @@ var BrowsePane = function(){
 		//console.log("title: "+title);
 		//console.log("text:" +text);
 
-		var output ="<tr><td><div class='message'><div class='title'>"
+		var output ="<tr><td><div class='message' id='"+index+"'><div class='title'>"
 					+title+"</div><div class='text'>"+text+"</div></div></td></tr>";
 		//console.log(output);
 		return output;
@@ -30,7 +46,7 @@ var BrowsePane = function(){
 		var msgList = database.getAllMessages(); //list of message objects
 		var output="";
 		for (var i=msgList.length-1; i>=0; i--){
-			output+=this.getMessageHTML(msgList[i]);
+			output+=this.getMessageHTML(msgList[i], i);
 		}
 		return output
 
@@ -45,6 +61,21 @@ var BrowsePane = function(){
 	};
 
 	/**
+	* Gets all undread messages and returns the html of them
+	*/
+	this.getUnreadMessagesHTML=function(database){
+		console.log("Messages that are unread:");
+		console.log(database.getUnreadMessages().length);
+		console.log("end unread list");
+		var output="<table class='table' id='unread'><thead><tr><th>Unread</th></tr></thead><tbody>";
+		if(database.getUnreadMessages().length>0){
+			output+=this.getSelectedMessagesHTML(database, database.getUnreadMessages());			
+		}
+		output+="</tbody></thead>"
+		return output;
+	};
+
+	/**
 	* Creates tables for each date and sorts messages accordingly
 	*
 	*/
@@ -56,7 +87,7 @@ var BrowsePane = function(){
 		var month; //string
 		var day; //string
 		var output="";
-		for (index in database.getAllMessages()){
+		for (index in database.getReadMessages()){ //CHANGE TO getReadMessages()
 			msg=database.getMessage(index);
 			//console.log(msg);
 			date= msg.date;
@@ -119,7 +150,7 @@ var BrowsePane = function(){
 		var msg;
 		for(index in messageIdList){
 			msg = database.getMessage(messageIdList[index]);
-			output+=this.getMessageHTML(msg);
+			output+=this.getMessageHTML(msg, index);
 		}
 		output+="</tbody></table>";
 		return output;
@@ -127,20 +158,14 @@ var BrowsePane = function(){
 	}
 
 	/**
-	* Given a list of messages, return the html corresponding to the id of the filtered 
+	* Given a list of message ids, return the html corresponding to the id of the filtered 
 	*/
-	this.getSelectedMessagesHTML=function(messageList){
+	this.getSelectedMessagesHTML=function(database, messageList){
 		var output = "";
 		for (i in messageList){
-			output+=getMessageHTML(messageList(i));
+			output+=this.getMessageHTML(database.getMessage(messageList[i]), messageList[i]);
 		}
 		return output;
 	};
 
-	/**
-	* Gets all undread messages and returns the html of them
-	*/
-	this.getUnreadMessagesHTML=function(messageList){
-
-	};
 };
