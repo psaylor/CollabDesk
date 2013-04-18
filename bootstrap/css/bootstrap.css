@@ -2313,9 +2313,6 @@ table th[class*="span"],
   background-image: url("../img/glyphicons-halflings-color.png");
 }
 
-.icon-color, .icon-note {
-  background-image: url("../img/glyphicons-halflings-color-note.png");
-}
 
 .icon-glass {
   background-position: 0      0;
@@ -2353,7 +2350,7 @@ table th[class*="span"],
   background-position: -192px 0;
 }
 
-.icon-th-large {
+.icon-th-large, .icon-note {
   background-position: -216px 0;
 }
 
@@ -2657,7 +2654,7 @@ table th[class*="span"],
   background-position: -96px -96px;
 }
 
-.icon-info-sign {
+.icon-info-sign, .icon-issue {
   background-position: -120px -96px;
 }
 

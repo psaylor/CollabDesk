@@ -14,6 +14,9 @@ function reset() {
 	$(".btn-group .btn.active").each(function() {
 		$("#" + this.id).removeClass("active");
 	});
+
+	$('#ni-note').removeClass('hide');
+	$('#ni-issue').addClass('hide');
 }
 
 function submit() {
