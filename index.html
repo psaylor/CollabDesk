@@ -182,96 +182,92 @@
                 <div class="replies"></div>
                 <div class="alignBottom parentWidth">
                 	<div class="hashtags"></div>
-                	<button type="button" class="replyButton btn floatRight">Reply</button>
+                	<button type="button" class="replyButton btn btn-primary floatRight">Reply</button>
                 </div>
             </div>
-
+        </div>
         <!-- gap between read and create panes -->
         <div class="gap"></div>
 
 
 		<!-- create message pane -->
-			<div class="create pane white">
-			<form class="form">
-			<fieldset>
+			<div class="create white">
+				<form class="form">
+				<fieldset>
 
-			<!-- Form Name -->
-			<legend id="formTitle">Create New Message
-				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
-			</legend>
+				<!-- Form Name -->
+				<legend id="formTitle">  Create New Message
+					<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
+				</legend>
 
-			<!-- Select Template -->
-			<div class="controls-row">
-			<div class="span5">
-				<div class="control-group">
-				  	<label class="control-label"></label>
-				  	<div class="controls">
-				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      	<option value="default">None Selected</option>
-				      	<option value="missingPackage">Missing Package</option>
-				      	<option value="lostKey">Lost Key</option>
-				      	<option value="reOrder">Re-Order Supplies</option>
-				      	<option value="foundPackage">Found Package</option>
-				    </select>
-				  	</div>
+				<!-- Select Template -->
+				<div class="controls-row">
+				<div class="span5">
+					<div class="control-group">
+					  	<label class="control-label"></label>
+					  	<div class="controls">
+					    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
+					      	<option value="default">None Selected</option>
+					      	<option value="missingPackage">Missing Package</option>
+					      	<option value="lostKey">Lost Key</option>
+					      	<option value="reOrder">Re-Order Supplies</option>
+					      	<option value="foundPackage">Found Package</option>
+					    </select>
+					  	</div>
+					</div>
+
+				<!-- Title -->
+					<div class="control-group">
+					  	<label class="control-label"></label>
+					  	<div class="controls">
+					    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
+					    
+					  	</div>
+					</div>
 				</div>
 
-			<!-- Title -->
-				<div class="control-group">
-				  	<label class="control-label"></label>
-				  	<div class="controls">
-				    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
-				    
-				  	</div>
+				<!-- Multiple Checkboxes -->
+				<div class="span4">
+					<div class="control-group">
+					  	<div class="controls">
+					  		<div class="btn-group" data-toggle="buttons-checkbox">
+					  			<button type="button" class="btn" id="ni-btn"><i class="icon-info-sign icon-color icon-note"></i> Note</button>
+					  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
+					  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert</button>
+				  			</div>
+					  </div>
+					</div>
 				</div>
+				</div>
+
+				<!-- Message Text Area -->
+					<div class="control-group controls-row">
+						<div class="controls span8">                     
+					    <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
+					  	</div>
+					</div>
+
+				<!-- Tags -->
+					<div class="control-group controls-row">
+					  <div class="controls span8">
+						<div class="input-prepend input-xlarge" id="tags-input">
+					    	<span class="add-on" id="hashtag">#</span>
+					    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
+					    </div>
+					    
+					  </div>
+					</div>
+
+				<!-- Submit -->
+
+					<div class="controls-row floatRight">
+						<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
+						<button type="button" id="cancelBtn" class="btn">Cancel</button>
+					</div>
+				</fieldset>
+				</form>
 			</div>
-
-			<!-- Multiple Checkboxes -->
-			<div class="span4">
-				<div class="control-group">
-				  	<div class="controls">
-				  		<div class="btn-group" data-toggle="buttons-checkbox">
-				  			<!-- <img src="images/note.png" type="button"/>
-				  			<img src="images/issue.png" type="button" /> -->
-				  			<button type="button" class="btn" id="ni-btn"><i class="icon-info-sign icon-color"></i> Note</button>
-				  			<!-- <button type="button" class="btn" id="i-btn">Issue</button> -->
-				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
-				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert</button>
-			  			</div>
-				  </div>
-				</div>
-			</div>
-			</div>
-
-			<!-- Message Text Area -->
-				<div class="control-group controls-row">
-					<div class="controls span8">                     
-				    <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
-				  	</div>
-				</div>
-
-			<!-- Tags -->
-				<div class="control-group controls-row">
-				  <div class="controls span8">
-					<div class="input-prepend input-xlarge" id="tags-input">
-				    	<span class="add-on" id="hashtag">#</span>
-				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
-				    </div>
-				    
-				  </div>
-				</div>
-
-			<!-- Submit -->
-
-				<div class="controls-row floatRight">
-					<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
-					<button type="button" id="cancelBtn" class="btn">Cancel</button>
-				</div>
-			</fieldset>
-			</form>
-		</div>
 			
-		</div>
 
 </div>
 

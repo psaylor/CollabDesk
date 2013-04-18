@@ -2313,6 +2313,10 @@ table th[class*="span"],
   background-image: url("../img/glyphicons-halflings-color.png");
 }
 
+.icon-color, .icon-note {
+  background-image: url("../img/glyphicons-halflings-color-note.png");
+}
+
 .icon-glass {
   background-position: 0      0;
 }
