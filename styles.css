@@ -12,6 +12,7 @@
 
 	.loginHeader {
 		background-image: linear-gradient(to bottom, #339966, #009966);
+		width: 1200px;
 	}
 
 	.loginHeader h3 {

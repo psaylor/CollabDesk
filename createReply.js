@@ -1,21 +1,3 @@
-function reset() {
-	$("#textinput").val("");
-	$("#textarea").val("");
-	$("#prependedtext").val("");
-	// reset the template to the default value
-
-	var formTitleBar = "Create New Message<div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
-	$("#formTitle").html(formTitleBar);
-	$("#submitBtn").html("Submit Message");
-
-	$("select#selectTemplate").val("None Selected");
-
-	// Uncheck the radio buttons
-	$(".btn-group .btn.active").each(function() {
-		$("#" + this.id).removeClass("active");
-	});
-}
-
 function openReplyForm() {
 	// Uncheck the radio buttons
 	$(".btn-group .btn.active").each(function() {
@@ -75,4 +57,5 @@ function submitReply() {
 	$("#formTitle").html(formTitleBar);
 
 	reset();
+>>>>>>> 8b7f0660e0bd21b01fd068dcf89c561b2a2eb48d
 }

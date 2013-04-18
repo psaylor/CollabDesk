@@ -17,6 +17,19 @@ $(document).ready(function(){
 		delay: 200,
 	});
 
+	$('#alert-btn').tooltip({
+		trigger: 'hover',
+		placement: 'bottom',
+		title: 'Automatically email this message to the Desk Captain',
+		delay: 200,
+	});
+
+	$('#ni-btn').click(function() {
+		$('#ni-note').toggleClass('hide');
+		$('#ni-issue').toggleClass('hide');
+
+	});
+
 	/* 
 		READ PANE TOOL TIPS
 	*/
