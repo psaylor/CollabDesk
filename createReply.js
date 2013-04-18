@@ -1,4 +1,27 @@
+function reset() {
+	$("#textinput").val("");
+	$("#textarea").val("");
+	$("#prependedtext").val("");
+	// reset the template to the default value
+
+	var formTitleBar = "Create New Message<div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
+	$("#formTitle").html(formTitleBar);
+	$("#submitBtn").html("Submit Message");
+
+	$("select#selectTemplate").val("None Selected");
+
+	// Uncheck the radio buttons
+	$(".btn-group .btn.active").each(function() {
+		$("#" + this.id).removeClass("active");
+	});
+}
+
 function openReplyForm() {
+	// Uncheck the radio buttons
+	$(".btn-group .btn.active").each(function() {
+		$("#" + this.id).removeClass("active");
+	});
+
 	$("select#selectTemplate").val("None Selected");
 
 	var formTitleBar = "Reply <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
@@ -49,10 +72,5 @@ function submitReply() {
 	var formTitleBar = "New message <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
 	$("#formTitle").html(formTitleBar);
 
-	$("#textinput").val("");
-	$("#textarea").val("");
-	$("#prependedtext").val("");
-	// reset the template to the default value
-
-	$("select#selectTemplate").val("None Selected");
+	reset();
 }

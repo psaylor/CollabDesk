@@ -68,7 +68,6 @@
 		Submits a reply when the reply button is clicked in the reading pane
 		*/
 		$(".replyButton").click(function() {
-			$("#formTitle").html("Create Reply");
 			openReplyForm();
 		});
 
@@ -76,16 +75,23 @@
 		Submits the form when the user clicks the Submit button
 		*/
 		$("#submitBtn").click(function() {
-			$("#formTitle").html("New Message");
-			submit();
+			if ($("#formTitle").html() == "Create New Message") {
+				submit();
+			} else {
+				submitReply();
+			}
 		});
 
 		/*
 		Submits the form when the user has focus on the Submit button and presses enter
 		*/
 		$("#submitBtn").keydown(function (e) {
-			if (e.which == 13) {
-				submit();
+				if (e.which == 13) {
+					if ($("#formTitle").html() == "Create New Message") {
+					submit();
+				} else {
+					submitReply();
+				}
 			}
 		});
 
