@@ -44,9 +44,8 @@ var Database = function() {
 		for (var i = 0; i < this.unread.length; i++) {
 			var id = this.unread[i];
 			//result[id] = this.messages[id];
-			result+=id;
+			result.push(id);
 		}
-		console.log(result);
 		return result;
 	}
 
@@ -59,10 +58,9 @@ var Database = function() {
 				// the index of the message is not in the unread list
 				// so it is read
 				//result[i] = this.messages[i];
-				result+=i;
+				result.push(id);
 			}
 		}
-		console.log(result);
 		return result;
 	}
 

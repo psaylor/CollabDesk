@@ -10,7 +10,9 @@ function openReplyForm() {
 	$("#formTitle").html(formTitleBar);
 
 	var title = $(".originalMsgTitle").html();
-	$("#textinput").val(title);
+	title = title.replace("Issue: ", "");
+	title = title.replace("Note: ", "");
+	$("#textinput").val("Re: " + title);
 
 	$("#textarea").val("");
 
@@ -55,4 +57,5 @@ function submitReply() {
 	$("#formTitle").html(formTitleBar);
 
 	reset();
+>>>>>>> 8b7f0660e0bd21b01fd068dcf89c561b2a2eb48d
 }

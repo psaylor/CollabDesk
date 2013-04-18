@@ -40,6 +40,7 @@
 	$(document).ready(function(){
 		var search = new Search();
 		var browsePane = new BrowsePane();
+		var newMessage = true;
 
 		browsePane.updateBrowsePane("message-table",db);
 
@@ -56,11 +57,13 @@
 		});
 
 		$("#cancelBtn").click(function() {
+			newMessage = true;
 			reset();
 		});
 
 		$("#cancelBtn").click(function(e) {
 			if (e.which == 13) {
+				newMessage = true;
 				reset();
 			}
 		});
@@ -73,6 +76,7 @@
 		Submits a reply when the reply button is clicked in the reading pane
 		*/
 		$(".replyButton").click(function() {
+			newMessage = false;
 			openReplyForm();
 		});
 
@@ -80,11 +84,13 @@
 		Submits the form when the user clicks the Submit button
 		*/
 		$("#submitBtn").click(function() {
-			if ($("#formTitle").html() == "Create New Message") {
+			if (newMessage) {
 				submit();
 			} else {
 				submitReply();
 			}
+			newMessage = true;
+			browsePane.updateBrowsePane("message-table",db);
 		});
 
 		/*
@@ -92,11 +98,14 @@
 		*/
 		$("#submitBtn").keydown(function (e) {
 				if (e.which == 13) {
+					console.log($("#formTitle").html());
 					if ($("#formTitle").html() == "Create New Message") {
 					submit();
 				} else {
 					submitReply();
 				}
+				browsePane.updateBrowsePane("message-table",db);
+
 			}
 		});
 

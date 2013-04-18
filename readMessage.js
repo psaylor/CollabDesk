@@ -34,7 +34,7 @@ var displayMessage = function(message_id) {
  		// Create new div for heading (title)
  		var replyHeaderDiv = $(document.createElement('div'))
   			.addClass('replyHeader')
-  			.html('Re: ' + msg.title);
+  			.html(reply.title);
   	$(replyDiv).append(replyHeaderDiv);
 
   	// Create new div for body
