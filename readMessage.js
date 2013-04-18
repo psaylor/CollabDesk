@@ -13,16 +13,20 @@ var displayMessage = function(message_id) {
   $('.originalMsgDetailsText').html(msg.author + " at " + msg.getTime() + " on " + msg.getDay());
   $('.originalMsgText').html(msg.text);
 
+  $('.captain').removeClass('hidden');
+  $('.high_pri').removeClass('hidden');
+
   // Display/hide appropriate icons
-  // if(msg.alert == Message.NO_ALERT) {
-  //   $('.captain').addClass('hidden');
-  // }
-  // if(msg.priority == Message.LOW_PRI) {
-  //   $('.high_pri').addClass('hidden');
-  // }
+  if(msg.alert == Message.NO_ALERT) {
+    $('.captain').addClass('hidden');
+  }
+  if(msg.priority == Message.LOW_PRI) {
+    $('.high_pri').addClass('hidden');
+  }
 
   // Display replies
  	var replies = msg.replies;
+  $('.replies').empty();
  	for (var i=0; i< replies.length; i++) {
  	  var reply = replies[i];
 
@@ -79,6 +83,7 @@ var displayMessage = function(message_id) {
  	}
 
  	// Display tags
+  $('.hashtags').empty();
   for (var j=0; j<msg.tags.length; j++) {
  		var tag = msg.tags[j];
     var tagDiv = $(document.createElement('div'))
