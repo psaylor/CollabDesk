@@ -23,6 +23,7 @@ var displayMessage = function(message_id) {
 
   // Display replies
  	var replies = msg.replies;
+  $('.replies').empty();
  	for (var i=0; i< replies.length; i++) {
  	  var reply = replies[i];
 
@@ -79,6 +80,7 @@ var displayMessage = function(message_id) {
  	}
 
  	// Display tags
+  $('.hashtags').empty();
   for (var j=0; j<msg.tags.length; j++) {
  		var tag = msg.tags[j];
     var tagDiv = $(document.createElement('div'))
