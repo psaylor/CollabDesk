@@ -135,6 +135,10 @@
 				browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
 				$(".ui-menu-item").hide()
 			}
+
+			if(inp==null){
+				browsePane.updateBrowsePane("message-table",db);
+			}
 		});
 
 		$("#search-tbox").autocomplete({
