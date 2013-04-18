@@ -6,7 +6,7 @@ function openReplyForm() {
 
 	$("select#selectTemplate").val("None Selected");
 
-	var formTitleBar = "Reply <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
+	var formTitleBar = "Reply<div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
 	$("#formTitle").html(formTitleBar);
 
 	var title = $(".originalMsgTitle").html();
@@ -33,7 +33,7 @@ function openReplyForm() {
 	$("#submitBtn").html("Submit Reply");
 }
 
-function submitReply() {
+function submitReply(replyID) {
 	var title = $("#textinput").val();
 	var text = $("#textarea").val();
 	var tags = $("#prependedtext").val();
@@ -48,14 +48,9 @@ function submitReply() {
 	author = 'Julie';
 	date = new Date('19 Mar, 2013 13:07:00');
 	var reply = new Reply(title, text, author, tags, date);
-	msg.addReply(reply);
-
-	$("#submitBtn").html("Submit Message");
-
-	// Reset the form title bar to default
-	var formTitleBar = "New message <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
-	$("#formTitle").html(formTitleBar);
+	console.log(msg);
+	db.getMessage(replyID).addReply(reply);
 
 	reset();
->>>>>>> 8b7f0660e0bd21b01fd068dcf89c561b2a2eb48d
+	console.log("GOT HERE NIG");
 }

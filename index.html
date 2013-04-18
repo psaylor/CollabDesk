@@ -41,6 +41,7 @@
 		var search = new Search();
 		var browsePane = new BrowsePane();
 		var newMessage = true;
+		var replyID = null;
 
 		browsePane.updateBrowsePane("message-table",db);
 
@@ -54,8 +55,9 @@
 
 		$(".message").click(function(){
 			var focusedId=$(this).attr("id"); //id of message that is clicked
-			console.log(focusedId);
+			replyId = focusedId;
 			displayMessage(focusedId);
+			console.log("GOT HERE");
 		});
 
 		$("#cancelBtn").click(function() {
@@ -89,7 +91,8 @@
 			if (newMessage) {
 				submit();
 			} else {
-				submitReply();
+				submitReply(replyId);
+				displayMessage(replyId);
 			}
 			newMessage = true;
 			browsePane.updateBrowsePane("message-table",db);
@@ -104,8 +107,10 @@
 					if ($("#formTitle").html() == "Create New Message") {
 					submit();
 				} else {
-					submitReply();
+					submitReply(replyId);
+					displayMessage(replyId);
 				}
+				newMessage = true;
 				browsePane.updateBrowsePane("message-table",db);
 
 			}

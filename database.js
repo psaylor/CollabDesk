@@ -58,7 +58,7 @@ var Database = function() {
 				// the index of the message is not in the unread list
 				// so it is read
 				//result[i] = this.messages[i];
-				result.push(id);
+				result.push(i);
 			}
 		}
 		return result;

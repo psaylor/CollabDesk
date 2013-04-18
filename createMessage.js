@@ -1,4 +1,6 @@
 function reset() {
+	$("#submitBtn").html("Submit Message");
+
 	$("#textinput").val("");
 	$("#textarea").val("");
 	$("#prependedtext").val("");

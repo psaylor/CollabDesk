@@ -17,6 +17,13 @@ var BrowsePane = function(){
 		//console.log($("#"+divID).html());
 
 		$("#"+divID).append(this.getAllDatedMessagesHTML(db));
+
+		$(".message").click(function(){
+			var focusedId=$(this).attr("id"); //id of message that is clicked
+			replyId = focusedId;
+			displayMessage(focusedId);
+			console.log("GOT HERE");
+		});
 	}
 
 
