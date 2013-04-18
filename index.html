@@ -1,289 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-
-<!--
-  COLLABDESK PROTOTYPE:
-  	Patricia Saylor
-  	Divya Bajekal
-  	Jonathan Lui
-  	Benjamin Xie
-  	
--->
-<html>
-
-<head>
-	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-	<title>CollabDesk</title>
-
-	<!-- Load style sheets -->
-	<link rel="stylesheet" href="jquery-ui-1.10.2/themes/smoothness/jquery-ui.css" />
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
-
-	<!-- Load any supplemental Javascript libraries here -->
-	<script type="text/javascript" src="jquery-ui-1.10.2/jquery-1.9.1.js"></script>
-	<script type="text/javascript" src="jquery-ui-1.10.2/ui/jquery-ui.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-
-	<!-- Load our own Javascript files and stylesheets here -->
-	<script type="text/javascript" src="message.js"></script>
-	<script type="text/javascript" src="database.js"></script>
-	<script type="text/javascript" src="preloadData.js"></script>
-	<script type="text/javascript" src="readMessage.js"></script>
-	<script type="text/javascript" src="createMessage.js"></script>
-	<script type="text/javascript" src="createReply.js"></script>
-	<script type="text/javascript" src="templates.js"></script>
-	<script type="text/javascript" src="search.js"></script>
-	<script type="text/javascript" src="BrowsePane.js"></script>
-	<script type="text/javascript" src="tooltip.js"></script>
-	<link rel="stylesheet" href="styles.css" />
-
-	<script type="text/javascript">
-	$(document).ready(function(){
-		var search = new Search();
-		var browsePane = new BrowsePane();		
-		$("#message-table").append(browsePane.getAllDatedMessagesHTML(db, "0301", [0,2]));
-
-		// $("body").css("overflow", "hidden");
-		console.log(msg);
-
-		// view the preloaded database
-		console.log(db);
-		// display a static message in the reading pane (until this is called from browsing pane)
-		displayMessage(3);
-
-		$("#cancelBtn").click(function() {
-			reset();
-		});
-
-		$("#cancelBtn").click(function(e) {
-			if (e.which == 13) {
-				reset();
-			}
-		});
-
-		$("#selectTemplate").change(function() {
-			fillTemplate();
-		});
-
-		/*
-		Submits a reply when the reply button is clicked in the reading pane
-		*/
-		$(".replyButton").click(function() {
-			openReplyForm();
-		});
-
-		/*
-		Submits the form when the user clicks the Submit button
-		*/
-		$("#submitBtn").click(function() {
-			if ($("#formTitle").html() == "Create New Message") {
-				submit();
-			} else {
-				submitReply();
-			}
-		});
-
-		/*
-		Submits the form when the user has focus on the Submit button and presses enter
-		*/
-		$("#submitBtn").keydown(function (e) {
-				if (e.which == 13) {
-					if ($("#formTitle").html() == "Create New Message") {
-					submit();
-				} else {
-					submitReply();
-				}
-			}
-		});
-
-		/***********
-		* Listeners
-		************/
-		$("#search-tbox").keydown(function(event){
-			if(event.which==13){ //checking for 'enter'
-				var inp=$(this).val();
-				console.log("Listening to ENTER. input is "+inp);
-				console.log(search.getMessageIDs(inp,db));
-			}
-		});
-
-		$("#search-tbox").autocomplete({
-			source: function(request, response){
-				//console.log("request");
-				//console.log(request);
-				response(search.getMessageTitles(request.term.toLowerCase(),db));
-			}
-		});
-	});
-	</script>
-
-</head>
-
-<body>
-
-	<div class="loginHeader">
-			<div class="floatLeft side">
-				<h3 class="logo">CollabDesk</h3>
-			</div>
-			<div class="floatRight side">
-				<div class="avatar side">
-					<img class="avatar" src="images/generic_avatar.jpg"/>
-				</div>
-				<h3 class="side username">Sally</h3>
-			</div>
-			<div class="clear"></div>
-	</div>
-
-	<div class="container-fluid blue">
-
-		<!-- browse pane -->
-			<div class="browse floatLeftNoPadding left white">
-				<div class="row-fluid">
-					<div class="input-append span11	">
-						<input type="text" class="input-block-level" id="search-tbox" autofocus />
-						<span class="add-on btn"><i class="icon-search icon-color"></i></span>
-					</div>
-				</div>
-				<div id="message-table">
-					<table class ="table">
-						<thead>
-							<tr>
-								<th>
-									Unread!
-								</th>
-							</tr>
-						</thead>
-						
-						<tbody>
-							<!--Messages added from db here-->						
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-		<!-- right side of layout: read and create -->		
-		<div class="right">
-
-		<!-- reading pane -->
-            <div class="reading pane white">
-                <div class="originalMsg">
-                    <div class="originalMsgHeader">
-                    	<div class="originalMsgTitle"></div>
-						<div class="high_pri"><i class="icon-exclamation-sign icon-color"></i>
-							<!-- <img class="high_pri" src="images/high_pri.jpg"/> --></div>
-						<div class="captain"><i class="icon-envelope icon-color"></i>
-							<!-- <img class="captain" src="images/captain.jpg"/> --></div>
-						<div style="clear:right"></div>
-                    </div>
-                    <div class="originalMsgBody">
-                    	<div class="originalMsgDetails"></div>
-                    	<table>
-                    		<tr>
-                    			<td><div class="authorPic"><img class="authorPic" src="images/generic_avatar.jpg"/></div></td>
-                    			<td><div class="originalMsgDetailsText"></div></td>
-                    		</tr>
-                    	</table>
-                    	<div class="originalMsgText offset1"></div>
-                    </div>
-                </div>
-                <div class="replies"></div>
-                <div class="alignBottom parentWidth">
-                	<div class="hashtags"></div>
-                	<button type="button" class="replyButton btn floatRight">Reply</button>
-                </div>
-            </div>
-
-        <!-- gap between read and create panes -->
-        <div class="gap"></div>
-
-
-		<!-- create message pane -->
-			<div class="create pane white">
-			<form class="form">
-			<fieldset>
-
-			<!-- Form Name -->
-			<legend id="formTitle">Create New Message
-				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
-			</legend>
-
-			<!-- Select Template -->
-			<div class="controls-row">
-			<div class="span5">
-				<div class="control-group">
-				  	<label class="control-label"></label>
-				  	<div class="controls">
-				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      	<option value="default">None Selected</option>
-				      	<option value="missingPackage">Missing Package</option>
-				      	<option value="lostKey">Lost Key</option>
-				      	<option value="reOrder">Re-Order Supplies</option>
-				      	<option value="foundPackage">Found Package</option>
-				    </select>
-				  	</div>
-				</div>
-
-			<!-- Title -->
-				<div class="control-group">
-				  	<label class="control-label"></label>
-				  	<div class="controls">
-				    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
-				    
-				  	</div>
-				</div>
-			</div>
-
-			<!-- Multiple Checkboxes -->
-			<div class="span4">
-				<div class="control-group">
-				  	<div class="controls">
-				  		<div class="btn-group" data-toggle="buttons-checkbox">
-				  			<!-- <img src="images/note.png" type="button"/>
-				  			<img src="images/issue.png" type="button" /> -->
-				  			<button type="button" class="btn" id="ni-btn"><i class="icon-info-sign icon-color"></i> Note</button>
-				  			<!-- <button type="button" class="btn" id="i-btn">Issue</button> -->
-				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
-				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert</button>
-			  			</div>
-				  </div>
-				</div>
-			</div>
-			</div>
-
-			<!-- Message Text Area -->
-				<div class="control-group controls-row">
-					<div class="controls span8">                     
-				    <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
-				  	</div>
-				</div>
-
-			<!-- Tags -->
-				<div class="control-group controls-row">
-				  <div class="controls span8">
-					<div class="input-prepend input-xlarge" id="tags-input">
-				    	<span class="add-on" id="hashtag">#</span>
-				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
-				    </div>
-				    
-				  </div>
-				</div>
-
-			<!-- Submit -->
-
-				<div class="controls-row floatRight">
-					<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
-					<button type="button" id="cancelBtn" class="btn">Cancel</button>
-				</div>
-			</fieldset>
-			</form>
-		</div>
-			
-		</div>
-
-</div>
-
-</body>
-=======
 <!DOCTYPE html>
 
 <!--
@@ -355,7 +69,6 @@
 		Submits a reply when the reply button is clicked in the reading pane
 		*/
 		$(".replyButton").click(function() {
-			$("#formTitle").html("Create Reply");
 			openReplyForm();
 		});
 
@@ -363,16 +76,23 @@
 		Submits the form when the user clicks the Submit button
 		*/
 		$("#submitBtn").click(function() {
-			$("#formTitle").html("New Message");
-			submit();
+			if ($("#formTitle").html() == "Create New Message") {
+				submit();
+			} else {
+				submitReply();
+			}
 		});
 
 		/*
 		Submits the form when the user has focus on the Submit button and presses enter
 		*/
 		$("#submitBtn").keydown(function (e) {
-			if (e.which == 13) {
-				submit();
+				if (e.which == 13) {
+					if ($("#formTitle").html() == "Create New Message") {
+					submit();
+				} else {
+					submitReply();
+				}
 			}
 		});
 
@@ -551,5 +271,4 @@
 </div>
 
 </body>
->>>>>>> ad46b303ab1b49b28d1fa0b6341470271c8a1db9
 </html>
