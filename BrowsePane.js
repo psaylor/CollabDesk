@@ -3,6 +3,22 @@
  */
 
 var BrowsePane = function(){
+	
+	////////////////////
+	//"PUBLIC" FUNCTIONS
+	////////////////////
+
+	this.updateBrowsePane=function(divID, database){
+		$("#"+divID).empty();
+		$("#"+divID).append(this.getUnreadMessagesHTML(db));
+		$("#"+divID).append(this.getAllDatedMessagesHTML(db));
+	}
+
+
+	//////////////////
+	//helper functions
+	//////////////////
+
 	/**
 	* Converts a message to HTML to be displayed in the BrowserPane
 	*
@@ -45,6 +61,21 @@ var BrowsePane = function(){
 	};
 
 	/**
+	* Gets all undread messages and returns the html of them
+	*/
+	this.getUnreadMessagesHTML=function(database){
+		console.log("Messages that are unread:");
+		console.log(database.getUnreadMessages().length);
+		console.log("end unread list");
+		var output="<table class='table' id='unread'><thead><tr><th>Unread</th></tr></thead><tbody>";
+		if(database.getUnreadMessages().length>0){
+			output+=this.getSelectedMessagesHTML(database, database.getUnreadMessages());			
+		}
+		output+="</tbody></thead>"
+		return output;
+	};
+
+	/**
 	* Creates tables for each date and sorts messages accordingly
 	*
 	*/
@@ -56,7 +87,7 @@ var BrowsePane = function(){
 		var month; //string
 		var day; //string
 		var output="";
-		for (index in database.getAllMessages()){
+		for (index in database.getReadMessages()){ //CHANGE TO getReadMessages()
 			msg=database.getMessage(index);
 			//console.log(msg);
 			date= msg.date;
@@ -127,20 +158,14 @@ var BrowsePane = function(){
 	}
 
 	/**
-	* Given a list of messages, return the html corresponding to the id of the filtered 
+	* Given a list of message ids, return the html corresponding to the id of the filtered 
 	*/
-	this.getSelectedMessagesHTML=function(messageList){
+	this.getSelectedMessagesHTML=function(database, messageList){
 		var output = "";
 		for (i in messageList){
-			output+=getMessageHTML(messageList(i));
+			output+=this.getMessageHTML(database.getMessage(messageList[i]));
 		}
 		return output;
 	};
 
-	/**
-	* Gets all undread messages and returns the html of them
-	*/
-	this.getUnreadMessagesHTML=function(messageList){
-
-	};
 };
