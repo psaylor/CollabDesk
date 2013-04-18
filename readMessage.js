@@ -14,12 +14,12 @@ var displayMessage = function(message_id) {
   $('.originalMsgText').html(msg.text);
 
   // Display/hide appropriate icons
-  // if(msg.alert == Message.NO_ALERT) {
-  //   $('.captain').addClass('hidden');
-  // }
-  // if(msg.priority == Message.LOW_PRI) {
-  //   $('.high_pri').addClass('hidden');
-  // }
+  if(msg.alert == Message.NO_ALERT) {
+    $('.captain').addClass('hidden');
+  }
+  if(msg.priority == Message.LOW_PRI) {
+    $('.high_pri').addClass('hidden');
+  }
 
   // Display replies
  	var replies = msg.replies;
