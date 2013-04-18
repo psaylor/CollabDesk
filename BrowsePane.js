@@ -18,6 +18,7 @@ var BrowsePane = function(){
 
 		$("#"+divID).append(this.getAllDatedMessagesHTML(db));
 
+		//adding listeners again
 		$(".message").click(function(){
 			var focusedId=$(this).attr("id"); //id of message that is clicked
 			replyId = focusedId;
@@ -26,13 +27,32 @@ var BrowsePane = function(){
 		});
 	}
 
+	this.updateSearchedBrowsePane=function(divID, database, messageList){
+		$("#"+divID).empty();
+		var output="<table class='table' id='search'><thead><tr><th>Search Results</th></tr></thead><tbody>";
+		output+=this.getSelectedMessagesHTML(database, messageList);
+		output+="</tbody></thead>";
+		//console.log("in update");
+		//console.log(output);
+		$("#"+divID).append(output);
+
+		//adding listeners again
+		$(".message").click(function(){
+			var focusedId=$(this).attr("id"); //id of message that is clicked
+			replyId = focusedId;
+			displayMessage(focusedId);
+			console.log("GOT HERE");
+		});
+
+
+	};
 
 	//////////////////
 	//helper functions
 	//////////////////
 
 	/**
-	* Converts a message to HTML to be displayed in the BrowserPane
+	* Converts a single message to HTML to be displayed in the BrowserPane
 	*
 	*/
 	this.getMessageHTML=function(msg, index){
@@ -65,14 +85,6 @@ var BrowsePane = function(){
 	};
 
 	/**
-	* Moves message from unread list to list with dates
-	*
-	*/
-	this.moveReadMessage=function(message){
-
-	};
-
-	/**
 	* Gets all undread messages and returns the html of them
 	*/
 	this.getUnreadMessagesHTML=function(database){
@@ -101,7 +113,7 @@ var BrowsePane = function(){
 			msg=database.getMessage(index);
 			//console.log(msg);
 			date= msg.date;
-			console.log(date);
+			//console.log(date);
 
 			//setting 2 digit month
 			if(date.getMonth()+1<10){
@@ -110,7 +122,7 @@ var BrowsePane = function(){
 			else{
 				month=(date.getMonth()+1).toString();
 			}
-			console.log(month);
+			//console.log(month);
 
 			//setting 2 digit day
 			if(date.getDate().length<2){
@@ -138,6 +150,7 @@ var BrowsePane = function(){
 
 		dateList.reverse();
 		//console.log("dates: "+dateList);
+
 		for(index in dateList){
 			date = dateList[index];
 			output+=this.getDateTableHTML(db, date, hash[date])

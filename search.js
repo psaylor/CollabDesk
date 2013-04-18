@@ -54,10 +54,10 @@ var Search = function(){
 	 	var msgTitles = [];
 
 	 	for(index in msgIDs){
-	 		console.log(index+" corresponds to msgID "+msgIDs[index]);
+	 		//console.log(index+" corresponds to msgID "+msgIDs[index]);
 	 		msgTitles.push(database.getMessage(msgIDs[index]).title);
 	 	}
-	 	console.log(msgTitles);
+	 	//console.log(msgTitles);
 	 	return msgTitles;
 	 }
 };
