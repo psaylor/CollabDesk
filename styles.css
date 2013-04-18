@@ -150,17 +150,14 @@
 		height: 300px;
 	}
 
-	img.captain {
-		height: 30px;
-		width: 30px;
+	i.captain {
 		float: right;
-		margin-right: 10px;
+		margin-bottom: 10px;
 	}
 
-	img.high_pri {
-		height: 30px;
-		width: 30px;
+	i.high_pri {
 		float: right;
+		margin-right: 10px;
 		margin-bottom: 10px;
 	}
 
@@ -181,7 +178,6 @@
 	.originalMsgTitle {
 		float: left;
 		font-size: 1.5em;
-		padding-top: 10px;
 	}
 
 	.originalMsgBody {
