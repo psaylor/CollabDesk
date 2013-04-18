@@ -28,7 +28,9 @@ function openReplyForm() {
 	$("#formTitle").html(formTitleBar);
 
 	var title = $(".originalMsgTitle").html();
-	$("#textinput").val(title);
+	title = title.replace("Issue: ", "");
+	title = title.replace("Note: ", "");
+	$("#textinput").val("Re: " + title);
 
 	$("#textarea").val("");
 

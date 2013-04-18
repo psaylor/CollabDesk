@@ -251,51 +251,7 @@
 		width: 50px;
 	}
 
-	#messageForm {
-		border-color: 2px solid;
-		border-radius: 5px;
-		border-color: black;
-		width: 100%;
-		height: 20%;
-	}
-
-	#messageFormHeader {
-		text-align: left;
-		text-indent: 5%;
-		font-family: Helvetica;
-		border-bottom: 2px solid;
-		border-bottom-color: black;
-		width: 100%;
-	}
-
-	#templatesRow {
-		margin-left: 5%;
-	}
-
-	#titleLabel {
-		width: 25%;
-	}
-
-	#titleInputBox {
-		width: 75%;
-	}
-
-	#titleRow {
-		margin-left: 5%;
-	}
-
-	#messageBox {
-		height: 100px;
-		width: 80%;
-		margin-left: 5%;
-	}
-
-	#tagsLabel {
-		margin-left: 5%;
-	}
-
-	#tagBox {
-		margin-left: 5%;
-		width: 80%;
+	#formTitle { 
+		padding-left: 3px;
 	}
 
