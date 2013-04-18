@@ -1,4 +1,6 @@
 function reset() {
+	$("#submitBtn").html("Submit Message");
+
 	$("#textinput").val("");
 	$("#textarea").val("");
 	$("#prependedtext").val("");
@@ -14,6 +16,9 @@ function reset() {
 	$(".btn-group .btn.active").each(function() {
 		$("#" + this.id).removeClass("active");
 	});
+
+	$('#ni-note').removeClass('hide');
+	$('#ni-issue').addClass('hide');
 }
 
 function submit() {
@@ -33,6 +38,7 @@ function submit() {
 	var hiLowPriority = "pri-btn";
 	var alertCpt = "alert-btn";
 	var activeBtns = {noteIssue : Message.NOTE, hiLowPriority : Message.LOW_PRI, alertCpt : Message.NO_ALERT } ;
+
 	$(".btn-group .btn.active").each(function() {
 		switch(this.id) {
 			case noteIssue:

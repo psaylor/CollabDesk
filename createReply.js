@@ -1,21 +1,3 @@
-function reset() {
-	$("#textinput").val("");
-	$("#textarea").val("");
-	$("#prependedtext").val("");
-	// reset the template to the default value
-
-	var formTitleBar = "Create New Message<div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
-	$("#formTitle").html(formTitleBar);
-	$("#submitBtn").html("Submit Message");
-
-	$("select#selectTemplate").val("None Selected");
-
-	// Uncheck the radio buttons
-	$(".btn-group .btn.active").each(function() {
-		$("#" + this.id).removeClass("active");
-	});
-}
-
 function openReplyForm() {
 	// Uncheck the radio buttons
 	$(".btn-group .btn.active").each(function() {
@@ -24,11 +6,13 @@ function openReplyForm() {
 
 	$("select#selectTemplate").val("None Selected");
 
-	var formTitleBar = "Reply <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
+	var formTitleBar = "Reply<div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
 	$("#formTitle").html(formTitleBar);
 
 	var title = $(".originalMsgTitle").html();
-	$("#textinput").val(title);
+	title = title.replace("Issue: ", "");
+	title = title.replace("Note: ", "");
+	$("#textinput").val("Re: " + title);
 
 	$("#textarea").val("");
 
@@ -49,7 +33,7 @@ function openReplyForm() {
 	$("#submitBtn").html("Submit Reply");
 }
 
-function submitReply() {
+function submitReply(replyID) {
 	var title = $("#textinput").val();
 	var text = $("#textarea").val();
 	var tags = $("#prependedtext").val();
@@ -64,13 +48,9 @@ function submitReply() {
 	author = 'Julie';
 	date = new Date('19 Mar, 2013 13:07:00');
 	var reply = new Reply(title, text, author, tags, date);
-	msg.addReply(reply);
-
-	$("#submitBtn").html("Submit Message");
-
-	// Reset the form title bar to default
-	var formTitleBar = "New message <div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
-	$("#formTitle").html(formTitleBar);
+	console.log(msg);
+	db.getMessage(replyID).addReply(reply);
 
 	reset();
+	console.log("GOT HERE NIG");
 }

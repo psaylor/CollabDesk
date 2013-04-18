@@ -46,7 +46,6 @@ var Database = function() {
 			//result[id] = this.messages[id];
 			result.push(id);
 		}
-		//console.log(result);
 		return result;
 	}
 
@@ -62,7 +61,6 @@ var Database = function() {
 				result.push(i);
 			}
 		}
-		//console.log(result);
 		return result;
 	}
 

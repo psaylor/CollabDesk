@@ -59,7 +59,6 @@ var Message = function(title, text, author, tags, type, priority, alert, date) {
 			return this.formattedDay;
 		}
 		var formattedDay = MONTHS[this.date.getMonth()] + ' ' + this.date.getDate();
-		console.log(formattedDay);
 		this.formattedDay = formattedDay;
 		return formattedDay;
 
@@ -74,7 +73,6 @@ var Message = function(title, text, author, tags, type, priority, alert, date) {
 	    var minutes = (this.date.getMinutes() < 9 ? "0" : "") + this.date.getMinutes();
 	    var ampm = this.date.getHours() < 12 ? "AM" : "PM";
 	    var formattedTime = hours + ":" + minutes + " " + ampm;
-	    console.log(formattedTime);
 	    this.formattedTime = formattedTime;
 	    return formattedTime;
 	}
@@ -144,7 +142,6 @@ var Reply = function(title, text, author, tags, date) {
 			return this.formattedDay;
 		}
 		var formattedDay = MONTHS[this.date.getMonth()] + ' ' + this.date.getDate();
-		console.log(formattedDay);
 		this.formattedDay = formattedDay;
 		return formattedDay;
 
@@ -159,7 +156,6 @@ var Reply = function(title, text, author, tags, date) {
 	    var minutes = (this.date.getMinutes() < 9 ? "0" : "") + this.date.getMinutes();
 	    var ampm = this.date.getHours() < 12 ? "AM" : "PM";
 	    var formattedTime = hours + ":" + minutes + " " + ampm;
-	    console.log(formattedTime);
 	    this.formattedTime = formattedTime;
 	    return formattedTime;
 	}

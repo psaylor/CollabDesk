@@ -9,10 +9,23 @@ var BrowsePane = function(){
 	////////////////////
 
 	this.updateBrowsePane=function(divID, database){
+		//console.log("in updateBrowsePane() for " + divID);
 		$("#"+divID).empty();
+		//console.log($("#"+divID).html());
 		$("#"+divID).append(this.getUnreadMessagesHTML(db));
+		//console.log("after change!");
+		//console.log($("#"+divID).html());
+
 		$("#"+divID).append(this.getAllDatedMessagesHTML(db));
-	};
+
+		//adding listeners again
+		$(".message").click(function(){
+			var focusedId=$(this).attr("id"); //id of message that is clicked
+			replyId = focusedId;
+			displayMessage(focusedId);
+			console.log("GOT HERE");
+		});
+	}
 
 	this.updateSearchedBrowsePane=function(divID, database, messageList){
 		$("#"+divID).empty();
@@ -22,6 +35,14 @@ var BrowsePane = function(){
 		//console.log("in update");
 		//console.log(output);
 		$("#"+divID).append(output);
+
+		//adding listeners again
+		$(".message").click(function(){
+			var focusedId=$(this).attr("id"); //id of message that is clicked
+			replyId = focusedId;
+			displayMessage(focusedId);
+			console.log("GOT HERE");
+		});
 
 
 	};
@@ -67,14 +88,12 @@ var BrowsePane = function(){
 	* Gets all undread messages and returns the html of them
 	*/
 	this.getUnreadMessagesHTML=function(database){
-		//console.log("Messages that are unread:");
-		//console.log(database.getUnreadMessages().length);
-		//console.log("end unread list");
 		var output="<table class='table' id='unread'><thead><tr><th>Unread</th></tr></thead><tbody>";
 		if(database.getUnreadMessages().length>0){
 			output+=this.getSelectedMessagesHTML(database, database.getUnreadMessages());			
 		}
 		output+="</tbody></thead>"
+		//console.log(output);
 		return output;
 	};
 
@@ -131,7 +150,7 @@ var BrowsePane = function(){
 
 		dateList.reverse();
 		//console.log("dates: "+dateList);
-		//console.log(hash);
+
 		for(index in dateList){
 			date = dateList[index];
 			output+=this.getDateTableHTML(db, date, hash[date])
@@ -164,10 +183,12 @@ var BrowsePane = function(){
 	* Given a list of message ids, return the html corresponding to the id of the filtered 
 	*/
 	this.getSelectedMessagesHTML=function(database, messageList){
+		//console.log(messageList);
 		var output = "";
 		for (i in messageList){
 			output+=this.getMessageHTML(database.getMessage(messageList[i]), messageList[i]);
 		}
+		//console.log(output);
 		return output;
 	};
 
