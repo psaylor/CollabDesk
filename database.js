@@ -36,26 +36,30 @@ var Database = function() {
 		};
 	}
 
-	// returns a dictionary mapping message_id -> Message() object, which represents all unread messages
+	// returns a list of message id's for unread messages
 	// the message_id is the message's index in this.messages
 	this.getUnreadMessages = function(){
-		var result = {};
+		//var result = {};
+		var result = [];
 		for (var i = 0; i < this.unread.length; i++) {
 			var id = this.unread[i];
-			result[id] = this.messages[id];
+			//result[id] = this.messages[id];
+			result+=id;
 		}
 		console.log(result);
 		return result;
 	}
 
-	// returns a dictionary mapping message_id -> Message() objects for read messages
+	// returns a list of message id's for read messages
 	this.getReadMessages = function() {
-		var result = {};
+		//var result = {};
+		var result = [];
 		for (var i = 0; i < this.messages.length; i++) {
-			if (this.unread.indexOf(i) == -1) {
+			if (this.messages[i] && this.unread.indexOf(i) == -1) { //checking message existed (not deleted) and read
 				// the index of the message is not in the unread list
 				// so it is read
-				result[id] = this.messages[i];
+				//result[i] = this.messages[i];
+				result+=i;
 			}
 		}
 		console.log(result);

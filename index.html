@@ -39,8 +39,9 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var search = new Search();
-		var browsePane = new BrowsePane();		
-		$("#message-table").append(browsePane.getAllDatedMessagesHTML(db, "0301", [0,2]));
+		var browsePane = new BrowsePane();
+		
+		browsePane.updateBrowsePane("message-table",db);
 
 		// $("body").css("overflow", "hidden");
 		console.log(msg);
@@ -138,19 +139,7 @@
 					</div>
 				</div>
 				<div id="message-table">
-					<table class ="table">
-						<thead>
-							<tr>
-								<th>
-									Unread!
-								</th>
-							</tr>
-						</thead>
-						
-						<tbody>
-							<!--Messages added from db here-->						
-						</tbody>
-					</table>
+					<!--MESSAGES DYNAMICALLY ADDED HERE-->
 				</div>
 			</div>
 
