@@ -12,15 +12,26 @@ var BrowsePane = function(){
 		$("#"+divID).empty();
 		$("#"+divID).append(this.getUnreadMessagesHTML(db));
 		$("#"+divID).append(this.getAllDatedMessagesHTML(db));
-	}
+	};
 
+	this.updateSearchedBrowsePane=function(divID, database, messageList){
+		$("#"+divID).empty();
+		var output="<table class='table' id='search'><thead><tr><th>Search Results</th></tr></thead><tbody>";
+		output+=this.getSelectedMessagesHTML(database, messageList);
+		output+="</tbody></thead>";
+		//console.log("in update");
+		//console.log(output);
+		$("#"+divID).append(output);
+
+
+	};
 
 	//////////////////
 	//helper functions
 	//////////////////
 
 	/**
-	* Converts a message to HTML to be displayed in the BrowserPane
+	* Converts a single message to HTML to be displayed in the BrowserPane
 	*
 	*/
 	this.getMessageHTML=function(msg, index){
@@ -53,20 +64,12 @@ var BrowsePane = function(){
 	};
 
 	/**
-	* Moves message from unread list to list with dates
-	*
-	*/
-	this.moveReadMessage=function(message){
-
-	};
-
-	/**
 	* Gets all undread messages and returns the html of them
 	*/
 	this.getUnreadMessagesHTML=function(database){
-		console.log("Messages that are unread:");
-		console.log(database.getUnreadMessages().length);
-		console.log("end unread list");
+		//console.log("Messages that are unread:");
+		//console.log(database.getUnreadMessages().length);
+		//console.log("end unread list");
 		var output="<table class='table' id='unread'><thead><tr><th>Unread</th></tr></thead><tbody>";
 		if(database.getUnreadMessages().length>0){
 			output+=this.getSelectedMessagesHTML(database, database.getUnreadMessages());			
@@ -91,7 +94,7 @@ var BrowsePane = function(){
 			msg=database.getMessage(index);
 			//console.log(msg);
 			date= msg.date;
-			console.log(date);
+			//console.log(date);
 
 			//setting 2 digit month
 			if(date.getMonth()+1<10){
@@ -100,7 +103,7 @@ var BrowsePane = function(){
 			else{
 				month=(date.getMonth()+1).toString();
 			}
-			console.log(month);
+			//console.log(month);
 
 			//setting 2 digit day
 			if(date.getDate().length<2){
@@ -128,7 +131,7 @@ var BrowsePane = function(){
 
 		dateList.reverse();
 		//console.log("dates: "+dateList);
-		console.log(hash);
+		//console.log(hash);
 		for(index in dateList){
 			date = dateList[index];
 			output+=this.getDateTableHTML(db, date, hash[date])

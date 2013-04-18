@@ -100,22 +100,36 @@
 			}
 		});
 
-		/***********
-		* Listeners
-		************/
+		$("#search-button").click(function(event){
+			//console.log("clicked search button");
+			var inp=$("#search-tbox").val();
+			//console.log(inp);
+			var messageIDs=search.getMessageIDs(inp,db);
+			browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+			$(".ui-menu-item").hide()
+		});
+
 		$("#search-tbox").keydown(function(event){
 			if(event.which==13){ //checking for 'enter'
-				var inp=$(this).val();
-				console.log("Listening to ENTER. input is "+inp);
-				console.log(search.getMessageIDs(inp,db));
+				var inp=$("#search-tbox").val();
+				//console.log("Listening to ENTER. input is "+inp+"matching messages are ");
+				var messageIDs=search.getMessageIDs(inp,db);
+				//console.log("messageIDs");
+				//console.log(search.getMessageIDs(inp,db));
+				browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+				$(".ui-menu-item").hide()
 			}
 		});
 
 		$("#search-tbox").autocomplete({
 			source: function(request, response){
-				//console.log("request");
-				//console.log(request);
-				response(search.getMessageTitles(request.term.toLowerCase(),db));
+				//console.log(request.term);
+				if(request.term){
+					response(search.getMessageTitles(request.term.toLowerCase(),db));
+					var inp=$("#search-tbox").val();
+					var messageIDs=search.getMessageIDs(inp,db);
+					browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+				}
 			}
 		});
 	});
@@ -145,7 +159,7 @@
 				<div class="row-fluid">
 					<div class="input-append span11	">
 						<input type="text" class="input-block-level" id="search-tbox" autofocus />
-						<span class="add-on btn"><i class="icon-search icon-color"></i></span>
+						<span class="add-on btn"><i class="icon-search icon-color" id="search-button"></i></span>
 					</div>
 				</div>
 				<div id="message-table">
