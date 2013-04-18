@@ -23,7 +23,6 @@ var BrowsePane = function(){
 			var focusedId=$(this).attr("id"); //id of message that is clicked
 			replyId = focusedId;
 			displayMessage(focusedId);
-			console.log("GOT HERE");
 		});
 	}
 
