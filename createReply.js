@@ -20,13 +20,18 @@ function openReplyForm() {
 	var tagObj = $("div.tag");
 	var tags = Array();
 	for (var i = 0; i < tagObj.length; i++) {
-		tags.push($(tagObj[i]).html());
+		var tmpTag = $(tagObj[i]).html().replace("#", "");
+		tags.push(tmpTag);
 	}
 
 	// Currently separates tags by strings but need to separate into objects
 	var displayTags = "";
 	for (var i = 0; i < tags.length; i++) {
-		displayTags += tags[i] + ",";
+		if (i != 0) {
+			displayTags += ", " + tags[i];
+		} else {
+			displayTags += tags[i];
+		}
 	}
 	$("#prependedtext").val(displayTags);
 
@@ -52,5 +57,4 @@ function submitReply(replyID) {
 	db.getMessage(replyID).addReply(reply);
 
 	reset();
-	console.log("GOT HERE NIG");
 }
