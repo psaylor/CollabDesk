@@ -23,7 +23,7 @@ var BrowsePane = function(){
 	* Converts a message to HTML to be displayed in the BrowserPane
 	*
 	*/
-	this.getMessageHTML=function(msg){
+	this.getMessageHTML=function(msg, index){
 		var title = msg.title;
 		var text = msg.text.substring(0,125);
 		if(msg.text.length>125){ //if message was truncated to display
@@ -32,7 +32,7 @@ var BrowsePane = function(){
 		//console.log("title: "+title);
 		//console.log("text:" +text);
 
-		var output ="<tr><td><div class='message'><div class='title'>"
+		var output ="<tr><td><div class='message' id='"+index+"'><div class='title'>"
 					+title+"</div><div class='text'>"+text+"</div></div></td></tr>";
 		//console.log(output);
 		return output;
@@ -46,7 +46,7 @@ var BrowsePane = function(){
 		var msgList = database.getAllMessages(); //list of message objects
 		var output="";
 		for (var i=msgList.length-1; i>=0; i--){
-			output+=this.getMessageHTML(msgList[i]);
+			output+=this.getMessageHTML(msgList[i], i);
 		}
 		return output
 
@@ -150,7 +150,7 @@ var BrowsePane = function(){
 		var msg;
 		for(index in messageIdList){
 			msg = database.getMessage(messageIdList[index]);
-			output+=this.getMessageHTML(msg);
+			output+=this.getMessageHTML(msg, index);
 		}
 		output+="</tbody></table>";
 		return output;
@@ -163,7 +163,7 @@ var BrowsePane = function(){
 	this.getSelectedMessagesHTML=function(database, messageList){
 		var output = "";
 		for (i in messageList){
-			output+=this.getMessageHTML(database.getMessage(messageList[i]));
+			output+=this.getMessageHTML(database.getMessage(messageList[i]), messageList[i]);
 		}
 		return output;
 	};

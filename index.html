@@ -40,7 +40,7 @@
 	$(document).ready(function(){
 		var search = new Search();
 		var browsePane = new BrowsePane();
-		
+
 		browsePane.updateBrowsePane("message-table",db);
 
 		// $("body").css("overflow", "hidden");
@@ -50,6 +50,10 @@
 		console.log(db);
 		// display a static message in the reading pane (until this is called from browsing pane)
 		displayMessage(3);
+
+		$(".message").click(function(){
+			var focusedId=$(this).attr("id"); //id of message that is clicked
+		});
 
 		$("#cancelBtn").click(function() {
 			reset();
