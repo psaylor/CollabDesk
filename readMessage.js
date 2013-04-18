@@ -13,6 +13,9 @@ var displayMessage = function(message_id) {
   $('.originalMsgDetailsText').html(msg.author + " at " + msg.getTime() + " on " + msg.getDay());
   $('.originalMsgText').html(msg.text);
 
+  $('.captain').removeClass('hidden');
+  $('.high_pri').removeClass('hidden');
+
   // Display/hide appropriate icons
   if(msg.alert == Message.NO_ALERT) {
     $('.captain').addClass('hidden');
