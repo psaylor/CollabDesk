@@ -112,3 +112,8 @@ var db = new Database();
 	var date = new Date('22 Mar, 2013 15:30:00');
 	var msg = new Message(title, text, author, tags, type, priority, alert, date);
 	db.addMessage(msg);
+
+db.markRead(0);
+db.markRead(1);
+db.markRead(2);
+db.markRead(3);
