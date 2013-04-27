@@ -38,122 +38,135 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		console.debug("this is the browse pane development page");
-		var search = new Search();
-		var browsePane = new BrowsePane();
-		var newMessage = true;
-		var replyId = 0;
+        console.debug("this is the browse pane development page");
 
-		browsePane.updateBrowsePane("message-table",db);
+        // define global variables here
+        var search = new Search();
+        var browsePane;
+        var newMessage = true;
+        var replyId = 0;
 
-		// $("body").css("overflow", "hidden");
-		console.log(msg);
+        // view the preloaded database
+        console.log(db);
 
-		// view the preloaded database
-		console.log(db);
-		// display a static message in the reading pane (until this is called from browsing pane)
-		displayMessage(3);
+        function readPaneReady() {
+            console.debug('ready to work on read pane');
+            // display a static message in the reading pane (until this is called from browsing pane)
+            displayMessage(3);
+            
+        }
 
-		$(".message").click(function(){
-			var focusedId=$(this).attr("id"); //id of message that is clicked
-			replyId = focusedId;
-			displayMessage(focusedId);
-		});
+        function browsePaneReady() {
+            console.debug('ready to work on browse pane');
 
-		$("#cancelBtn").click(function() {
-			newMessage = true;
-			reset();
-		});
+            browsePane = new BrowsePane();
+            browsePane.updateBrowsePane("message-table",db);
 
-		$("#cancelBtn").click(function(e) {
-			if (e.which == 13) {
-				newMessage = true;
-				reset();
-			}
-		});
+            $(".message").click(function(){
+            var focusedId=$(this).attr("id"); //id of message that is clicked
+            replyId = focusedId;
+            displayMessage(focusedId);
+            });
 
-		$("#selectTemplate").change(function() {
-			fillTemplate();
-		});
+            $("#search-button").click(function(event){
+                //console.log("clicked search button");
+                var inp=$("#search-tbox").val();
+                //console.log(inp);
+                var messageIDs=search.getMessageIDs(inp,db);
+                browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+                $(".ui-menu-item").hide()
+            });
 
-		/*
-		Submits a reply when the reply button is clicked in the reading pane
-		*/
-		$(".replyButton").click(function() {
-			newMessage = false;
-			openReplyForm();
-		});
+            $("#search-tbox").keydown(function(event){
+                if(event.which==13){ //checking for 'enter'
+                    var inp=$("#search-tbox").val();
+                    //console.log("Listening to ENTER. input is "+inp+"matching messages are ");
+                    var messageIDs=search.getMessageIDs(inp,db);
+                    //console.log("messageIDs");
+                    //console.log(search.getMessageIDs(inp,db));
+                    browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+                    $(".ui-menu-item").hide()
+                }
 
-		/*
-		Submits the form when the user clicks the Submit button
-		*/
-		$("#submitBtn").click(function() {
-			console.log(newMessage);
-			if (newMessage) {
-				submit();
-			} else {
-				submitReply(replyId);
-				displayMessage(replyId);
-			}
-			newMessage = true;
-			browsePane.updateBrowsePane("message-table",db);
-		});
+                if(inp==null){
+                    browsePane.updateBrowsePane("message-table",db);
+                }
+            });
 
-		/*
-		Submits the form when the user has focus on the Submit button and presses enter
-		*/
-		$("#submitBtn").keydown(function (e) {
-				if (e.which == 13) {
-					console.log($("#formTitle").html());
-					if ($("#formTitle").html() == "Create New Message") {
-					submit();
-				} else {
-					submitReply(replyId);
-					displayMessage(replyId);
-				}
-				newMessage = true;
-				browsePane.updateBrowsePane("message-table",db);
+            $("#search-tbox").autocomplete({
+                source: function(request, response){
+                    //console.log(request.term);
+                    if(request.term){
+                        response(search.getMessageTitles(request.term.toLowerCase(),db));
+                        var inp=$("#search-tbox").val();
+                        var messageIDs=search.getMessageIDs(inp,db);
+                        browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+                    }
+                }
+            });
+        }
 
-			}
-		});
+        function createPaneReady() {
+            console.debug('ready to work on create pane');
 
-		$("#search-button").click(function(event){
-			//console.log("clicked search button");
-			var inp=$("#search-tbox").val();
-			//console.log(inp);
-			var messageIDs=search.getMessageIDs(inp,db);
-			browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
-			$(".ui-menu-item").hide()
-		});
+            $("#cancelBtn").click(function() {
+                newMessage = true;
+                reset();
+            });
 
-		$("#search-tbox").keydown(function(event){
-			if(event.which==13){ //checking for 'enter'
-				var inp=$("#search-tbox").val();
-				//console.log("Listening to ENTER. input is "+inp+"matching messages are ");
-				var messageIDs=search.getMessageIDs(inp,db);
-				//console.log("messageIDs");
-				//console.log(search.getMessageIDs(inp,db));
-				browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
-				$(".ui-menu-item").hide()
-			}
+            $("#cancelBtn").click(function(e) {
+                if (e.which == 13) {
+                    newMessage = true;
+                    reset();
+                }
+            });
 
-			if(inp==null){
-				browsePane.updateBrowsePane("message-table",db);
-			}
-		});
+            $("#selectTemplate").change(function() {
+                fillTemplate();
+            });
 
-		$("#search-tbox").autocomplete({
-			source: function(request, response){
-				//console.log(request.term);
-				if(request.term){
-					response(search.getMessageTitles(request.term.toLowerCase(),db));
-					var inp=$("#search-tbox").val();
-					var messageIDs=search.getMessageIDs(inp,db);
-					browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
-				}
-			}
-		});
-	});
+            /*
+            Submits a reply when the reply button is clicked in the reading pane
+            */
+            $(".replyButton").click(function() {
+                newMessage = false;
+                openReplyForm();
+            });
+
+            /*
+            Submits the form when the user clicks the Submit button
+            */
+            $("#submitBtn").click(function() {
+                console.log(newMessage);
+                if (newMessage) {
+                    submit();
+                } else {
+                    submitReply(replyId);
+                    displayMessage(replyId);
+                }
+                newMessage = true;
+                browsePane.updateBrowsePane("message-table",db);
+            });
+
+            /*
+            Submits the form when the user has focus on the Submit button and presses enter
+            */
+            $("#submitBtn").keydown(function (e) {
+                    if (e.which == 13) {
+                        console.log($("#formTitle").html());
+                        if ($("#formTitle").html() == "Create New Message") {
+                        submit();
+                    } else {
+                        submitReply(replyId);
+                        displayMessage(replyId);
+                    }
+                    newMessage = true;
+                    browsePane.updateBrowsePane("message-table",db);
+
+                }
+            });
+        }   
+    });
 	</script>
 
 </head>
