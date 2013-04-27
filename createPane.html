@@ -38,65 +38,7 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-
-		/*
-			LOAD THE DIFFERENT PANES FROM THEIR SEPARATE HTML PAGES
-			the pane-inner div is loaded into its corresponding pane-wrapper div
-		*/
-			$('#reading-pane-wrapper').load("readPane.html #reading-pane-inner", function(responseTxt,statusTxt,xhr) {
-				if (statusTxt =='success') {
-					console.debug('external content loaded');
-				} else if (statusTxt == 'error') {
-					console.debug("Error: " + xhr.status + ": " + xhr.statusText);
-				}
-
-				readPaneReady();
-
-			});
-		
-
-			$('#browse-pane-wrapper').load("browsePane.html #browse-pane-inner", function(responseTxt,statusTxt,xhr) {
-				if (statusTxt =='success') {
-					console.debug('external content loaded');
-				} else if (statusTxt == 'error') {
-					console.debug("Error: " + xhr.status + ": " + xhr.statusText);
-				}
-
-				browsePaneReady();
-			});
-		
-
-			$('#create-pane-wrapper').load("createPane.html #create-pane-inner", function(responseTxt,statusTxt,xhr) {
-				if (statusTxt =='success') {
-					console.debug('external content loaded');
-				} else if (statusTxt == 'error') {
-					console.debug("Error: " + xhr.status + ": " + xhr.statusText);
-				}
-
-				createPaneReady();
-			});
-
-		// define global variables here
-
-		function readPaneReady() {
-			console.debug('ready to work on read pane');
-
-		}
-
-		function browsePaneReady() {
-			console.debug('ready to work on browse pane');
-
-		}
-
-		function createPaneReady() {
-			console.debug('ready to work on create pane');
-			
-		}
-
-		console.debug('ready to start');
-		/*
-			Other initialization stuff
-		*/
+		console.debug("this is the create pane development page");
 		var search = new Search();
 		var browsePane = new BrowsePane();
 		var newMessage = true;
@@ -234,7 +176,7 @@
 	<div class="container-fluid">
 
 		<!-- browse pane -->
-			<div class="browse floatLeftNoPadding left white" id="browse-pane-wrapper">
+			<div class="browse floatLeftNoPadding left white">
 				<div id="browse-pane-inner">
 					<div class="row-fluid">
 						<div class="input-append span11	">
@@ -286,7 +228,7 @@
 
 
 		<!-- create message pane -->
-			<div class="create white" id="create-pane-wrapper">
+			<div class="create white">
 			<div id="create-pane-inner">
 			<form class="form">
 			<fieldset>
