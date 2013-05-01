@@ -38,11 +38,13 @@ var displayMessage = function(message_id) {
  		// Create new div for heading (title)
  		var replyHeaderDiv = $(document.createElement('div'))
   			.addClass('replyHeader')
+        .addClass('offset1')
   			.html(reply.title);
   	$(replyDiv).append(replyHeaderDiv);
 
   	// Create new div for body
   	var replyBodyDiv = $(document.createElement('div'))
+        .addClass('offset1')
   			.addClass('replyBody');
   	$(replyDiv).append(replyBodyDiv);
 
