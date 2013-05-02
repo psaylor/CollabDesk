@@ -60,13 +60,13 @@ var db = new Database();
 
 	var msg = new Message(title, text, author, tags, type, priority, alert, date);
 
-	// title = 'Same problem';
-	// text = 'Mailbox 715 combo also does not work';
-	// author = 'Julie';
-	// tags = [];
-	// date = new Date('19 Mar, 2013 13:07:00');
-	// var reply = new Reply(title, text, author, tags, date);
-	// msg.addReply(reply);
+	title = 'Same problem';
+	text = 'Mailbox 715 combo also does not work';
+	author = 'Julie';
+	tags = [];
+	date = new Date('19 Mar, 2013 13:07:00');
+	var reply = new Reply(title, text, author, tags, date);
+	msg.addReply(reply);
 
 	title = 'Fixed';
 	text = 'Jacinto came by and fixed it. All better =]';

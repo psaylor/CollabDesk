@@ -148,7 +148,7 @@
 */
 	.reading {
 		position: relative;
-		height: 300px;
+		/*height: 300px;*/
 	}
 
 	.captain {
@@ -162,14 +162,16 @@
 		margin-bottom: 10px;
 	}
 
+	.section {
+		padding: 10px;
+		border-radius: 4px;
+		margin: 10px;
+	}
+
 	img.authorPic {
 		height: 30px;
 		width: 30px;
 		margin-bottom: 10px;
-	}
-
-	.originalMsg {
-		border-bottom: solid LightGray 1px;
 	}
 
 	.originalMsgHeader {

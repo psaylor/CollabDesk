@@ -32,6 +32,8 @@ var displayMessage = function(message_id) {
 
     // Create new div for each reply
     var replyDiv = $(document.createElement('div'))
+        .addClass('section')
+        .addClass('white')
         .addClass('reply');
     $('.replies').append(replyDiv);
 
