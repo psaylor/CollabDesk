@@ -40,13 +40,11 @@ var displayMessage = function(message_id) {
  		// Create new div for heading (title)
  		var replyHeaderDiv = $(document.createElement('div'))
   			.addClass('replyHeader')
-        .addClass('offset1')
   			.html(reply.title);
   	$(replyDiv).append(replyHeaderDiv);
 
   	// Create new div for body
   	var replyBodyDiv = $(document.createElement('div'))
-        .addClass('offset1')
   			.addClass('replyBody');
   	$(replyDiv).append(replyBodyDiv);
 
@@ -90,7 +88,8 @@ var displayMessage = function(message_id) {
   $('.hashtags').empty();
   for (var j=0; j<msg.tags.length; j++) {
  		var tag = msg.tags[j];
-    var tagDiv = $(document.createElement('div'))
+    var tagDiv = $(document.createElement('button'))
+        .addClass('btn')
         .addClass('tag')
         .html("#"+tag);
     $('.hashtags').append(tagDiv);

@@ -193,9 +193,8 @@
 	}
 
 	.reply {
-		border-bottom: solid LightGray 1px;
-		padding-top: 5px;
-		padding-bottom: 5px;
+		padding-top: 10px;
+		padding-bottom: 10px;
 	}
 
 	.replyHeader {
@@ -225,13 +224,29 @@
 
 	.tag {
 		display: inline-block;
-		font-size: 10px;
-		line-height: 12px;
-		padding: 5px 7px;
+		font-size: 12px;
+		line-height: 14px;
+		/*padding: 5px 7px;*/
 		border-radius: 3px;
-		background: #66CC99;
+		background: #9FDFBF;
 		margin: 5px 4px;
+		font-family: sans-serif;
 	}
+
+	.tag:hover {
+		background: #79D2A6;
+	}
+
+	.tag:active {
+		background: #79D2A6;
+	}
+
+	.tag:focus {
+		background: #79D2A6;
+	}
+
+
+
 
 /*
 	CREATE PANE
