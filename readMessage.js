@@ -1,7 +1,7 @@
 /** READ MESSAGE DOCUMENTATION
  * Functions for read message pane.
  */
-
+ 
 
 // Given a message id, display all the content of that message in the read message pane,
 // including all the content of any replies to that message.
@@ -32,6 +32,8 @@ var displayMessage = function(message_id) {
 
     // Create new div for each reply
     var replyDiv = $(document.createElement('div'))
+        .addClass('section')
+        .addClass('white')
         .addClass('reply');
     $('.replies').append(replyDiv);
 
@@ -86,7 +88,8 @@ var displayMessage = function(message_id) {
   $('.hashtags').empty();
   for (var j=0; j<msg.tags.length; j++) {
  		var tag = msg.tags[j];
-    var tagDiv = $(document.createElement('div'))
+    var tagDiv = $(document.createElement('button'))
+        .addClass('btn')
         .addClass('tag')
         .html("#"+tag);
     $('.hashtags').append(tagDiv);

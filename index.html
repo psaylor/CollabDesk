@@ -40,7 +40,8 @@
 
 	<script type="text/javascript">
     $(document).ready(function(){
-    	/*
+
+	    /*
 			LOAD THE DIFFERENT PANES FROM THEIR SEPARATE HTML PAGES
 			the pane-inner div is loaded into its corresponding pane-wrapper div
 		*/
@@ -90,7 +91,14 @@
 			console.debug('ready to work on read pane');
 			// display a static message in the reading pane (until this is called from browsing pane)
 	        displayMessage(3);
-	        
+
+            /*Submits search to browse pane when a tag is clicked*/
+            $(".tag").click(function() {
+                var tagText = $(this).html();
+                // tagText = tagText.substring(1, tagText.length);
+                $('#search-tbox').val(tagText);
+                browsePane.updateSearchedBrowsePane('message-table', db, search.getMessageIDs(tagText, db));
+            });
 		}
 
 		function browsePaneReady() {
