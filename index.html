@@ -93,7 +93,14 @@
 			console.debug('ready to work on read pane');
 			// display a static message in the reading pane (until this is called from browsing pane)
 	        displayMessage(3);
-	        
+
+            /*Submits search to browse pane when a tag is clicked*/
+            $(".tag").click(function() {
+                var tagText = $(this).html();
+                // tagText = tagText.substring(1, tagText.length);
+                $('#search-tbox').val(tagText);
+                browsePane.updateSearchedBrowsePane('message-table', db, search.getMessageIDs(tagText, db));
+            });
 		}
 
 		function browsePaneReady() {
@@ -126,6 +133,7 @@
 	            }
 
 	            if(event.which==13){ //checking for 'enter'
+	                var inp=$("#search-tbox").val();
 	                //console.log("Listening to ENTER. input is "+inp+"matching messages are ");
 	                var messageIDs=search.getMessageIDs(inp,db);
 	                //console.log("messageIDs");
@@ -263,7 +271,7 @@
 				<div id="browse-pane-inner">
 					<div class="row-fluid">
 						<div class="input-append span11	">
-							<input type="text" class="input-block-level test" id="search-tbox" placeholder="Search by Tags, Titles, Message Bodies" autofocus />
+							<input type="text" class="input-block-level" id="search-tbox" autofocus />
 							<span class="add-on btn"><i class="icon-search icon-color" id="search-button"></i></span>
 						</div>
 					</div>
