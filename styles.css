@@ -90,11 +90,17 @@
 	.icon {
 		height: 20px;
 		width: 20px;
+		padding:0px;
+		line-height:0px;
 	}
 
 /*
 	BROWSE PANE
 */
+	.captain{
+
+	}
+
 	.browse {
 		width: 425px;
 		height: 100%;
@@ -102,6 +108,16 @@
 		border:0px;
 		float: left;
 		border-right: 1px solid GRAY;
+	}
+
+	.message-content{
+		margin-left: 1em;
+	}
+
+	.message-metadata{
+		float:right;
+		width: 10%;
+		display:inline;
 	}
 
 	#message-table{
@@ -131,16 +147,19 @@
 	    background-color: LightGray;
 	}
 	.table .title{
-		font-size: 1.5em;
+		font-size: 1.3em;
 		text-align: left;
+		width:85%;
+		display:block;
 	}
 	.table .text{
-		margin-top:0.75em;
-		margin-left:1em;
+		margin-top:0.4em;
 		word-spacing: 0.1em;
-		line-height:1.4em;
-		font-size: 1em;
+		line-height:1.1em;
+		font-size: 0.9em;
 		text-align: left;
+		width:85%;
+		display:block;
 	}
 
 /*

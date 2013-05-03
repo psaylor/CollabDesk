@@ -8,9 +8,16 @@ var Search = function(){
 	/*
 	* Given a string, return a list of message ids representing messages
 	* whose title, text (message), tags match the search request
+	* @param input string to search for
+	* @param database database to reference
 	*
 	*/
 	 this.getMessageIDs=function(input, database){
+	 	//default parameters
+	 	var searchTags = $('#check-tag').is(':checked');
+	 	var searchTitles = $('#check-title').is(':checked');
+	 	var searchText = $('#check-text').is(':checked');
+
 	 	var message_list = database.getAllMessages();
 	 	var matching_messages = [];
 	 	var msg;
@@ -23,16 +30,13 @@ var Search = function(){
 	 		title = msg.title.toLowerCase();
 	 		text = msg.text.toLowerCase();
 
-	 		//console.log("title: "+title);
-	 		//console.log("text: "+text);
-	 		//console.log(msg);
-	 		if(title.indexOf(inp)>-1){
+	 		if(searchTitles && title.indexOf(inp)>-1){
 	 			matching_messages.push(id);
 	 		}
-	 		else if(text.indexOf(inp)>-1){
+	 		else if(searchText && text.indexOf(inp)>-1){
 	 			matching_messages.push(id);
 	 		}
-	 		else if(msg.tags.length>0){
+	 		else if(searchTags && msg.tags.length>0){
 	 			for(index in msg.tags){
 	 				//console.log("tag:");
 	 				//console.log(msg.tags[index]);
@@ -59,5 +63,12 @@ var Search = function(){
 	 	}
 	 	//console.log(msgTitles);
 	 	return msgTitles;
+	 }
+
+	 this.showSearchDetails=function(){
+	 	htmlString="<input type='checkbox' name='Tags' value='Tags' id='check-tag' checked/> Tags "+
+	 				"<input type='checkbox' name='Title' value='Titled' id='check-title' checked/> Titles "+
+	 				"<input type='checkbox' name='Message' value='Message' id='check-text' checked/> Message Body";
+	 	return htmlString;
 	 }
 };
