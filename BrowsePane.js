@@ -8,6 +8,10 @@ var BrowsePane = function(){
 	//"PUBLIC" FUNCTIONS
 	////////////////////
 
+	/**
+	* Refreshes View for Browse Pane (called any time message or reply is added)
+	*
+	*/
 	this.updateBrowsePane=function(divID, database){
 		//console.log("in updateBrowsePane() for " + divID);
 		$("#"+divID).empty();
@@ -56,6 +60,8 @@ var BrowsePane = function(){
 	*/
 	this.getMessageHTML=function(msg, index){
 		var title = msg.title;
+		var date = msg.date;
+		var dateStr = date.getMonth()+"/"+date.getDate()+"/"+date.getYear();
 		var text = msg.text.substring(0,125);
 		if(msg.text.length>125){ //if message was truncated to display
 			text+="...";
@@ -63,8 +69,13 @@ var BrowsePane = function(){
 		//console.log("title: "+title);
 		//console.log("text:" +text);
 
-		var output ="<tr><td><div class='message' id='"+index+"'><div class='title'>"
-					+title+"</div><div class='text'>"+text+"</div></div></td></tr>";
+		var output ="<tr><td id='"+index+"'>"+
+					"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
+					"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+					"<div class='message-content'>"+
+					"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
+					"</div></div>"+
+					"</td></tr>";
 		//console.log(output);
 		return output;
 	};
@@ -130,7 +141,6 @@ var BrowsePane = function(){
 			else{
 				day=date.getDate();
 			}
-			console.log(day);
 
 			date=month+day; //4 numbers (as string)
 			
