@@ -61,7 +61,7 @@ var BrowsePane = function(){
 	this.getMessageHTML=function(msg, index){
 		var title = msg.title;
 		var date = msg.date;
-		var dateStr = date.getMonth()+"/"+date.getDate()+"/"+date.getYear();
+		var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
 		var text = msg.text.substring(0,125);
 		if(msg.text.length>125){ //if message was truncated to display
 			text+="...";

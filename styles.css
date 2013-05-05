@@ -112,11 +112,12 @@
 
 	.message-content{
 		margin-left: 1em;
+		width:90%;
 	}
 
 	.message-metadata{
 		float:right;
-		width: 10%;
+		width: 15%;
 		display:inline;
 	}
 
@@ -160,6 +161,9 @@
 		text-align: left;
 		width:85%;
 		display:block;
+	}
+	.timestamp{
+		font-size:80%;
 	}
 
 /*
