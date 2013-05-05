@@ -25,7 +25,7 @@
 	<script src="http://www.parsecdn.com/js/parse-1.2.7.min.js"></script>
 
 	<!-- Load our own Javascript files and stylesheets here -->
-	<!-- <script type="text/javascript" src="backend.js"></script> -->
+	<!--<script type="text/javascript" src="backend.js"></script> -->
 	<script type="text/javascript" src="message.js"></script>
 	<script type="text/javascript" src="database.js"></script>
 	<script type="text/javascript" src="preloadData.js"></script>
@@ -35,10 +35,15 @@
 	<script type="text/javascript" src="templates.js"></script>
 	<script type="text/javascript" src="search.js"></script>
 	<script type="text/javascript" src="BrowsePane.js"></script>
+	<script type="text/javascript" src="BrowsePaneListeners.js"></script>
 	<script type="text/javascript" src="tooltip.js"></script>
 	<link rel="stylesheet" href="styles.css" />
 
 	<script type="text/javascript">
+
+	// define global variables here
+		var search = new Search();
+		
     $(document).ready(function(){
 
 	    /*
@@ -78,8 +83,7 @@
 				createPaneReady();
 			});
 
-		// define global variables here
-		var search = new Search();
+		//variables
 		var browsePane;
 		var newMessage = true;
 		var replyId = 0;
@@ -103,88 +107,7 @@
                 $('#search-tbox').val(tagText);
                 browsePane.updateSearchedBrowsePane('message-table', db, search.getMessageIDs(tagText, db));
             });
-		}
-
-		function browsePaneReady() {
-			console.debug('ready to work on browse pane');
-
-			browsePane = new BrowsePane();
-			browsePane.updateBrowsePane("message-table",db);
-
-			$(".message").click(function(){
-            var focusedId=$(this).attr("id"); //id of message that is clicked
-            replyId = focusedId;
-            displayMessage(focusedId);
-	        });
-
-            $("#search-button").click(function(event){
-	            //console.log("clicked search button");
-	            var inp=$("#search-tbox").val();
-	            //console.log(inp);
-	            var messageIDs=search.getMessageIDs(inp,db);
-	            browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
-	            $(".ui-menu-item").hide()
-	        });
-
-	        $("#search-tbox").keydown(function(event){
-	            var inp=$("#search-tbox").val();
-	            
-	            if(!popoverShowing){
-	            	$(this).popover('show');
-	            	popoverShowing=true;
-	            }
-
-	            if(event.which==13){ //checking for 'enter'
-	                var inp=$("#search-tbox").val();
-	                //console.log("Listening to ENTER. input is "+inp+"matching messages are ");
-	                var messageIDs=search.getMessageIDs(inp,db);
-	                //console.log("messageIDs");
-	                //console.log(search.getMessageIDs(inp,db));
-	                browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
-	                $(".ui-menu-item").hide()
-	            }
-
-	            if(inp==null || inp.length<2){
-	                console.log("ELSE "+inp);
-	                browsePane.updateBrowsePane("message-table",db);
-	            }
-	        });
-
-	        $("#search-tbox").autocomplete({
-	            source: function(request, response){
-	                //console.log(request.term);
-	                if(request.term.length>2){
-	                    response(search.getMessageTitles(request.term.toLowerCase(),db));
-	                    var inp=$("#search-tbox").val();
-	                    var messageIDs=search.getMessageIDs(inp,db);
-	                    browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
-	                }
-	                else{
-	                	browsePane.updateBrowsePane("message-table", db);
-	                }
-	            }
-	        });
-
-	        //Advanced Search Popover
-	        $('#search-tbox').blur(function(event){
-	        	console.log(event);
-	        	console.log("FOCUS IS BELOW");
-	        	console.log($(':focus'));
-	        	if(!$('.popover').is('focus')){
-	        		//$(this).popover('hide');
-	        		//popoverShowing=false;
-	        	}
-	        });
-
-	        $('#search-tbox').popover({
-	        	title: 'Search Options',
-	        	trigger: 'manual',
-	        	html: true,
-	        	content: search.showSearchDetails()
-	        });
-
-
-		}
+		}		
 
 		function createPaneReady() {
 			console.debug('ready to work on create pane');
@@ -252,24 +175,9 @@
 </head>
 
 <body>
-	<div class="container">
-	<div class="navbar navbar-inverse navbar-static-top">
-		
-		<div class="navbar-inner">
-			<a class="brand" href="#">CollabDesk</a>
-			<p class="navbar-text pull-right">Sally</p>
-			<div class="pull-right">
-				<div class="avatar">
-					<img class="avatar" src="images/generic_avatar.jpg"/>
-				</div>
-				
-			</div>
 
-
-		</div>
-
-
-			<!-- <div class="floatLeft side">
+	<div class="loginHeader">
+			<div class="floatLeft side">
 				<h3 class="logo">CollabDesk</h3>
 			</div>
 			<div class="floatRight side">
@@ -278,9 +186,8 @@
 				</div>
 				<h3 class="side username">Sally</h3>
 			</div>
-			<div class="clear"></div> -->
+			<div class="clear"></div>
 	</div>
-</div>
 
 	<div class="container-fluid">
 
@@ -344,7 +251,7 @@
 
 			<!-- Form Name -->
 			<legend id="formTitle">Create New Message
-				<div class="floatRight btn" id="chevron-btn"><i class="icon-chevron-down"></i></div>
+				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
 			</legend>
 
 			<!-- Select Template -->
