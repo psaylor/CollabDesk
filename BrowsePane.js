@@ -32,9 +32,9 @@ var BrowsePane = function(){
 
 	this.updateSearchedBrowsePane=function(divID, database, messageList){
 		$("#"+divID).empty();
-		var output="<table class='table' id='search'><thead><tr><th>Search Results</th></tr></thead><tbody>";
+		var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
 		output+=this.getSelectedMessagesHTML(database, messageList);
-		output+="</tbody></thead>";
+		output+="</ul></div>";
 		//console.log("in update");
 		//console.log(output);
 		$("#"+divID).append(output);
@@ -69,13 +69,13 @@ var BrowsePane = function(){
 		//console.log("title: "+title);
 		//console.log("text:" +text);
 
-		var output ="<tr><td id='"+index+"'>"+
+		var output ="<li class = 'message' id='"+index+"'>"+
 					"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
 					"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
 					"<div class='message-content'>"+
 					"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
-					"</div></div>"+
-					"</td></tr>";
+					"</div>"+
+					"</li>";
 		//console.log(output);
 		return output;
 	};
@@ -95,14 +95,14 @@ var BrowsePane = function(){
 	};
 
 	/**
-	* Gets all undread messages and returns the html of them
+	* Gets all unread messages and returns the html of them
 	*/
 	this.getUnreadMessagesHTML=function(database){
-		var output="<table class='table' id='unread'><thead><tr><th>Unread</th></tr></thead><tbody>";
+		var output="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
 		if(database.getUnreadMessages().length>0){
 			output+=this.getSelectedMessagesHTML(database, database.getUnreadMessages());			
 		}
-		output+="</tbody></thead>"
+		output+="</ul></div>"
 		//console.log(output);
 		return output;
 	};
@@ -176,14 +176,13 @@ var BrowsePane = function(){
 	*/
 	this.getDateTableHTML=function(database, date, messageIdList){
 		var outputDate=date.substring(0,2)+"/"+date.substring(2);
-		var output="<table class='table' id='"+date+"'><thead><tr><th>"+outputDate
-					+"</th></tr></thead><tbody>";
+		var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul id='unread-content'>"
 		var msg;
 		for(index in messageIdList){
 			msg = database.getMessage(messageIdList[index]);
 			output+=this.getMessageHTML(msg, index);
 		}
-		output+="</tbody></table>";
+		output+="</ul></div>";
 		return output;
 
 	}
