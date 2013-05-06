@@ -6,8 +6,8 @@
 	}
 
 	img.avatar {
-		height: 30px;
-		width: 30px;
+		height: 40px;
+		width: 40px;
 	}
 
 	.loginHeader {
@@ -18,6 +18,42 @@
 	.loginHeader h3 {
 		margin: 0px;
 	}
+
+/* 
+	ICON STYLES
+*/
+	.icon-exclamation-sign {
+		color: red;
+	}
+
+	.icon-envelope-alt {
+		color: blue;
+	}
+
+	.icon-question-mark{
+		color: green;
+	}
+
+	.icon-reply {
+		color: blue;
+	}
+
+	.icon-user {
+		color: red;
+	}
+
+	.icon-time {
+
+	}
+
+	.icon-ok-circle {
+		/*replace issue when resolved*/
+	}
+
+	.icon-reorder {
+		color: purple;
+	}
+
 
 /*
 	GLOBAL STYLES
@@ -98,6 +134,7 @@
 	BROWSE PANE
 */
 	.browse {
+		/*padding-top: 42px;*/
 		width: 425px;
 		height: 100%;
 		padding-top: 0.5em;
@@ -144,6 +181,15 @@
 	}
 	.message-content:hover {
 	    background-color: LightGray;
+	}
+	.text{
+		margin-top:0.4em;
+		word-spacing: 0.1em;
+		line-height:1.1em;
+		font-size: 0.9em;
+		text-align: left;
+		width:85%;
+		display:block;
 	}
 	.title{
 		font-size: 1.3em;

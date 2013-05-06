@@ -61,7 +61,6 @@ var Message = function(title, text, author, tags, type, priority, alert, date) {
 		var formattedDay = MONTHS[this.date.getMonth()] + ' ' + this.date.getDate();
 		this.formattedDay = formattedDay;
 		return formattedDay;
-
 	}
 
 	// returns a formatted string for the 12-hour time of the date, i.e. "11:46 PM"

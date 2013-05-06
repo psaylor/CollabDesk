@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<!--
+  COLLABDESK PROTOTYPE:
+  	Patricia Saylor
+  	Divya Bajekal
+  	Jonathan Lui
+  	Benjamin Xie
+  	
+-->
+<html>
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<title>CollabDesk</title>
+
+	<!-- Load style sheets -->
+	<link rel="stylesheet" href="jquery-ui-1.10.2/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="font-awesome.min.css">
+
+	<!-- Load any supplemental Javascript libraries here -->
+	<script type="text/javascript" src="jquery-ui-1.10.2/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="jquery-ui-1.10.2/ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+	<script src="http://www.parsecdn.com/js/parse-1.2.7.min.js"></script>
+
+	<!-- Load our own Javascript files and stylesheets here -->
+	<!--<script type="text/javascript" src="backend.js"></script> -->
+	<script type="text/javascript" src="message.js"></script>
+	<script type="text/javascript" src="database.js"></script>
+	<script type="text/javascript" src="preloadData.js"></script>
+	<script type="text/javascript" src="readMessage.js"></scweript>
+	<script type="text/javascript" src="createMessage.js"></script>
+	<script type="text/javascript" src="createReply.js"></script>
+	<script type="text/javascript" src="templates.js"></script>
+	<script type="text/javascript" src="search.js"></script>
+	<script type="text/javascript" src="BrowsePane.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+	<link rel="stylesheet" href="styles.css" />
+
+	<script type="text/javascript">
+    $(document).ready(function(){
+
+	    /*
+			LOAD THE DIFFERENT PANES FROM THEIR SEPARATE HTML PAGES
+			the pane-inner div is loaded into its corresponding pane-wrapper div
+		*/
+			$('#reading-pane-wrapper').load("readPane.html #reading-pane-inner", function(responseTxt,statusTxt,xhr) {
+				if (statusTxt =='success') {
+					console.debug('external content loaded');
+				} else if (statusTxt == 'error') {
+					console.debug("Error: " + xhr.status + ": " + xhr.statusText);
+				}
+
+				readPaneReady();
+
+			});
+		
+
+			$('#browse-pane-wrapper').load("browsePane.html #browse-pane-inner", function(responseTxt,statusTxt,xhr) {
+				if (statusTxt =='success') {
+					console.debug('external content loaded');
+				} else if (statusTxt == 'error') {
+					console.debug("Error: " + xhr.status + ": " + xhr.statusText);
+				}
+
+				browsePaneReady();
+			});
+		
+
+			$('#create-pane-wrapper').load("createPane.html #create-pane-inner", function(responseTxt,statusTxt,xhr) {
+				if (statusTxt =='success') {
+					console.debug('external content loaded');
+				} else if (statusTxt == 'error') {
+					console.debug("Error: " + xhr.status + ": " + xhr.statusText);
+				}
+
+				createPaneReady();
+			});
+
+		// define global variables here
+		var search = new Search();
+		var browsePane;
+		var newMessage = true;
+		var replyId = 0;
+		var popoverShowing=false;
+		var searchTags=true;
+		var searchTitles=true;
+		var searchText=true;
+
+		// view the preloaded database
+		console.log(db);
+
+		function readPaneReady() {
+			console.debug('ready to work on read pane');
+			// display a static message in the reading pane (until this is called from browsing pane)
+	        displayMessage(3);
+
+            /*Submits search to browse pane when a tag is clicked*/
+            $(".tag").click(function() {
+                var tagText = $(this).html();
+                // tagText = tagText.substring(1, tagText.length);
+                $('#search-tbox').val(tagText);
+                browsePane.updateSearchedBrowsePane('message-table', db, search.getMessageIDs(tagText, db));
+            });
+		}
+
+		function browsePaneReady() {
+			console.debug('ready to work on browse pane');
+
+			browsePane = new BrowsePane();
+			browsePane.updateBrowsePane("message-table",db);
+
+			$(".message").click(function(){
+            var focusedId=$(this).attr("id"); //id of message that is clicked
+            replyId = focusedId;
+            displayMessage(focusedId);
+	        });
+
+            $("#search-button").click(function(event){
+	            //console.log("clicked search button");
+	            var inp=$("#search-tbox").val();
+	            //console.log(inp);
+	            var messageIDs=search.getMessageIDs(inp,db);
+	            browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+	            $(".ui-menu-item").hide()
+	        });
+
+	        $("#search-tbox").keydown(function(event){
+	            var inp=$("#search-tbox").val();
+	            
+	            if(!popoverShowing){
+	            	$(this).popover('show');
+	            	popoverShowing=true;
+	            }
+
+	            if(event.which==13){ //checking for 'enter'
+	                var inp=$("#search-tbox").val();
+	                //console.log("Listening to ENTER. input is "+inp+"matching messages are ");
+	                var messageIDs=search.getMessageIDs(inp,db);
+	                //console.log("messageIDs");
+	                //console.log(search.getMessageIDs(inp,db));
+	                browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+	                $(".ui-menu-item").hide()
+	            }
+
+	            if(inp==null || inp.length<2){
+	                console.log("ELSE "+inp);
+	                browsePane.updateBrowsePane("message-table",db);
+	            }
+	        });
+
+	        $("#search-tbox").autocomplete({
+	            source: function(request, response){
+	                //console.log(request.term);
+	                if(request.term.length>2){
+	                    response(search.getMessageTitles(request.term.toLowerCase(),db));
+	                    var inp=$("#search-tbox").val();
+	                    var messageIDs=search.getMessageIDs(inp,db);
+	                    browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+	                }
+	                else{
+	                	browsePane.updateBrowsePane("message-table", db);
+	                }
+	            }
+	        });
+
+	        //Advanced Search Popover
+	        $('#search-tbox').blur(function(event){
+	        	console.log(event);
+	        	console.log("FOCUS IS BELOW");
+	        	console.log($(':focus'));
+	        	if(!$('.popover').is('focus')){
+	        		//$(this).popover('hide');
+	        		//popoverShowing=false;
+	        	}
+	        });
+
+	        $('#search-tbox').popover({
+	        	title: 'Search Options',
+	        	trigger: 'manual',
+	        	html: true,
+	        	content: search.showSearchDetails()
+	        });
+
+
+		}
+
+		function createPaneReady() {
+			console.debug('ready to work on create pane');
+
+			$('#chevron-btn').click(function() {
+				console.log("chevron btn clicked"); 
+				$('#create-pane-wrapper').hide();
+			});
+
+			$("#cancelBtn").click(function() {
+	            newMessage = true;
+	            reset();
+	        });
+
+	        $("#cancelBtn").click(function(e) {
+	            if (e.which == 13) {
+	                newMessage = true;
+	                reset();
+	            }
+	        });
+
+	        $("#selectTemplate").change(function() {
+	            fillTemplate();
+	        });
+
+	        /*
+	        Submits a reply when the reply button is clicked in the reading pane
+	        */
+	        $(".replyButton").click(function() {
+	            newMessage = false;
+	            openReplyForm();
+	        });
+
+	        /*
+	        Submits the form when the user clicks the Submit button
+	        */
+	        $("#submitBtn").click(function() {
+	            console.log(newMessage);
+	            if (newMessage) {
+	                submit();
+	            } else {
+	                submitReply(replyId);
+	                displayMessage(replyId);
+	            }
+	            newMessage = true;
+	            browsePane.updateBrowsePane("message-table",db);
+	        });
+
+	        /*
+	        Submits the form when the user has focus on the Submit button and presses enter
+	        */
+	        $("#submitBtn").keydown(function (e) {
+	                if (e.which == 13) {
+	                    console.log($("#formTitle").html());
+	                    if ($("#formTitle").html() == "Create New Message") {
+	                    submit();
+	                } else {
+	                    submitReply(replyId);
+	                    displayMessage(replyId);
+	                }
+	                newMessage = true;
+	                browsePane.updateBrowsePane("message-table",db);
+
+	            }
+	        });
+		}	
+    });
+	</script>
+
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<a class="brand" href="#">CollabDesk</a>
+				<button class="btn">Create Message</button>
+				
+				<img class="avatar pull-right" src="images/generic_avatar.jpg"/>
+				<ul class="nav pull-right">
+					<li><a href="" id="username-link">Sally</a></li>
+				</ul>
+
+			
+			</div> <!-- navbar-inner -->
+		</div> <!-- navbar -->
+	</div> <!-- container div -->
+
+		  <div class="row-fluid">
+		    <div class="span4">
+		      <!--Sidebar content-->
+			<!-- browse pane -->
+		<div class="browse floatLeftNoPadding left white" id="browse-pane-wrapper">
+			<div id="browse-pane-inner">
+				<div class="row-fluid">
+					<div class="input-append span11	">
+						<input type="text" class="input-block-level" id="search-tbox" autofocus />
+						<span class="add-on btn"><i class="icon-search icon-color" id="search-button"></i></span>
+					</div>
+				</div>
+				<div id="message-table">
+					<!--MESSAGES DYNAMICALLY ADDED HERE-->
+				</div>
+			</div>
+		</div>
+
+		    </div>
+		    <div class="span8">
+		      <!--Body content-->
+		    </div>
+		  </div>
+
+
+		
+
+			
+
+	
+
+
+	
+
+</body>
+</html>

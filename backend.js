@@ -1,24 +1,22 @@
-function login( ) {
-	Parse.User.logIn(username, password, {
-		success: function(user) {
-			console.log(user + " successfully logged in");
-  		},
-  		error: function(user, error) {
-  			console.debug(user + " failed to log in");
-  		}
-	});
-}
+/*
+	BACKEND CODE THAT WORKS WITH PARSE TO STORE AND RETRIEVE DATA
 
-function getUsername( ){
-	return Parse.User.current();
-}
+	SUPPORTS THE FOLLOWING FUNCTIONALITIES:
+		- 	search by tag, title, or message content (or combin)
+		- 	get msg data the includes date
+
+*/
+
+Parse.initialize("Cd5KiDlPT0SCL3TWJ8vFQRyPhiLaSyMHZgOpD9vN", "XpZzyrBR3thekxFgyoKXElFCdGQxJiieFWqZZKhc");
 
 var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 // Database objects
 var Message;
 var Reply;
-
+// var MessageQuery;
+var cdUser;
+var readRelation;
 
 // Constants
 HIGH_PRI = true;
@@ -28,10 +26,57 @@ NO_ALERT = false;
 NOTE = "Note";
 ISSUE = "Issue";
 
-function initializeBackend() {
 
-	Parse.initialize("Cd5KiDlPT0SCL3TWJ8vFQRyPhiLaSyMHZgOpD9vN", "XpZzyrBR3thekxFgyoKXElFCdGQxJiieFWqZZKhc");
-	
+function login(username, password ) {
+	Parse.User.logIn(username, password, {
+		success: function(user) {
+			console.log(user + " successfully logged in");
+			cdUser = user;
+			setReadRelation(user);
+  		},
+  		error: function(user, error) {
+  			console.debug(user + " failed to log in");
+  		}
+	});
+}
+
+function signup( username, pswd, email) {
+	var user = new Parse.User();
+	user.set('username', username);
+	user.set('password', pswd);
+	if (email) {
+		user.set('email', email);
+	}
+
+	user.signUp(null, {
+		success: function(user) {
+			console.log('successful user signup');
+			console.log(user);
+			setReadRelation(user);
+		},
+		error: function(user, error) {
+			console.log('could not complete signup');
+			console.log(error);
+		}
+	});
+	cdUser = user;
+	return user;
+}
+
+login('Timberlake', '123');
+
+
+function getUsername( ){
+	return Parse.User.current();
+}
+
+function setReadRelation(user) {
+	readRelation = user.relation("read");
+}
+
+/*
+	INITLIALIZETHE BACKEND OBJECTS MESSAGE AND REPLY
+*/	
 	Message = Parse.Object.extend("Message", { 
 			// Instance methods
 			getDay: function() {
@@ -61,13 +106,13 @@ function initializeBackend() {
 			    return formattedTime;
 			},
 
-			// addReply: function(reply) {
-			// 	console.debug("adding reply: " + reply);
-			// 	this.add("replies", reply);
-			// 	this.save();
-			// 	reply.set("parent", this);
-			// 	reply.save();
-			// }
+			addReply: function(reply) {
+				console.debug("adding reply: " + reply);
+				// this.
+				this.add("replies", reply);
+				this.save();
+			}
+
 		}, {
 			// Class methods
 			create: function(title, text, author, tags, type, priority, alert, date) {
@@ -143,35 +188,182 @@ function initializeBackend() {
 			} else {
 				reply.set("date", new Date());
 			}
+			reply.set('parent', parentMsg);
 			reply.save(null, {
 				success: function(object) {
 					console.debug("reply saved");
-					this.set("parent", parentMsg);
-					this.save(null, {
-						success: function(object) {
-							console.debug("reply's parent info saved");
-						},
-						error: function(object, error) {
-							console.debug("error saving object");
-							console.debug(object);
-							console.debug(error);
-						}
-					});
-					parentMsg.addUnique("replies", this);
-					parentMsg.save();
+					parentMsg.addReply(reply);
 				},
 				error: function(object, error) {
 					console.debug(error);
 					console.debug(object);
 				}
 			});
+			console.debug('trying to set replies on parent');
 			return reply;
 		},
 	});
 
+
+/* 
+	QUERY FUNCTIONALITY
+*/
+
+	function getUnreadMessages(onSuccess, onError) {
+		var query = new Parse.Query(Message);
+		// var innerQuery = readRelation.query();
+		// query.doesNotMatchQuery("")
+		query.doesNotExist("read");
+		query.find({
+			success: function(unreadMsgList) {
+				console.log("got all UNread messages");
+				console.log(unreadMsgList);
+				if (onSuccess) {
+					onSuccess(unreadMsgList);
+				}
+			},
+			error: function(obj, error) {
+				console.log('could not get unread msgs');
+				console.log(error);
+				if (onError) {
+					onError(obj, error);
+				}
+			}
+		});
+	}
+
+	function getReadMessages(onSuccess, onError) {
+		var query = readRelation.query().find({
+			success: function(readMsgList) {
+				console.log("got all read messages");
+				console.log(readMsgList);
+				if (onSuccess) {
+					onSuccess(readMsgList);
+				}
+			},
+			error: function(obj, error) {
+				console.log('could not get read msgs');
+				console.log(error);
+				if (onError) {
+					onError(obj, error);
+				}
+			}
+		});
+	}
+
+	function getAllMessages(onSuccess, onError) {
+		var query = new Parse.Query(Message);
+		query.find({
+			success: function(allMsgs) {
+				console.log("got all messages");
+				console.log(allMsgs);
+				if (onSuccess) {
+					onSuccess(allMsgs);
+				}
+			},
+			error: function(obj, error) {
+				console.log('could not get read msgs');
+				console.log(error);
+				if (onError) {
+					onError(obj, error);
+				}
+			}
+		});
+	}
+
+	function getMessage(message_id) {
+		var query = new Parse.Query(Message);
+		query.get( message_id, {
+			success: function(msg) {
+				console.log("got message " + message_id);
+				console.log(msg);
+				if (onSuccess) {
+					onSuccess(msg);
+				}
+			},
+			error: function(obj, error) {
+				console.log('could not get msg ' + message_id);
+				console.log(error);
+				if (onError) {
+					onError(obj, error);
+				}
+			}
+		});
+	}
+
+	/* 
+		ADVANCED SEARCHING
+	*/
+	/*
+	expects an options dictionary with the following (optional) fields:
+		tags
+		title
+		content
+
+		an example way to create options
+		var options = {
+			tags : ['tag1', 'tag2'],
+			title: ['phone'],
+			text: ['the'],
+			author: 'Ben'
+		}
+
+	*/
+	function advancedSearch(options, onSuccess, onError) {
+		var query = new Parse.Query(Message);
+
+		if (options.tags) {
+			query.containsAll("tags", options.tags);
+		}
+		if (options.title) {
+			for (var i = options.title.length - 1; i >= 0; i--) {
+				query.contains("title", options.title[i]);
+			};
+		}
+		if (options.text) {
+			for (var i = options.text.length - 1; i >= 0; i--) {
+				query.contains("text", options.text[i]);
+			};
+		}
+		if (options.author) {
+			query.contains("author", options.author);
+		}
+
+		query.find({
+			success: function(matches) {
+				console.log("got all matches");
+				console.log(matches);
+				if (onSuccess) {
+					onSuccess(matches);
+				}
+			},
+			error: function(obj, error) {
+				console.log('could not get matches');
+				console.log(error);
+				if (onError) {
+					onError(obj, error);
+				}
+			}
+		});
+	}
+
+
+function markRead(msg) {
+	readRelation.add(msg);
+	cdUser.save(null, {
+		success: function(obj) {
+			console.log("saved that user read msg");
+			console.log(obj);
+			cdUser = obj;
+		},
+		error: function(obj, error) {
+			console.log('could not save user reading msg');
+			console.log(error);
+		}
+	});
 }
 
-initializeBackend();
+
 
 var title = 'Visa card found';
 	var text = 'A visa card was found on one of the tables at dining today. It does not have a name on it.';
@@ -181,29 +373,40 @@ var title = 'Visa card found';
 	var priority = HIGH_PRI;
 	var alert = false;
 	var date = new Date('17 Mar, 2013 15:15:00');
+
+	title = 'Package for Jane';
+	text = "A package came in for Jane, but she doesn't live here, and I can't find any record of her. It's in bin 6 for now.";
+	author = "Ben";
+	tags = ['package'];
+	type = Message.ISSUE;
+	priority = Message.LOW_PRI;
+	alert = true;
+	var date = new Date('17 Mar, 2013 10:28:00');
+
 var msg = Message.create(title, text, author, tags, type, priority, alert, date);
 console.log("done with message.");
 console.log(msg);
 console.log('message day: ' + msg.getDay());
 
-title = 'Fixed';
-	text = 'Jacinto came by and fixed it. All better =]';
-	author = 'Sam';
-	tags = ['fixed'];
-	date = new Date('19 Mar, 2013 15:31:00');
-	var reply = Reply.create(title, text, author, tags, date, msg);
-	// msg.addReply(reply);
-	console.debug("msg day: " + msg.getDay());
+// title = 'Fixed';
+// 	text = 'Sally picked up her id. All better =]';
+// 	author = 'Sam';
+// 	tags = ['fixed'];
+// 	date = new Date('19 Mar, 2013 15:31:00');
+// 	var reply = Reply.create(title, text, author, tags, date, msg);
+// 	// msg.addReply(reply);
+// 	console.debug("msg day: " + msg.getDay());
 
-var MsgQuery = new Parse.Query(Message);
-var succmsg;
-var msg2 = MsgQuery.get("hgeWXPOWgx", {
-	success: function(object) {
-		succmsg = object;
-		console.log('successful get msg');
-	},
-	error : function(object, error) {
-		console.log('error getting object');
-		console.log(error);
-	}
-});
+// var MsgQuery = new Parse.Query(Message);
+// var msg2 = null;
+// MsgQuery.get("6LU7Ua5OEp", {
+// 	success: function(object) {
+// 		msg2 = object;
+// 		console.debug('successful get msg');
+// 	},
+// 	error : function(object, error) {
+// 		console.debug('error getting object');
+// 		console.debug(error);
+// 	}
+// });
+
