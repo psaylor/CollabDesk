@@ -291,6 +291,63 @@ function setReadRelation(user) {
 		});
 	}
 
+	/* 
+		ADVANCED SEARCHING
+	*/
+	/*
+	expects an options dictionary with the following (optional) fields:
+		tags
+		title
+		content
+
+		an example way to create options
+		var options = {
+			tags : ['tag1', 'tag2'],
+			title: ['phone'],
+			text: ['the'],
+			author: 'Ben'
+		}
+
+	*/
+	function advancedSearch(options, onSuccess, onError) {
+		var query = new Parse.Query(Message);
+
+		if (options.tags) {
+			query.containsAll("tags", options.tags);
+		}
+		if (options.title) {
+			for (var i = options.title.length - 1; i >= 0; i--) {
+				query.contains("title", options.title[i]);
+			};
+		}
+		if (options.text) {
+			for (var i = options.text.length - 1; i >= 0; i--) {
+				query.contains("text", options.text[i]);
+			};
+		}
+		if (options.author) {
+			query.contains("author", options.author);
+		}
+
+		query.find({
+			success: function(matches) {
+				console.log("got all matches");
+				console.log(matches);
+				if (onSuccess) {
+					onSuccess(matches);
+				}
+			},
+			error: function(obj, error) {
+				console.log('could not get matches');
+				console.log(error);
+				if (onError) {
+					onError(obj, error);
+				}
+			}
+		});
+	}
+
+
 function markRead(msg) {
 	readRelation.add(msg);
 	cdUser.save(null, {
