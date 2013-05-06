@@ -271,7 +271,7 @@ function setReadRelation(user) {
 		});
 	}
 
-	function getMessage(message_id) {
+	function getMessage(message_id, onSuccess, onError) {
 		var query = new Parse.Query(Message);
 		query.get( message_id, {
 			success: function(msg) {
