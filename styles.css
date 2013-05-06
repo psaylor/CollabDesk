@@ -97,10 +97,6 @@
 /*
 	BROWSE PANE
 */
-	.captain{
-
-	}
-
 	.browse {
 		width: 425px;
 		height: 100%;
@@ -109,12 +105,21 @@
 		float: left;
 		border-right: 1px solid GRAY;
 	}
-
+	.bucket{
+		background-color: #339966;
+		color: white;
+		font-weight:bold;
+		border-bottom: 1px solid gray;
+		padding: 5px;
+		text-indent:1em;
+	}
+	.hidden{
+		visibility: hidden;
+	}
 	.message-content{
 		margin-left: 1em;
 		width:90%;
 	}
-
 	.message-metadata{
 		float:right;
 		width: 15%;
@@ -128,14 +133,7 @@
 		overflow: auto;
 	}
 
-	.table thead{
-		background-color: white;
-		color: black;
-		border-bottom: 1px solid black;
-		padding: 2px;
-	}
-
-	.table tbody tr{
+	.message-content{
 		border-top: 1px solid LightGray;
 		border-bottom: 1px solid LightGray;	
 	    line-height: 18px;
@@ -144,26 +142,22 @@
 	    vertical-align: top;
 	    height:5em;
 	}
-	.table tbody tr:hover td {
+	.message-content:hover {
 	    background-color: LightGray;
 	}
-	.table .title{
+	.title{
 		font-size: 1.3em;
-		text-align: left;
-		width:85%;
-		display:block;
-	}
-	.table .text{
-		margin-top:0.4em;
-		word-spacing: 0.1em;
-		line-height:1.1em;
-		font-size: 0.9em;
 		text-align: left;
 		width:85%;
 		display:block;
 	}
 	.timestamp{
 		font-size:80%;
+	}
+
+	ul, li {
+		list-style:none;
+		margin: 0;
 	}
 
 /*
