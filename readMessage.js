@@ -121,6 +121,5 @@ function msgHandler(msg_object) {
         .html(reply.text);
     $(replyBodyDiv).append(replyTextDiv);
   }
-}
- 
 
+}

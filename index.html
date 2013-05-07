@@ -17,6 +17,7 @@
 	<!-- Load style sheets -->
 	<link rel="stylesheet" href="jquery-ui-1.10.2/themes/smoothness/jquery-ui.css" />
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="font-awesome.min.css">
 
 	<!-- Load any supplemental Javascript libraries here -->
 	<script type="text/javascript" src="jquery-ui-1.10.2/jquery-1.9.1.js"></script>
@@ -25,10 +26,10 @@
 	<script src="http://www.parsecdn.com/js/parse-1.2.7.min.js"></script>
 
 	<!-- Load our own Javascript files and stylesheets here -->
-	<script type="text/javascript" src="backend.js"></script> 
-	<!-- // <script type="text/javascript" src="message.js"></script> -->
-	<!-- // <script type="text/javascript" src="database.js"></script> -->
-	<!-- // <script type="text/javascript" src="preloadData.js"></script> -->
+	<script type="text/javascript" src="backend.js"></script>
+	<!-- <script type="text/javascript" src="message.js"></script> -->
+	<!-- <script type="text/javascript" src="database.js"></script> -->
+	<!--<script type="text/javascript" src="preloadData.js"></script>-->
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
@@ -42,7 +43,6 @@
 	<script type="text/javascript">
 
 	// define global variables here
-		var search = new Search();
 		var popoverShowing=false;
 
 		
@@ -86,7 +86,6 @@
 			});
 
 		//variables
-		var browsePane;
 		var newMessage = true;
 		var replyId = 0;
 		var popoverShowing=false;
@@ -95,7 +94,7 @@
 		var searchText=true;
 
 		// view the preloaded database
-		console.log(db);
+		//console.log(db);
 
 		function readPaneReady() {
 			console.debug('ready to work on read pane');
@@ -107,7 +106,7 @@
                 var tagText = $(this).html();
                 // tagText = tagText.substring(1, tagText.length);
                 $('#search-tbox').val(tagText);
-                browsePane.updateSearchedBrowsePane('message-table', db, search.getMessageIDs(tagText, db));
+                updateSearchedBrowsePane('message-table', getMessageIDs(tagText));
             });
 		}		
 

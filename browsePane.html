@@ -24,9 +24,10 @@
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 
 	<!-- Load our own Javascript files and stylesheets here -->
-	<script type="text/javascript" src="message.js"></script>
-	<script type="text/javascript" src="database.js"></script>
-	<script type="text/javascript" src="preloadData.js"></script>
+	<script type="text/javascript" src="backend.js"></script>
+	<!--<script type="text/javascript" src="message.js"></script>-->
+	<!--<script type="text/javascript" src="database.js"></script>-->
+	<!--<script type="text/javascript" src="preloadData.js"></script>-->
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
@@ -42,12 +43,11 @@
 
         // define global variables here
         var search = new Search();
-        var browsePane;
         var newMessage = true;
         var replyId = 0;
 
         // view the preloaded database
-        console.log(db);
+        //console.log(db);
 
         function readPaneReady() {
             console.debug('ready to work on read pane');
@@ -59,8 +59,7 @@
         function browsePaneReady() {
             console.debug('ready to work on browse pane');
 
-            browsePane = new BrowsePane();
-            browsePane.updateBrowsePane("message-table",db);
+            updateBrowsePane("message-table");
 
             $(".message").click(function(){
             var focusedId=$(this).attr("id"); //id of message that is clicked
@@ -72,8 +71,8 @@
                 //console.log("clicked search button");
                 var inp=$("#search-tbox").val();
                 //console.log(inp);
-                var messageIDs=search.getMessageIDs(inp,db);
-                browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+                var messageIDs=getMessageIDs(inp,db);
+                updateSearchedBrowsePane("message-table", messageIDs);
                 $(".ui-menu-item").hide()
             });
 
@@ -81,15 +80,14 @@
                 if(event.which==13){ //checking for 'enter'
                     var inp=$("#search-tbox").val();
                     //console.log("Listening to ENTER. input is "+inp+"matching messages are ");
-                    var messageIDs=search.getMessageIDs(inp,db);
+                    var messageIDs=getMessageIDs(inp,db);
                     //console.log("messageIDs");
-                    //console.log(search.getMessageIDs(inp,db));
-                    browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+                    updateSearchedBrowsePane("message-table", messageIDs);
                     $(".ui-menu-item").hide()
                 }
 
                 if(inp==null){
-                    browsePane.updateBrowsePane("message-table",db);
+                    updateBrowsePane("message-table");
                 }
             });
 
@@ -97,13 +95,13 @@
                 source: function(request, response){
                     //console.log(request.term);
                     if(request.term.length>2){
-                        response(search.getMessageTitles(request.term.toLowerCase(),db));
+                        response(getMessageTitles(request.term.toLowerCase(),db));
                         var inp=$("#search-tbox").val();
-                        var messageIDs=search.getMessageIDs(inp,db);
-                        browsePane.updateSearchedBrowsePane("message-table",db, messageIDs);
+                        var messageIDs=getMessageIDs(inp,db);
+                        updateSearchedBrowsePane("message-table", messageIDs);
                     }
 	                else{
-	                	browsePane.updateBrowsePane("message-table", db);
+	                	updateBrowsePane("message-table");
 	                }
                 }
             });
@@ -148,7 +146,7 @@
                     displayMessage(replyId);
                 }
                 newMessage = true;
-                browsePane.updateBrowsePane("message-table",db);
+                updateBrowsePane("message-table");
             });
 
             /*
@@ -164,7 +162,7 @@
                         displayMessage(replyId);
                     }
                     newMessage = true;
-                    browsePane.updateBrowsePane("message-table",db);
+                    bupdateBrowsePane("message-table");
 
                 }
             });
