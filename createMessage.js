@@ -1,14 +1,9 @@
 function reset() {
-	$("#submitBtn").html("Submit Message");
-
+	console.log('reset called');
 	$("#textinput").val("");
 	$("#textarea").val("");
 	$("#prependedtext").val("");
 	// reset the template to the default value
-
-	var formTitleBar = "Create New Message<div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
-	$("#formTitle").html(formTitleBar);
-	$("#submitBtn").html("Submit Message");
 
 	$("select#selectTemplate").val("None Selected");
 
@@ -22,6 +17,7 @@ function reset() {
 }
 
 function submit() {
+	console.log('submit called');
 	var title = $("#textinput").val();
 	var text = $("#textarea").val();
 	var tags = $("#prependedtext").val();

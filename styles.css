@@ -133,6 +133,10 @@
 /*
 	BROWSE PANE
 */
+	.captain{
+
+	}
+
 	.browse {
 		/*padding-top: 42px;*/
 		width: 425px;
@@ -157,6 +161,7 @@
 		margin-left: 1em;
 		width:90%;
 	}
+
 	.message-metadata{
 		float:right;
 		width: 15%;
@@ -331,4 +336,25 @@
 	.rightForm {
 		float: right;
 		width: 50px;
+	}
+
+	#createMsgModal {
+		min-height: 300px;
+		min-width: 800px;
+		max-width: 800px;
+		max-height: 500px;
+		width: auto;
+		height: auto;
+		position: fixed;
+	}
+
+	.modal-body {
+		min-height: 300px;
+		min-width: 600px;
+		max-width: 800px;
+		max-height: 500px;
+		width: auto;
+		height: auto;
+		overflow: auto;
+		background-color: white;
 	}
