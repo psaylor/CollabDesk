@@ -27,9 +27,6 @@
 
 	<!-- Load our own Javascript files and stylesheets here -->
 	<script type="text/javascript" src="backend.js"></script>
-	<!-- <script type="text/javascript" src="message.js"></script> -->
-	<!-- <script type="text/javascript" src="database.js"></script> -->
-	<!--<script type="text/javascript" src="preloadData.js"></script>-->
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
@@ -193,61 +190,65 @@
 	</div> <!-- container div -->
 	<!-- end of page header -->
 
-	<div class="container-fluid">
 
 		<!-- browse pane -->
-			<div class="browse floatLeftNoPadding left white" id="browse-pane-wrapper">
+		<div id="leftcol" class="column">
+			<div class="browse white" id="browse-pane-wrapper">
 				<div id="browse-pane-inner">
 					<div class="row-fluid">
-						<div class="input-append span11	">
+						<div class="input-append span11 search-bar">
 							<input type="text" class="input-block-level" id="search-tbox" autofocus />
 							<span class="add-on btn"><i class="icon-search icon-color" id="search-button"></i></span>
 						</div>
 					</div>
-					<div id="message-table">
+					<div class="" id="message-table">
 						<!--MESSAGES DYNAMICALLY ADDED HERE-->
 					</div>
 				</div>
 			</div>
+		</div>
 
-		<!-- right side of layout: read and create -->		
-		<div class="right">
+
 
 		<!-- reading pane -->
-            <div class="reading pane" id="reading-pane-wrapper">
-            	<div id="reading-pane-inner">
-	                <div class="originalMsg">
-	                    <div class="originalMsgHeader">
-	                    	<div class="originalMsgTitle"></div>
-							<div class="captain"><i class="icon-envelope icon-color"></i></div>
-							<div class="high_pri"><i class="icon-exclamation-sign icon-color"></i></div>
-							<div style="clear:right"></div>
-	                    </div>
-	                    <div class="originalMsgBody">
-	                    	<div class="originalMsgDetails"></div>
-	                    	<table>
-	                    		<tr>
-	                    			<td><div class="authorPic"><img class="authorPic" src="images/generic_avatar.jpg"/></div></td>
-	                    			<td><div class="originalMsgDetailsText"></div></td>
-	                    		</tr>
-	                    	</table>
-	                    	<div class="originalMsgText offset1"></div>
-	                    </div>
-	                </div>
-	                <div class="replies"></div>
-	                <div class="alignBottom parentWidth">
-	                	<div class="hashtags"></div>
-	                	<button type="button" class="replyButton btn btn-primary floatRight">Reply</button>
-	                </div>
-	            </div>
+		<div id="centercol" class="column">
+	        <!-- reading pane -->
+            <div class="reading" id="reading-pane-wrapper">
+                <div id="reading-pane-inner">
+                    <div class="originalMsg well white">
+                        <div class="originalMsgHeader">
+                            <div class="originalMsgTitle"></div>
+                            <div class="captain"><i class="icon-envelope icon-color"></i></div>
+                            <div class="high_pri"><i class="icon-exclamation-sign icon-color"></i></div>
+                            <div style="clear:right"></div>
+                        </div>
+                        <div class="originalMsgBody">
+                            <div class="originalMsgDetails"></div>
+                            <table>
+                                <tr>
+                                    <td><div class="authorPic"><img class="authorPic" src="images/generic_avatar.jpg"/></div></td>
+                                    <td><div class="originalMsgDetailsText"></div></td>
+                                </tr>
+                            </table>
+                            <div class="originalMsgText offset1"></div>
+                        </div>
+                        <div>
+                            <table class="parentWidth">
+                                <tr><td><div class="hashtags"></div></td></tr>
+                                <tr><td align="right"><button type="button" class="replyButton btn btn-primary">Reply</button></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="replies"></div>
+                </div>
             </div>
-        </div>
+	    </div>
+
 
 	<!-- Modal -->
 		<div id='create-pane-wrapper'>
 		</div>
 
-</div>
 
 </body>
 </html>
