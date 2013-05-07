@@ -110,6 +110,30 @@
 		function createPaneReady() {
             console.debug('ready to work on create pane');
 
+            // Initially hide all alerts
+            $(".alert").hide();
+
+            $(".titleClose").click(function() {
+                $(".titleAlert").slideUp();
+            })
+
+            $(".msgClose").click(function() {
+                $(".msgAlert").slideUp();
+            })
+
+            // Hiding Alerts on FocusOut
+            $("#textinput").focusout(function () {
+            	if ($("textinput").val() != "") {
+            		$(".titleAlert").slideUp();
+            	}
+            });
+
+            $("#textarea").focusout(function () {
+            	if ($("#textarea").val() != "") {
+            		$(".msgAlert").slideUp();
+            	}
+            });
+
             $("#selectTemplate").change(function() {
                 fillTemplate();
             });
@@ -119,8 +143,27 @@
             */
             $("#submitBtn").click(function() {
                 console.log('submit btn click');
-                submit();
-                $('#createMsgModal').modal('hide')
+
+               	isTitleEmpty = ($("#textinput").val() == "");
+               	isMsgEmpty = ($("#textarea").val() == "");
+
+                if (isTitleEmpty) {
+                    $(".titleAlert").slideDown();
+                } else {
+                	$(".titleAlert").slideUp();
+                }
+                if(isMsgEmpty) {
+                    $(".msgAlert").slideDown();
+                } else {
+                	$(".msgAlert").slideUp();
+                }
+
+                if (isTitleEmpty || isMsgEmpty) { 
+                	return;
+                } else {
+                	submit();
+                	$('#createMsgModal').modal('hide')
+                }
             });
 
             /*
