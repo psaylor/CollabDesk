@@ -17,6 +17,7 @@
 	<!-- Load style sheets -->
 	<link rel="stylesheet" href="jquery-ui-1.10.2/themes/smoothness/jquery-ui.css" />
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="font-awesome.min.css">
 
 	<!-- Load any supplemental Javascript libraries here -->
 	<script type="text/javascript" src="jquery-ui-1.10.2/jquery-1.9.1.js"></script>
@@ -26,9 +27,6 @@
 
 	<!-- Load our own Javascript files and stylesheets here -->
 	<script type="text/javascript" src="backend.js"></script>
-	<!-- <script type="text/javascript" src="message.js"></script> -->
-	<!-- <script type="text/javascript" src="database.js"></script> -->
-	<!--<script type="text/javascript" src="preloadData.js"></script>-->
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
@@ -44,7 +42,7 @@
 	// define global variables here
 		var popoverShowing=false;
 
-		
+
     $(document).ready(function(){
 
 	    /*
@@ -61,7 +59,7 @@
 				readPaneReady();
 
 			});
-		
+
 
 			$('#browse-pane-wrapper').load("browsePane.html #browse-pane-inner", function(responseTxt,statusTxt,xhr) {
 				if (statusTxt =='success') {
@@ -72,7 +70,7 @@
 
 				browsePaneReady();
 			});
-		
+
 
 			$('#create-pane-wrapper').load("createPane.html #create-pane-inner", function(responseTxt,statusTxt,xhr) {
 				if (statusTxt =='success') {
@@ -112,6 +110,30 @@
 		function createPaneReady() {
             console.debug('ready to work on create pane');
 
+            // Initially hide all alerts
+            $(".alert").hide();
+
+            $(".titleClose").click(function() {
+                $(".titleAlert").slideUp();
+            })
+
+            $(".msgClose").click(function() {
+                $(".msgAlert").slideUp();
+            })
+
+            // Hiding Alerts on FocusOut
+            $("#textinput").focusout(function () {
+            	if ($("textinput").val() != "") {
+            		$(".titleAlert").slideUp();
+            	}
+            });
+
+            $("#textarea").focusout(function () {
+            	if ($("#textarea").val() != "") {
+            		$(".msgAlert").slideUp();
+            	}
+            });
+
             $("#selectTemplate").change(function() {
                 fillTemplate();
             });
@@ -121,8 +143,27 @@
             */
             $("#submitBtn").click(function() {
                 console.log('submit btn click');
-                submit();
-                $('#createMsgModal').modal('hide')
+
+               	isTitleEmpty = ($("#textinput").val() == "");
+               	isMsgEmpty = ($("#textarea").val() == "");
+
+                if (isTitleEmpty) {
+                    $(".titleAlert").slideDown();
+                } else {
+                	$(".titleAlert").slideUp();
+                }
+                if(isMsgEmpty) {
+                    $(".msgAlert").slideDown();
+                } else {
+                	$(".msgAlert").slideUp();
+                }
+
+                if (isTitleEmpty || isMsgEmpty) { 
+                	return;
+                } else {
+                	submit();
+                	$('#createMsgModal').modal('hide')
+                }
             });
 
             /*
@@ -168,78 +209,89 @@
 
 <body>
 
-	<div class="loginHeader">
-			<div class="floatLeft side">
-				<h3 class="logo">CollabDesk</h3>
-			</div>
-			<div>
-				<!-- Button to trigger modal -->
-				<button type="button" data-toggle="modal" class="btn btn-primary" data-target="#createMsgModal">Create Message</button>
-			</div>
-			<div class="floatRight side">
-				<div class="avatar side">
-					<img class="avatar" src="images/generic_avatar.jpg"/>
-				</div>
-				<h3 class="side username">Sally</h3>
-			</div>
-			<div class="clear"></div>
-	</div>
-
+	<!-- page header -->
 	<div class="container-fluid">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<a class="brand" href="#">
+					  <i class="icon-book icon-large "></i> CollabDesk
+				</a>
+				<!-- Button to trigger modal -->
+				<button type="button" data-toggle="modal" class="btn btn-success" data-target="#createMsgModal"><i class="icon-pencil icon-large"></i> Create Message</button>
+				
+				<img class="avatar pull-right" src="images/generic_avatar.jpg"/>
+				<ul class="nav pull-right">
+					<li><a class="dropdown-toggle" data-toggle="dropdown" id="username-link">Sally <i class="icon-caret-down"></i></a>
+						<ul class="dropdown-menu">
+							<li><a><i class="icon-signout"></i> Logout</a></li>
+							<li><a><i class="icon-group"></i> Manage Access</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div> <!-- navbar-inner -->
+		</div> <!-- navbar -->
+	</div> <!-- container div -->
+	<!-- end of page header -->
+
 
 		<!-- browse pane -->
-			<div class="browse floatLeftNoPadding left white" id="browse-pane-wrapper">
+		<div id="leftcol" class="column">
+			<div class="browse white" id="browse-pane-wrapper">
 				<div id="browse-pane-inner">
 					<div class="row-fluid">
-						<div class="input-append span11	">
+						<div class="input-append span11 search-bar">
 							<input type="text" class="input-block-level" id="search-tbox" autofocus />
 							<span class="add-on btn"><i class="icon-search icon-color" id="search-button"></i></span>
 						</div>
 					</div>
-					<div id="message-table">
+					<div class="" id="message-table">
 						<!--MESSAGES DYNAMICALLY ADDED HERE-->
 					</div>
 				</div>
 			</div>
+		</div>
 
-		<!-- right side of layout: read and create -->		
-		<div class="right">
+
 
 		<!-- reading pane -->
-            <div class="reading pane" id="reading-pane-wrapper">
-            	<div id="reading-pane-inner">
-	                <div class="originalMsg">
-	                    <div class="originalMsgHeader">
-	                    	<div class="originalMsgTitle"></div>
-							<div class="captain"><i class="icon-envelope icon-color"></i></div>
-							<div class="high_pri"><i class="icon-exclamation-sign icon-color"></i></div>
-							<div style="clear:right"></div>
-	                    </div>
-	                    <div class="originalMsgBody">
-	                    	<div class="originalMsgDetails"></div>
-	                    	<table>
-	                    		<tr>
-	                    			<td><div class="authorPic"><img class="authorPic" src="images/generic_avatar.jpg"/></div></td>
-	                    			<td><div class="originalMsgDetailsText"></div></td>
-	                    		</tr>
-	                    	</table>
-	                    	<div class="originalMsgText offset1"></div>
-	                    </div>
-	                </div>
-	                <div class="replies"></div>
-	                <div class="alignBottom parentWidth">
-	                	<div class="hashtags"></div>
-	                	<button type="button" class="replyButton btn btn-primary floatRight">Reply</button>
-	                </div>
-	            </div>
+		<div id="centercol" class="column">
+	        <!-- reading pane -->
+            <div class="reading" id="reading-pane-wrapper">
+                <div id="reading-pane-inner">
+                    <div class="originalMsg well white">
+                        <div class="originalMsgHeader">
+                            <div class="originalMsgTitle"></div>
+                            <div class="captain"><i class="icon-envelope icon-color"></i></div>
+                            <div class="high_pri"><i class="icon-exclamation-sign icon-color"></i></div>
+                            <div style="clear:right"></div>
+                        </div>
+                        <div class="originalMsgBody">
+                            <div class="originalMsgDetails"></div>
+                            <table>
+                                <tr>
+                                    <td><div class="authorPic"><img class="authorPic" src="images/generic_avatar.jpg"/></div></td>
+                                    <td><div class="originalMsgDetailsText"></div></td>
+                                </tr>
+                            </table>
+                            <div class="originalMsgText offset1"></div>
+                        </div>
+                        <div>
+                            <table class="parentWidth">
+                                <tr><td><div class="hashtags"></div></td></tr>
+                                <tr><td align="right"><button type="button" class="replyButton btn btn-primary">Reply</button></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="replies"></div>
+                </div>
             </div>
-        </div>
+	    </div>
+
 
 	<!-- Modal -->
 		<div id='create-pane-wrapper'>
 		</div>
 
-</div>
 
 </body>
 </html>

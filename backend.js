@@ -14,7 +14,6 @@ var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'O
 // Database objects
 var Message;
 var Reply;
-// var MessageQuery;
 var cdUser;
 var readRelation;
 
