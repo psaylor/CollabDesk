@@ -110,65 +110,57 @@
 		}		
 
 		function createPaneReady() {
-			console.debug('ready to work on create pane');
+            console.debug('ready to work on create pane');
 
-			$("#cancelBtn").click(function() {
-	            newMessage = true;
-	            reset();
-	        });
+            $("#selectTemplate").change(function() {
+                fillTemplate();
+            });
 
-	        $("#cancelBtn").click(function(e) {
-	            if (e.which == 13) {
-	                newMessage = true;
-	                reset();
-	            }
-	        });
+            /*
+            Submits the form when the user clicks the Submit button
+            */
+            $("#submitBtn").click(function() {
+                console.log('submit btn click');
+                submit();
+                $('#createMsgModal').modal('hide')
+            });
 
-	        $("#selectTemplate").change(function() {
-	            fillTemplate();
-	        });
+            /*
+            Submits the form when the user has focus on the Submit button and presses enter
+            */
+            $("#submitBtn").keydown(function (e) {
+                console.log('submit btn keydown');
+                if (e.which == 13) {
+                    submit();
+                    $('#createMsgModal').modal('hide')
+                }
+            
+            });
 
-	        /*
-	        Submits a reply when the reply button is clicked in the reading pane
-	        */
-	        $(".replyButton").click(function() {
-	            newMessage = false;
-	            openReplyForm();
-	        });
+             $("#clearBtn").click(function() {
+                console.log('clear btn clicked');
+                reset();
+            });
 
-	        /*
-	        Submits the form when the user clicks the Submit button
-	        */
-	        $("#submitBtn").click(function() {
-	            console.log(newMessage);
-	            if (newMessage) {
-	                submit();
-	            } else {
-	                submitReply(replyId);
-	                displayMessage(replyId);
-	            }
-	            newMessage = true;
-	            updateBrowsePane("message-table");
-	        });
+          $("#clearBtn").keydown(function (e) {
+                console.log('clear btn keydown');
+                if (e.which == 13) {
+                    reset();
+                }
+                
+            });
 
-	        /*
-	        Submits the form when the user has focus on the Submit button and presses enter
-	        */
-	        $("#submitBtn").keydown(function (e) {
-	                if (e.which == 13) {
-	                    console.log($("#formTitle").html());
-	                    if ($("#formTitle").html() == "Create New Message") {
-	                    submit();
-	                } else {
-	                    submitReply(replyId);
-	                    displayMessage(replyId);
-	                }
-	                newMessage = true;
-	                updateBrowsePane("message-table");
+          $("#closeBtn").keydown(function (e) {
+          	if (e.which == 13) {
+          		reset();
+          	}
+          });
 
-	            }
-	        });
-		}	
+          $("#closeBtn").click(function() {
+                console.log('clear btn clicked');
+                reset();
+            });
+        }   
     });
 	</script>
 
@@ -214,7 +206,7 @@
 		<div class="right">
 
 		<!-- reading pane -->
-            <div class="reading pane white" id="reading-pane-wrapper">
+            <div class="reading pane" id="reading-pane-wrapper">
             	<div id="reading-pane-inner">
 	                <div class="originalMsg">
 	                    <div class="originalMsgHeader">

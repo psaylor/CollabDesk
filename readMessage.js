@@ -121,4 +121,10 @@ function msgHandler(msg_object) {
         .html(reply.text);
     $(replyBodyDiv).append(replyTextDiv);
   }
+<<<<<<< HEAD
 }
+=======
+}
+ 
+
+>>>>>>> 1298f998fe6218722696e8bbb6baccf24eb8b12c

@@ -117,7 +117,6 @@
             $("#submitBtn").click(function() {
                 console.log('submit btn click');
                 submit();
-                browsePane.updateBrowsePane("message-table",db);
             });
 
             /*
@@ -127,7 +126,6 @@
                 console.log('submit btn keydown');
                 if (e.which == 13) {
                     submit();
-                    browsePane.updateBrowsePane("message-table",db);
                 }
             
             });
@@ -296,7 +294,7 @@
 			  <div class="modal-footer">
                 <button class="btn" id="clearBtn">Clear</button>
 			    <button class="btn" id="closeBtn" data-dismiss="modal" aria-hidden="true">Close</button>
-			    <button class="btn btn-primary" id="submitBtn" data-dismiss="alert">Submit</button>
+			    <button class="btn btn-primary" id="submitBtn">Submit</button>
 			  </div>
 			</div>
 		<div>
