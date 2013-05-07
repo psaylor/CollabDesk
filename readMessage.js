@@ -44,22 +44,33 @@ function msgHandler(msg_object) {
   $('.high_pri').removeClass('hidden');
 
   // Display/hide appropriate icons
-  if(msg.alert == NO_ALERT) {
+  if(alert == NO_ALERT) {
     $('.captain').addClass('hidden');
   }
-  if(msg.priority == LOW_PRI) {
+  if(priority == LOW_PRI) {
     $('.high_pri').addClass('hidden');
   }
 
+  // Display tags
+  $('.hashtags').empty();
+  for (var j=0; j<tags.length; j++) {
+    var tag = tags[j];
+    var tagDiv = $(document.createElement('button'))
+        .addClass('btn')
+        .addClass('tag')
+        .html("#"+tag);
+    $('.hashtags').append(tagDiv);
+  }
+
   // Display replies
-  var replies = msg.get('replies');
   $('.replies').empty();
+  console.log(replies.length);
   for (var i=0; i< replies.length; i++) {
     var reply = replies[i];
 
     // Create new div for each reply
     var replyDiv = $(document.createElement('div'))
-        .addClass('section')
+        .addClass('well')
         .addClass('white')
         .addClass('reply');
     $('.replies').append(replyDiv);
@@ -109,17 +120,6 @@ function msgHandler(msg_object) {
         .addClass('offset1')
         .html(reply.text);
     $(replyBodyDiv).append(replyTextDiv);
-  }
-
-  // Display tags
-  $('.hashtags').empty();
-  for (var j=0; j<msg.tags.length; j++) {
-    var tag = msg.tags[j];
-    var tagDiv = $(document.createElement('button'))
-        .addClass('btn')
-        .addClass('tag')
-        .html("#"+tag);
-    $('.hashtags').append(tagDiv);
   }
 }
  
