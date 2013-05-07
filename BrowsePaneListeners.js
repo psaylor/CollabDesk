@@ -3,11 +3,7 @@ function browsePaneReady() {
 
 	updateBrowsePane("message-table");
 
-	$(".message").click(function(){
-    var focusedId=$(this).attr("id"); //id of message that is clicked
-    replyId = focusedId;
-    displayMessage(focusedId);
-    });
+	addClickListener();
 
     $("#search-button").click(function(event){
         //console.log("clicked search button");
@@ -75,4 +71,13 @@ function browsePaneReady() {
     });
 
 
+}
+
+function addClickListener(){
+    $(".message").click(function(){
+        console.log("CLICKED ON "+$('.message').attr('id'));
+        var focusedId=$(this).attr("id"); //id of message that is clicked
+        replyId = focusedId;
+        displayMessage(focusedId);
+    });
 }

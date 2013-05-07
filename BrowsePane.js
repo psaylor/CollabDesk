@@ -46,6 +46,8 @@ function updateBrowsePane (divID){
 
 
 	getReadMessages(function(readList){ //list of type messages
+		console.log("IN updateBrowsePane(): getReadMessages():");
+		console.log(readList);
 		var hash = {};
 		var msg;
 		var date; //string
@@ -105,11 +107,7 @@ function updateBrowsePane (divID){
 
 
 	//adding listeners again
-	$(".message").click(function(){
-		var focusedId=$(this).attr("id"); //id of message that is clicked
-		replyId = focusedId;
-		//displayMessage(focusedId);
-	});
+	addClickListener();
 };
 
 
@@ -144,13 +142,7 @@ function updateSearchedBrowsePane(divID, messageList){
 	$("#"+divID).append(output);
 
 	//adding listeners again
-	$(".message").click(function(){
-		var focusedId=$(this).attr("id"); //id of message that is clicked
-		replyId = focusedId;
-		//displayMessage(focusedId);
-		console.log("GOT HERE");
-	});
-
+	addClickListener();
 
 };
 
