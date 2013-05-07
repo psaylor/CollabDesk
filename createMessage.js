@@ -1,5 +1,7 @@
 function reset() {
 	console.log('reset called');
+	$(".alert").slideUp();
+
 	$("#textinput").val("");
 	$("#textarea").val("");
 	$("#prependedtext").val("");
@@ -28,8 +30,6 @@ function submit() {
 	}
 
 	var author = String(cdUser);
-	console.log( author);
-	console.log("Tags: " + tags);
 
 	// Determine which buttons are pressed
 	var noteIssue = "ni-btn";
@@ -54,8 +54,6 @@ function submit() {
 	var type = activeBtns[noteIssue];
 	var priority = activeBtns[priority];
 	var alert = activeBtns[alert];
-	console.log("ALERT");
-	console.log(alert);
 	var date = new Date('17 Mar, 2013 15:15:00');
 
 	//var msg = new Message(title, text, author, tags, type, priority, alert, date);
