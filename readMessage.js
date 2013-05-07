@@ -6,10 +6,10 @@
 // Given a message id, display all the content of that message in the read message pane,
 // including all the content of any replies to that message.
 var displayMessage = function(message_id) {
-	var msg = db.getMessage(message_id);
+	var msg = getMessage(message_id);
 
 	// Display original message
-	$('.originalMsgTitle').html(msg.type + ": " + msg.title);
+	$('.originalMsgTitle').html(msg.getType() + ": " + msg.getTitle());
   $('.originalMsgDetailsText').html(msg.author + " at " + msg.getTime() + " on " + msg.getDay());
   $('.originalMsgText').html(msg.text);
 
