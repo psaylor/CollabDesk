@@ -6,8 +6,8 @@
 	}
 
 	img.avatar {
-		height: 40px;
-		width: 40px;
+		height: 45px;
+		width: 45px;
 	}
 
 	.loginHeader {
@@ -58,13 +58,47 @@
 /*
 	GLOBAL STYLES
 */
-	.side {
-		display: inline-block;
+	body {
+		min-width: 630px;
+		overflow: hidden;
 	}
 
-	.right {
-		margin-left: 425px;
+	.column {
+		position: absolute;
+		text-align: justify;
+		top: 47px;
+		bottom: 0px;
+		overflow: auto;		
 	}
+
+	.browse {
+		background-color: LightBlue;
+		left: 0px;
+		bottom: 0px;
+		/*width: 425px;*/
+		/*overflow: auto;*/
+	}
+
+	#centercol {
+		background-color: LightGreen;
+		left: 400px;
+		right: 0px;
+	}
+
+	#leftcol {
+		background-color: LightBlue;
+		left: 0px;
+		width: 400px;
+	}
+
+
+	/*.side {
+		display: inline-block;
+	}*/
+
+	/*.right {
+		margin-left: 425px;
+	}*/
 
 	.floatRight {
 		float: right;
@@ -96,32 +130,26 @@
 		visibility: hidden;
 	}
 
-	.container-fluid {
-		background: LightGray;
-		padding: 0px;
-		position: relative;
-		width: 1200px;
-	}
 
 	.white {
 		background: white;
 	}
 
-	.gap {
+	/*.gap {
 		margin-top: 4px;
 		margin-bottom: 4px;
 		height: 2px;
-	}
+	}*/
 
 	.spacing {
 		padding-right: 20px;
 	}
 
-	.pane {
+/*	.pane {
 		padding: 10px;
 		border-radius: 4px;
 		margin: 10px;
-	}
+	}*/
 
 	.icon {
 		height: 20px;
@@ -139,11 +167,11 @@
 
 	.browse {
 		/*padding-top: 42px;*/
-		width: 425px;
-		height: 100%;
+		/*width: 425px;*/
+		/*height: 100%;*/
 		padding-top: 0.5em;
 		border:0px;
-		float: left;
+		/*float: left;*/
 		border-right: 1px solid GRAY;
 	}
 
@@ -160,7 +188,7 @@
 	#message-table{
 		border-collapse: collapse;
 		border-spacing: 0;
-		height:650px;
+		/*height:650px;*/
 		overflow: auto;
 	}
 
@@ -203,8 +231,9 @@
 	READING PANE
 */
 	.reading {
-		position: relative;
-		/*height: 300px;*/
+		background-color: LightGreen;
+		left:400px;
+		bottom: 0px;
 	}
 
 	.captain {

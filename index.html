@@ -206,8 +206,6 @@
 				</div>
 			</div>
 
-		<!-- right side of layout: read and create -->		
-		<div class="right">
 
 		<!-- reading pane -->
             <div class="reading pane white" id="reading-pane-wrapper">
@@ -237,95 +235,7 @@
 	                </div>
 	            </div>
             </div>
-        </div>
 
-        <!-- gap between read and create panes -->
-        <div class="gap"></div>
-
-
-		<!-- create message pane -->
-			<div class="create white" id="create-pane-wrapper">
-			<div id="create-pane-inner">
-			<form class="form">
-			<fieldset>
-
-			<!-- Form Name -->
-			<legend id="formTitle">Create New Message
-				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
-			</legend>
-
-			<!-- Select Template -->
-				<div class="controls-row">
-				<div class="control-group span5">
-				  	<div class="controls">
-				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      	<option value="default">None Selected</option>
-				      	<option value="missingPackage">Missing Package</option>
-				      	<option value="lostKey">Lost Key</option>
-				      	<option value="reOrder">Re-Order Supplies</option>
-				      	<option value="foundPackage">Found Package</option>
-				    </select>
-				  	</div>
-				</div>
-			</div>
-
-			<!-- Title -->
-			<div class="controls-row">
-				<div class="control-group span4">
-				  	<div class="controls">
-				    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
-				    
-				  	</div>
-				</div>
-
-			<!-- Multiple Checkboxes -->
-				<div class="control-group span4">
-				  	<div class="controls">
-				  		<div class="btn-group" data-toggle="buttons-checkbox">
-				  			<button type="button" class="btn" id="ni-btn">
-				  				<div id="ni-note">
-				  				<i class="icon-color icon-note"></i> Note
-				  				</div>
-				  				<div id="ni-issue" class="hide">
-				  				<i class="icon-color icon-issue"></i> Issue
-				  				</div>
-				  			</button>
-				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
-				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert Captain</button>
-			  			</div>
-				  </div>
-				</div>
-			</div>
-
-			<!-- Message Text Area -->
-				<div class="control-group controls-row">
-					<div class="controls span8">                     
-				    <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
-				  	</div>
-				</div>
-
-			<!-- Tags -->
-				<div class="control-group controls-row">
-				  <div class="controls span8">
-					<div class="input-prepend input-xlarge" id="tags-input">
-				    	<span class="add-on" id="hashtag">#</span>
-				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
-				    </div>
-				    
-				  </div>
-				</div>
-
-			<!-- Submit -->
-
-				<div class="controls-row floatRight">
-					<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
-					<button type="button" id="cancelBtn" class="btn">Cancel</button>
-				</div>
-			</fieldset>
-			</form>
-		</div>
-		</div>
-			
 
 </div>
 
