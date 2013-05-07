@@ -2,116 +2,50 @@
  * Handles functionality for Browse Pane, which displays all the messages
  */
 
-var BrowsePane = function(){
-	
-	////////////////////
-	//"PUBLIC" FUNCTIONS
-	////////////////////
 
-	/**
-	* Refreshes View for Browse Pane (called any time message or reply is added)
-	*
-	*/
-	this.updateBrowsePane=function(divID, database){
-		//console.log("in updateBrowsePane() for " + divID);
-		$("#"+divID).empty();
-		//console.log($("#"+divID).html());
-		$("#"+divID).append(this.getUnreadMessagesHTML(db));
-		//console.log("after change!");
-		//console.log($("#"+divID).html());
+////////////////////
+//"PUBLIC" FUNCTIONS
+////////////////////
 
-		$("#"+divID).append(this.getAllDatedMessagesHTML(db));
+/**
+* Refreshes View for Browse Pane (called any time message or reply is added)
+*
+*/
+function updateBrowsePane (divID){
+	//console.log("in updateBrowsePane() for " + divID);
+	$("#"+divID).empty();
+	//console.log($("#"+divID).html());
 
-		//adding listeners again
-		$(".message").click(function(){
-			var focusedId=$(this).attr("id"); //id of message that is clicked
-			replyId = focusedId;
-			displayMessage(focusedId);
-		});
-	}
+	getUnreadMessages(function(unreadList){
+		var output="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
+		if(unreadList.length>0){
+			for (i in unreadList){
 
-	this.updateSearchedBrowsePane=function(divID, database, messageList){
-		$("#"+divID).empty();
-		var output="<table class='table' id='search'><thead><tr><th>Search Results</th></tr></thead><tbody>";
-		output+=this.getSelectedMessagesHTML(database, messageList);
-		output+="</tbody></thead>";
-		//console.log("in update");
-		//console.log(output);
+				msg=unreadList[i];
+				var title = msg.get('title');
+				var date = msg.get('date');
+				var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
+				var text = msg.get('text').substring(0,125);
+				var id = msg.id;
+				if(msg.get('text').length>125){ //if message was truncated to display
+					text+="...";
+				}
+
+				output +="<li class = 'message' id='"+id+"'>"+
+							"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
+							"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+							"<div class='message-content'>"+
+							"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
+							"</div>"+
+							"</li>";
+			}		
+		}
+		output+="</ul></div>"
 		$("#"+divID).append(output);
-
-		//adding listeners again
-		$(".message").click(function(){
-			var focusedId=$(this).attr("id"); //id of message that is clicked
-			replyId = focusedId;
-			displayMessage(focusedId);
-			console.log("GOT HERE");
-		});
+	});
 
 
-	};
-
-	//////////////////
-	//helper functions
-	//////////////////
-
-	/**
-	* Converts a single message to HTML to be displayed in the BrowserPane
-	*
-	*/
-	this.getMessageHTML=function(msg, index){
-		var title = msg.title;
-		var date = msg.date;
-		var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
-		var text = msg.text.substring(0,125);
-		if(msg.text.length>125){ //if message was truncated to display
-			text+="...";
-		}
-		//console.log("title: "+title);
-		//console.log("text:" +text);
-
-		var output ="<tr><td id='"+index+"'>"+
-					"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-					"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
-					"<div class='message-content'>"+
-					"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
-					"</div></div>"+
-					"</td></tr>";
-		//console.log(output);
-		return output;
-	};
-
-	/**
-	* Post all messages stored in database onto browser pane
-	*
-	*/
-	this.getAllMessageHTML=function(database)	{
-		var msgList = database.getAllMessages(); //list of message objects
-		var output="";
-		for (var i=msgList.length-1; i>=0; i--){
-			output+=this.getMessageHTML(msgList[i], i);
-		}
-		return output
-
-	};
-
-	/**
-	* Gets all undread messages and returns the html of them
-	*/
-	this.getUnreadMessagesHTML=function(database){
-		var output="<table class='table' id='unread'><thead><tr><th>Unread</th></tr></thead><tbody>";
-		if(database.getUnreadMessages().length>0){
-			output+=this.getSelectedMessagesHTML(database, database.getUnreadMessages());			
-		}
-		output+="</tbody></thead>"
-		//console.log(output);
-		return output;
-	};
-
-	/**
-	* Creates tables for each date and sorts messages accordingly
-	*
-	*/
-	this.getAllDatedMessagesHTML=function(database){
+	getReadMessages(function(readList){ //list of type messages
 		var hash = {};
 		var msg;
 		var date; //string
@@ -119,10 +53,11 @@ var BrowsePane = function(){
 		var month; //string
 		var day; //string
 		var output="";
-		for (index in database.getReadMessages()){ //CHANGE TO getReadMessages()
-			msg=database.getMessage(index);
+
+		for (index in readList){ 
+			msg=readList[index];
 			//console.log(msg);
-			date= msg.date;
+			date= msg.get('date');
 			//console.log(date);
 
 			//setting 2 digit month
@@ -162,43 +97,121 @@ var BrowsePane = function(){
 
 		for(index in dateList){
 			date = dateList[index];
-			output+=this.getDateTableHTML(db, date, hash[date])
+			output+=getDateTableHTML(date, hash[date])
 		}
 		//console.log("output is "+output);
-		return output;
+		$("#"+divID).append(output);
+	});
 
-	}
 
-	/**
-	* Creates a table to group all messages by a specific date
-	* date: string of length 4 representing month(first 2 digits), day(next 2 digits)
-	* 
-	*/
-	this.getDateTableHTML=function(database, date, messageIdList){
-		var outputDate=date.substring(0,2)+"/"+date.substring(2);
-		var output="<table class='table' id='"+date+"'><thead><tr><th>"+outputDate
-					+"</th></tr></thead><tbody>";
-		var msg;
-		for(index in messageIdList){
-			msg = database.getMessage(messageIdList[index]);
-			output+=this.getMessageHTML(msg, index);
+	//adding listeners again
+	$(".message").click(function(){
+		var focusedId=$(this).attr("id"); //id of message that is clicked
+		replyId = focusedId;
+		//displayMessage(focusedId);
+	});
+};
+
+
+function updateSearchedBrowsePane(divID, messageList){
+	$("#"+divID).empty();
+	var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
+	if(unreadList.length>0){
+			for (i in messageList){
+
+				msg=unreadList[i];
+				var title = msg.get('title');
+				var date = msg.get('date');
+				var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
+				var text = msg.get('text').substring(0,125);
+				var id = msg.id;
+				if(msg.get('text').length>125){ //if message was truncated to display
+					text+="...";
+				}
+
+				output +="<li class = 'message' id='"+id+"'>"+
+							"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
+							"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+							"<div class='message-content'>"+
+							"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
+							"</div>"+
+							"</li>";
+			}		
 		}
-		output+="</tbody></table>";
-		return output;
+	output+="</ul></div>";
+	//console.log("in update");
+	//console.log(output);
+	$("#"+divID).append(output);
 
+	//adding listeners again
+	$(".message").click(function(){
+		var focusedId=$(this).attr("id"); //id of message that is clicked
+		replyId = focusedId;
+		//displayMessage(focusedId);
+		console.log("GOT HERE");
+	});
+
+
+};
+
+//////////////////
+//helper functions
+//////////////////
+
+/**
+* Converts a single message to HTML to be displayed in the BrowserPane
+*
+*/
+function getMessageHTML(msg, id){
+	var title = msg.get('title');
+	var date = msg.get('date');
+	var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
+	var text = msg.get('text').substring(0,125);
+	if(msg.get('text').length>125){ //if message was truncated to display
+		text+="...";
 	}
+	//console.log("title: "+title);
+	//console.log("text:" +text);
 
-	/**
-	* Given a list of message ids, return the html corresponding to the id of the filtered 
-	*/
-	this.getSelectedMessagesHTML=function(database, messageList){
-		//console.log(messageList);
-		var output = "";
-		for (i in messageList){
-			output+=this.getMessageHTML(database.getMessage(messageList[i]), messageList[i]);
-		}
-		//console.log(output);
-		return output;
-	};
+	var output ="<li class = 'message' id='"+id+"'>"+
+				"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
+				"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+				"<div class='message-content'>"+
+				"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
+				"</div>"+
+				"</li>";
+	//console.log(output);
+	return output;
+};
 
+
+/**
+* Creates a table to group all messages by a specific date
+* date: string of length 4 representing month(first 2 digits), day(next 2 digits)
+* 
+*/
+function getDateTableHTML(date, messageIdList){
+	var outputDate=date.substring(0,2)+"/"+date.substring(2);
+	var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul id='unread-content'>"
+	var msg;
+	for(index in messageIdList){
+		msg = getMessage(messageIdList[index]);
+		output+=getMessageHTML(msg, index);
+	}
+	output+="</ul></div>";
+	return output;
+
+}
+
+/**
+* Given a list of message ids, return the html corresponding to the id of the filtered 
+*/
+function getSelectedMessagesHTML(messageList){
+	//console.log(messageList);
+	var output = "";
+	for (i in messageList){
+		output+=getMessageHTML(getMessage(messageList[i]), messageList[i]);
+	}
+	//console.log(output);
+	return output;
 };

@@ -10,15 +10,6 @@
 		width: 45px;
 	}
 
-	.loginHeader {
-		background-image: linear-gradient(to bottom, #339966, #009966);
-		width: 1200px;
-	}
-
-	.loginHeader h3 {
-		margin: 0px;
-	}
-
 /* 
 	ICON STYLES
 */
@@ -175,31 +166,52 @@
 		border-right: 1px solid GRAY;
 	}
 
+/*
+	BROWSE PANE
+*/
+	.captain{
+
+	}
+
+	.browse {
+		/*padding-top: 42px;*/
+		width: 425px;
+		height: 100%;
+		padding-top: 0.5em;
+		border:0px;
+		float: left;
+		border-right: 1px solid GRAY;
+	}
+	.bucket{
+		background-color: #339966;
+		color: white;
+		font-weight:bold;
+		border-bottom: 1px solid gray;
+		padding: 5px;
+		text-indent:1em;
+	}
+	.hidden{
+		visibility: hidden;
+	}
 	.message-content{
 		margin-left: 1em;
+		width:90%;
 	}
 
 	.message-metadata{
 		float:right;
-		width: 10%;
+		width: 15%;
 		display:inline;
 	}
 
 	#message-table{
 		border-collapse: collapse;
 		border-spacing: 0;
-		/*height:650px;*/
+		height:650px;
 		overflow: auto;
 	}
 
-	.table thead{
-		background-color: white;
-		color: black;
-		border-bottom: 1px solid black;
-		padding: 2px;
-	}
-
-	.table tbody tr{
+	.message-content{
 		border-top: 1px solid LightGray;
 		border-bottom: 1px solid LightGray;	
 	    line-height: 18px;
@@ -208,16 +220,10 @@
 	    vertical-align: top;
 	    height:5em;
 	}
-	.table tbody tr:hover td {
+	.message-content:hover {
 	    background-color: LightGray;
 	}
-	.table .title{
-		font-size: 1.3em;
-		text-align: left;
-		width:85%;
-		display:block;
-	}
-	.table .text{
+	.text{
 		margin-top:0.4em;
 		word-spacing: 0.1em;
 		line-height:1.1em;
@@ -225,6 +231,20 @@
 		text-align: left;
 		width:85%;
 		display:block;
+	}
+	.title{
+		font-size: 1.3em;
+		text-align: left;
+		width:85%;
+		display:block;
+	}
+	.timestamp{
+		font-size:80%;
+	}
+
+	ul, li {
+		list-style:none;
+		margin: 0;
 	}
 
 /*
@@ -331,8 +351,6 @@
 	}
 
 
-
-
 /*
 	CREATE PANE
 */
@@ -353,4 +371,25 @@
 	.rightForm {
 		float: right;
 		width: 50px;
+	}
+
+	#createMsgModal {
+		min-height: 300px;
+		min-width: 800px;
+		max-width: 800px;
+		max-height: 500px;
+		width: auto;
+		height: auto;
+		position: fixed;
+	}
+
+	.modal-body {
+		min-height: 300px;
+		min-width: 600px;
+		max-width: 800px;
+		max-height: 500px;
+		width: auto;
+		height: auto;
+		overflow: auto;
+		background-color: white;
 	}

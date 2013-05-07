@@ -14,7 +14,6 @@ var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'O
 // Database objects
 var Message;
 var Reply;
-// var MessageQuery;
 var cdUser;
 var readRelation;
 
@@ -378,8 +377,8 @@ var title = 'Visa card found';
 	text = "A package came in for Jane, but she doesn't live here, and I can't find any record of her. It's in bin 6 for now.";
 	author = "Ben";
 	tags = ['package'];
-	type = ISSUE;
-	priority = LOW_PRI;
+	type = Message.ISSUE;
+	priority = Message.LOW_PRI;
 	alert = true;
 	var date = new Date('17 Mar, 2013 10:28:00');
 
@@ -388,14 +387,14 @@ console.log("done with message.");
 console.log(msg);
 console.log('message day: ' + msg.getDay());
 
-title = 'Fixed';
-	text = 'Sally picked up her id. All better =]';
-	author = 'Sam';
-	tags = ['fixed'];
-	date = new Date('19 Mar, 2013 15:31:00');
-	var reply = Reply.create(title, text, author, tags, date, msg);
-	// msg.addReply(reply);
-	console.debug("msg day: " + msg.getDay());
+// title = 'Fixed';
+// 	text = 'Sally picked up her id. All better =]';
+// 	author = 'Sam';
+// 	tags = ['fixed'];
+// 	date = new Date('19 Mar, 2013 15:31:00');
+// 	var reply = Reply.create(title, text, author, tags, date, msg);
+// 	// msg.addReply(reply);
+// 	console.debug("msg day: " + msg.getDay());
 
 // var MsgQuery = new Parse.Query(Message);
 // var msg2 = null;
@@ -409,4 +408,3 @@ title = 'Fixed';
 // 		console.debug(error);
 // 	}
 // });
-

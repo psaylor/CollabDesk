@@ -17,6 +17,7 @@
 	<!-- Load style sheets -->
 	<link rel="stylesheet" href="jquery-ui-1.10.2/themes/smoothness/jquery-ui.css" />
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="font-awesome.min.css">
 
 	<!-- Load any supplemental Javascript libraries here -->
 	<script type="text/javascript" src="jquery-ui-1.10.2/jquery-1.9.1.js"></script>
@@ -25,10 +26,10 @@
 	<script src="http://www.parsecdn.com/js/parse-1.2.7.min.js"></script>
 
 	<!-- Load our own Javascript files and stylesheets here -->
-	<!-- <script type="text/javascript" src="backend.js"></script> -->
-	<script type="text/javascript" src="message.js"></script>
-	<script type="text/javascript" src="database.js"></script> 
-	<script type="text/javascript" src="preloadData.js"></script>
+	<script type="text/javascript" src="backend.js"></script>
+	<!-- <script type="text/javascript" src="message.js"></script> -->
+	<!-- <script type="text/javascript" src="database.js"></script> -->
+	<!--<script type="text/javascript" src="preloadData.js"></script>-->
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
@@ -42,8 +43,9 @@
 	<script type="text/javascript">
 
 	// define global variables here
-		var search = new Search();
-		
+		var popoverShowing=false;
+
+
     $(document).ready(function(){
 
 	    /*
@@ -60,7 +62,7 @@
 				readPaneReady();
 
 			});
-		
+
 
 			$('#browse-pane-wrapper').load("browsePane.html #browse-pane-inner", function(responseTxt,statusTxt,xhr) {
 				if (statusTxt =='success') {
@@ -71,7 +73,7 @@
 
 				browsePaneReady();
 			});
-		
+
 
 			$('#create-pane-wrapper').load("createPane.html #create-pane-inner", function(responseTxt,statusTxt,xhr) {
 				if (statusTxt =='success') {
@@ -84,7 +86,6 @@
 			});
 
 		//variables
-		var browsePane;
 		var newMessage = true;
 		var replyId = 0;
 		var popoverShowing=false;
@@ -93,82 +94,74 @@
 		var searchText=true;
 
 		// view the preloaded database
-		console.log(db);
+		//console.log(db);
 
 		function readPaneReady() {
 			console.debug('ready to work on read pane');
 			// display a static message in the reading pane (until this is called from browsing pane)
-	        displayMessage(3);
+	        displayMessage("8MOn7IaVyn");
 
             /*Submits search to browse pane when a tag is clicked*/
             $(".tag").click(function() {
                 var tagText = $(this).html();
                 // tagText = tagText.substring(1, tagText.length);
                 $('#search-tbox').val(tagText);
-                browsePane.updateSearchedBrowsePane('message-table', db, search.getMessageIDs(tagText, db));
+                updateSearchedBrowsePane('message-table', getMessageIDs(tagText));
             });
 		}		
 
 		function createPaneReady() {
-			console.debug('ready to work on create pane');
+            console.debug('ready to work on create pane');
 
-			$("#cancelBtn").click(function() {
-	            newMessage = true;
-	            reset();
-	        });
+            $("#selectTemplate").change(function() {
+                fillTemplate();
+            });
 
-	        $("#cancelBtn").click(function(e) {
-	            if (e.which == 13) {
-	                newMessage = true;
-	                reset();
-	            }
-	        });
+            /*
+            Submits the form when the user clicks the Submit button
+            */
+            $("#submitBtn").click(function() {
+                console.log('submit btn click');
+                submit();
+                $('#createMsgModal').modal('hide')
+            });
 
-	        $("#selectTemplate").change(function() {
-	            fillTemplate();
-	        });
+            /*
+            Submits the form when the user has focus on the Submit button and presses enter
+            */
+            $("#submitBtn").keydown(function (e) {
+                console.log('submit btn keydown');
+                if (e.which == 13) {
+                    submit();
+                    $('#createMsgModal').modal('hide')
+                }
+            
+            });
 
-	        /*
-	        Submits a reply when the reply button is clicked in the reading pane
-	        */
-	        $(".replyButton").click(function() {
-	            newMessage = false;
-	            openReplyForm();
-	        });
+             $("#clearBtn").click(function() {
+                console.log('clear btn clicked');
+                reset();
+            });
 
-	        /*
-	        Submits the form when the user clicks the Submit button
-	        */
-	        $("#submitBtn").click(function() {
-	            console.log(newMessage);
-	            if (newMessage) {
-	                submit();
-	            } else {
-	                submitReply(replyId);
-	                displayMessage(replyId);
-	            }
-	            newMessage = true;
-	            browsePane.updateBrowsePane("message-table",db);
-	        });
+          $("#clearBtn").keydown(function (e) {
+                console.log('clear btn keydown');
+                if (e.which == 13) {
+                    reset();
+                }
+                
+            });
 
-	        /*
-	        Submits the form when the user has focus on the Submit button and presses enter
-	        */
-	        $("#submitBtn").keydown(function (e) {
-	                if (e.which == 13) {
-	                    console.log($("#formTitle").html());
-	                    if ($("#formTitle").html() == "Create New Message") {
-	                    submit();
-	                } else {
-	                    submitReply(replyId);
-	                    displayMessage(replyId);
-	                }
-	                newMessage = true;
-	                browsePane.updateBrowsePane("message-table",db);
+          $("#closeBtn").keydown(function (e) {
+          	if (e.which == 13) {
+          		reset();
+          	}
+          });
 
-	            }
-	        });
-		}	
+          $("#closeBtn").click(function() {
+                console.log('clear btn clicked');
+                reset();
+            });
+        }   
     });
 	</script>
 
@@ -176,18 +169,29 @@
 
 <body>
 
-	<div class="loginHeader">
-			<div class="floatLeft side">
-				<h3 class="logo">CollabDesk</h3>
-			</div>
-			<div class="floatRight side">
-				<div class="avatar side">
-					<img class="avatar" src="images/generic_avatar.jpg"/>
-				</div>
-				<h3 class="side username">Sally</h3>
-			</div>
-			<div class="clear"></div>
-	</div>
+	<!-- page header -->
+	<div class="container-fluid">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<a class="brand" href="#">
+					  <i class="icon-book icon-large "></i> CollabDesk
+				</a>
+				<!-- Button to trigger modal -->
+				<button type="button" data-toggle="modal" class="btn btn-success" data-target="#createMsgModal"><i class="icon-pencil icon-large"></i> Create Message</button>
+				
+				<img class="avatar pull-right" src="images/generic_avatar.jpg"/>
+				<ul class="nav pull-right">
+					<li><a class="dropdown-toggle" data-toggle="dropdown" id="username-link">Sally <i class="icon-caret-down"></i></a>
+						<ul class="dropdown-menu">
+							<li><a><i class="icon-signout"></i> Logout</a></li>
+							<li><a><i class="icon-group"></i> Manage Access</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div> <!-- navbar-inner -->
+		</div> <!-- navbar -->
+	</div> <!-- container div -->
+	<!-- end of page header -->
 
 	<div class="container-fluid">
 
@@ -206,9 +210,11 @@
 				</div>
 			</div>
 
+		<!-- right side of layout: read and create -->		
+		<div class="right">
 
 		<!-- reading pane -->
-            <div class="reading pane white" id="reading-pane-wrapper">
+            <div class="reading pane" id="reading-pane-wrapper">
             	<div id="reading-pane-inner">
 	                <div class="originalMsg">
 	                    <div class="originalMsgHeader">
@@ -235,7 +241,11 @@
 	                </div>
 	            </div>
             </div>
+        </div>
 
+	<!-- Modal -->
+		<div id='create-pane-wrapper'>
+		</div>
 
 </div>
 

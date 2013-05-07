@@ -29,7 +29,6 @@
 	<script type="text/javascript" src="preloadData.js"></script>
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
-	<script type="text/javascript" src="createReply.js"></script>
 	<script type="text/javascript" src="templates.js"></script>
 	<script type="text/javascript" src="search.js"></script>
 	<script type="text/javascript" src="BrowsePane.js"></script>
@@ -43,7 +42,6 @@
         // define global variables here
         var search = new Search();
         var browsePane;
-        var newMessage = true;
         var replyId = 0;
 
         // view the preloaded database
@@ -109,60 +107,39 @@
         function createPaneReady() {
             console.debug('ready to work on create pane');
 
-            $("#cancelBtn").click(function() {
-                newMessage = true;
-                reset();
-            });
-
-            $("#cancelBtn").click(function(e) {
-                if (e.which == 13) {
-                    newMessage = true;
-                    reset();
-                }
-            });
-
             $("#selectTemplate").change(function() {
                 fillTemplate();
-            });
-
-            /*
-            Submits a reply when the reply button is clicked in the reading pane
-            */
-            $(".replyButton").click(function() {
-                newMessage = false;
-                openReplyForm();
             });
 
             /*
             Submits the form when the user clicks the Submit button
             */
             $("#submitBtn").click(function() {
-                console.log(newMessage);
-                if (newMessage) {
-                    submit();
-                } else {
-                    submitReply(replyId);
-                    displayMessage(replyId);
-                }
-                newMessage = true;
-                browsePane.updateBrowsePane("message-table",db);
+                console.log('submit btn click');
+                submit();
             });
 
             /*
             Submits the form when the user has focus on the Submit button and presses enter
             */
             $("#submitBtn").keydown(function (e) {
-                    if (e.which == 13) {
-                        console.log($("#formTitle").html());
-                        if ($("#formTitle").html() == "Create New Message") {
-                        submit();
-                    } else {
-                        submitReply(replyId);
-                        displayMessage(replyId);
-                    }
-                    newMessage = true;
-                    browsePane.updateBrowsePane("message-table",db);
+                console.log('submit btn keydown');
+                if (e.which == 13) {
+                    submit();
+                }
+            
+            });
 
+             $("#clearBtn").click(function() {
+                console.log('clear btn clicked');
+                reset();
+            });
+
+              $("#clearBtn").keydown(function (e) {
+                    console.log('clear btn keydown');
+                    if (e.which == 13) {
+                        reset();
+                    }
                 }
             });
         }   
@@ -236,92 +213,91 @@
             </div>
         </div>
 
-        <!-- gap between read and create panes -->
-        <div class="gap"></div>
+        
 
+		<!-- Modal -->
+		<div id="create-pane-inner">
+			<div id="createMsgModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			    <h3 id="myModalLabel">Create Message</h3>
+			  </div>
+			  <div class="modal-body">
+			  	<!-- USING OLD FORM -->
+			  	<form class="form" id="createForm">
+                <fieldset>
 
-		<!-- create message pane -->
-			<div class="create white">
-			<div id="create-pane-inner">
-			<form class="form">
-			<fieldset>
+                <!-- Select Template -->
+                    <div class="controls-row">
+                    <div class="control-group span5">
+                        <div class="controls">
+                        <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
+                            <option value="default">None Selected</option>
+                            <option value="missingPackage">Missing Package</option>
+                            <option value="lostKey">Lost Key</option>
+                            <option value="reOrder">Re-Order Supplies</option>
+                            <option value="foundPackage">Found Package</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
 
-			<!-- Form Name -->
-			<legend id="formTitle">Create New Message
-				<div class="floatRight btn"><i class="icon-chevron-down"></i></div>
-			</legend>
+                <!-- Title -->
+                <div class="controls-row">
+                    <div class="control-group span4">
+                        <div class="controls">
+                        <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
+                        
+                        </div>
+                    </div>
 
-			<!-- Select Template -->
-				<div class="controls-row">
-				<div class="control-group span5">
-				  	<div class="controls">
-				    <select id="selectTemplate" name="selectTemplate" class="input-xlarge">
-				      	<option value="default">None Selected</option>
-				      	<option value="missingPackage">Missing Package</option>
-				      	<option value="lostKey">Lost Key</option>
-				      	<option value="reOrder">Re-Order Supplies</option>
-				      	<option value="foundPackage">Found Package</option>
-				    </select>
-				  	</div>
-				</div>
+                <!-- Multiple Checkboxes -->
+                    <div class="control-group span4">
+                        <div class="controls">
+                            <div class="btn-group" data-toggle="buttons-checkbox">
+                                <button type="button" class="btn" id="ni-btn">
+                                    <div id="ni-note">
+                                    <i class="icon-color icon-note"></i> Note
+                                    </div>
+                                    <div id="ni-issue" class="hide">
+                                    <i class="icon-color icon-issue"></i> Issue
+                                    </div>
+                                </button>
+                                <button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
+                                <button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert Captain</button>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Message Text Area -->
+                    <div class="control-group controls-row">
+                        <div class="controls span8">                     
+                        <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
+                        </div>
+                    </div>
+
+                <!-- Tags -->
+                    <div class="control-group controls-row">
+                      <div class="controls span8">
+                        <div class="input-prepend input-xlarge" id="tags-input">
+                            <span class="add-on" id="hashtag">#</span>
+                            <input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
+                        </div>
+                        
+                      </div>
+                    </div>
+                </fieldset>
+                </form>
+			  	<!-- END OF OLD FORM-->
+			  </div>
+			  <div class="modal-footer">
+                <button class="btn" id="clearBtn">Clear</button>
+			    <button class="btn" id="closeBtn" data-dismiss="modal" aria-hidden="true">Close</button>
+			    <button class="btn btn-primary" id="submitBtn">Submit</button>
+			  </div>
 			</div>
-
-			<!-- Title -->
-			<div class="controls-row">
-				<div class="control-group span4">
-				  	<div class="controls">
-				    <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
-				    
-				  	</div>
-				</div>
-
-			<!-- Multiple Checkboxes -->
-				<div class="control-group span4">
-				  	<div class="controls">
-				  		<div class="btn-group" data-toggle="buttons-checkbox">
-				  			<button type="button" class="btn" id="ni-btn">
-				  				<div id="ni-note">
-				  				<i class="icon-color icon-note"></i> Note
-				  				</div>
-				  				<div id="ni-issue" class="hide">
-				  				<i class="icon-color icon-issue"></i> Issue
-				  				</div>
-				  			</button>
-				  			<button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
-				  			<button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert Captain</button>
-			  			</div>
-				  </div>
-				</div>
-			</div>
-
-			<!-- Message Text Area -->
-				<div class="control-group controls-row">
-					<div class="controls span8">                     
-				    <textarea id="textarea" name="textarea" placeholder="Your message here..." class="input-block-level"></textarea>
-				  	</div>
-				</div>
-
-			<!-- Tags -->
-				<div class="control-group controls-row">
-				  <div class="controls span8">
-					<div class="input-prepend input-xlarge" id="tags-input">
-				    	<span class="add-on" id="hashtag">#</span>
-				    	<input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
-				    </div>
-				    
-				  </div>
-				</div>
-
-			<!-- Submit -->
-
-				<div class="controls-row floatRight">
-					<button type="button" id="submitBtn" class="btn btn-primary">Submit Message</button>
-					<button type="button" id="cancelBtn" class="btn">Cancel</button>
-				</div>
-			</fieldset>
-			</form>
-		</div>
-		</div>
+		<div>
 			
 
 </div>
