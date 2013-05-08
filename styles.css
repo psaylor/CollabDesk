@@ -289,12 +289,13 @@
 		/*background: #9FDFBF;*/
 		margin-right: 5px;
 		font-family: sans-serif;
-		color: #468847;
+		/*color: #468847;*/
 background-color: #dff0d8;
 border-color: #d6e9c6;
+background-image: none;
 	}
 
-	.tag:hover {
+	/*.tag:hover {
 		background: #79D2A6;
 	}
 
@@ -304,7 +305,7 @@ border-color: #d6e9c6;
 
 	.tag:focus {
 		background: #79D2A6;
-	}
+	}*/
 
 
 /*
