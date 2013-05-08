@@ -24,22 +24,33 @@ ALERT = true;
 NO_ALERT = false;
 NOTE = "Note";
 ISSUE = "Issue";
+LOGIN_PAGE = "login.html";
+MESSAGE_PAGE= "index.html";
 
+function getCurrentUser( ){
+	return Parse.User.current();
+}
 
-function login(username, password ) {
+cdUser = getCurrentUser();
+console.log('user');
+console.log(cdUser);
+
+function login(username, password, successCallback, errorCallback) {
 	Parse.User.logIn(username, password, {
 		success: function(user) {
 			console.log(user + " successfully logged in");
 			cdUser = user;
 			setReadRelation(user);
+			successCallback(user);
   		},
   		error: function(user, error) {
   			console.debug(user + " failed to log in");
+  			errorCallback(user, error);
   		}
 	});
 }
 
-function signup( username, pswd, email) {
+function signup(username, pswd, email) {
 	var user = new Parse.User();
 	user.set('username', username);
 	user.set('password', pswd);
@@ -62,11 +73,18 @@ function signup( username, pswd, email) {
 	return user;
 }
 
-login('Timberlake', '123');
+function logoutUser() {
+	console.debug("logging out current user");
+	Parse.User.logOut();
+	cdUser = Parse.User.current();
+	window.location.replace(LOGIN_PAGE);
+}
 
 
-function getUsername( ){
-	return Parse.User.current();
+// login('Timberlake', '123');
+
+function getUsername() {
+	return cdUser.getUsername();
 }
 
 function setReadRelation(user) {
@@ -84,9 +102,11 @@ function setReadRelation(user) {
 					return formattedDay;
 				}
 				var date = this.get("date");
-				formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
-				this.set("formattedDay", formattedDay);
-				this.save();
+				if (date) {
+					formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
+					this.set("formattedDay", formattedDay);
+					this.save();
+				}
 				return formattedDay;
 			}, 
 
@@ -96,12 +116,14 @@ function setReadRelation(user) {
 					return formattedTime;
 				}
 				var date = this.get("date");
-				var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-			    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
-			    var ampm = date.getHours() < 12 ? "AM" : "PM";
-			    formattedTime = hours + ":" + minutes + " " + ampm;
-			    this.set("formattedTime", formattedTime);
-			    this.save();
+				if (date) {
+					var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+				    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
+				    var ampm = date.getHours() < 12 ? "AM" : "PM";
+				    formattedTime = hours + ":" + minutes + " " + ampm;
+				    this.set("formattedTime", formattedTime);
+				    this.save();
+				}
 			    return formattedTime;
 			},
 
@@ -154,9 +176,11 @@ function setReadRelation(user) {
 					return formattedDay;
 				}
 				var date = this.get("date");
-				formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
-				this.set("formattedDay", formattedDay);
-				this.save();
+				if (date) {
+					formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
+					this.set("formattedDay", formattedDay);
+					this.save();
+				}
 				return formattedDay;
 		},
 
@@ -166,12 +190,14 @@ function setReadRelation(user) {
 				return formattedTime;
 			}
 			var date = this.get("date");
-			var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-		    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
-		    var ampm = date.getHours() < 12 ? "AM" : "PM";
-		    formattedTime = hours + ":" + minutes + " " + ampm;
-		    this.set("formattedTime", formattedTime);
-		    this.save();
+			if (date) {
+				var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+			    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
+			    var ampm = date.getHours() < 12 ? "AM" : "PM";
+			    formattedTime = hours + ":" + minutes + " " + ampm;
+			    this.set("formattedTime", formattedTime);
+			    this.save();
+			}
 		    return formattedTime;
 		},
 	}, {
@@ -209,6 +235,8 @@ function setReadRelation(user) {
 */
 
 	function getUnreadMessages(onSuccess, onError) {
+		// Retrieve the most recent ones
+		query.descending("createdAt");
 		var query = new Parse.Query(Message);
 		// var innerQuery = readRelation.query();
 		// query.doesNotMatchQuery("")
@@ -232,6 +260,8 @@ function setReadRelation(user) {
 	}
 
 	function getReadMessages(onSuccess, onError) {
+		// Retrieve the most recent ones
+		query.descending("createdAt");
 		var query = readRelation.query().find({
 			success: function(readMsgList) {
 				console.log("got all read messages");
@@ -252,6 +282,8 @@ function setReadRelation(user) {
 
 	function getAllMessages(onSuccess, onError) {
 		var query = new Parse.Query(Message);
+		// Retrieve the most recent ones
+		query.descending("createdAt");
 		query.find({
 			success: function(allMsgs) {
 				console.log("got all messages");
@@ -289,6 +321,30 @@ function setReadRelation(user) {
 			}
 		});
 	}
+
+	function getRepliesForMessage(msg_obj, onSuccess, onError) {
+		var query = new Parse.Query(Reply);
+		query.equalTo("parent", msg_obj);
+		// Retrieve the most recent ones
+		query.descending("createdAt");
+		query.find({
+			success: function(replies) {
+				console.log("got replies for " + msg_obj);
+				console.log(replies);
+				if (onSuccess) {
+					onSuccess(replies);
+				}
+			},
+			error: function(obj, error) {
+				console.log('could not get replies for ' + obj);
+				console.log(error);
+				if (onError) {
+					onError(obj, error);
+				}
+			}
+		});
+	}
+
 
 	/* 
 		ADVANCED SEARCHING
@@ -382,10 +438,10 @@ var title = 'Visa card found';
 	alert = true;
 	var date = new Date('17 Mar, 2013 10:28:00');
 
-var msg = Message.create(title, text, author, tags, type, priority, alert, date);
-console.log("done with message.");
-console.log(msg);
-console.log('message day: ' + msg.getDay());
+// var msg = Message.create(title, text, author, tags, type, priority, alert, date);
+// console.log("done with message.");
+// console.log(msg);
+// console.log('message day: ' + msg.getDay());
 
 // title = 'Fixed';
 // 	text = 'Sally picked up her id. All better =]';
