@@ -277,6 +277,38 @@
                         <div class="row"><button id= "replyButton" type="button" class="btn btn-success"><i class="icon-reply"></i>  Reply</button></div>
                     </div>
                     <div class="replies"></div>
+                    <div id="replyFormDiv">
+                        <div class="alert alert-error fade in replyTitleAlert row">
+                            <button type="button" class="close replyTitleClose">&times;</button>
+                            <strong>Warning!</strong> Title cannot be empty. Please enter a title (e.g. Missing Package for Jane)
+                        </div>
+                        <div class="alert alert-error fade in replyMsgAlert row">
+                            <button type="button" class="close replyMsgClose">&times;</button>
+                            <strong>Warning!</strong> Message is empty
+                        </div>
+
+                        <!-- Title -->
+                        <div>
+                            <div class="row">
+                                <input id="replyTitleInput" name="replyTitleInput" type="text" placeholder="Title" class="input-xlarge">
+                            </div>
+
+                            <!-- Message Text Area -->
+                            <div class="row">                    
+                                <textarea id="replyMessageArea" name="replyMessageArea" placeholder="Your message here..." class="input-block-level"></textarea>
+                            </div>   
+                            
+                            <div class="input-prepend input-xlarge row" id="tags-input">
+                                <span class="add-on" id="hashtag">#</span>
+                                <input id="replyTags" name="replyTags" class="" placeholder="#tags" type="text">
+                            </div>
+
+                            <div class="row reply-footer">
+                                <button class="btn button" id="replyClearBtn">Clear</button>
+                                <button class="btn btn-success button" id="replySubmitBtn">Submit</button>
+                            </div>            
+                        </div>
+                    </div>
                 </div>
             </div>
 	    </div>

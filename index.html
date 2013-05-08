@@ -108,6 +108,11 @@
 			// display a static message in the reading pane (until this is called from browsing pane)
 	        displayMessage("POqBGuEw1S");
 
+            // initially hide all alerts
+            $(".alert").hide();
+
+            $("#replyFormDiv").hide();
+
             /*Submits search to browse pane when a tag is clicked*/
             $(".tag").click(function() {
                 var tagText = $(this).html();
@@ -115,6 +120,31 @@
                 $('#search-tbox').val(tagText);
                 updateSearchedBrowsePane('message-table', getMessageIDs(tagText));
             });
+
+            $("#replyButton").click(function() {
+                $("#replyFormDiv").show();
+            })
+
+            // Hiding Alerts on FocusOut
+            $("#replyTitleInput").focusout(function () {
+                if ($("#replyTitleInput").val() != "") {
+                    $(".replyTitleAlert").slideUp();
+                }
+            });
+
+            $("#replyMessageArea").focusout(function () {
+                if ($("#replyMessageArea").val() != "") {
+                    $(".replyMsgAlert").slideUp();
+                }
+            });
+
+            $(".replyTitleClose").click(function() {
+                $(".replyTitleAlert").slideUp();
+            })
+
+            $(".replyMsgClose").click(function() {
+                $(".replyMsgAlert").slideUp();
+            })
 		}		
 
 		function createPaneReady() {
@@ -133,7 +163,7 @@
 
             // Hiding Alerts on FocusOut
             $("#textinput").focusout(function () {
-            	if ($("textinput").val() != "") {
+            	if ($("#textinput").val() != "") {
             		$(".titleAlert").slideUp();
             	}
             });

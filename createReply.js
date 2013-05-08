@@ -1,60 +1,26 @@
-function openReplyForm() {
-	// Uncheck the radio buttons
-	$(".btn-group .btn.active").each(function() {
-		$("#" + this.id).removeClass("active");
-	});
+function resetReply() {
+	$(".alert").slideUp();
 
-	$("select#selectTemplate").val("None Selected");
-
-	var formTitleBar = "Reply<div class='floatRight btn'><i class='icon-chevron-down' id='chevronDown'></i></div>";
-	$("#formTitle").html(formTitleBar);
-
-	var title = $(".originalMsgTitle").html();
-	title = title.replace("Issue: ", "");
-	title = title.replace("Note: ", "");
-	$("#textinput").val("Re: " + title);
-
-	$("#textarea").val("");
-
-	// Grabs the tags in the original message to automatically fill in the reply
-	var tagObj = $("div.tag");
-	var tags = Array();
-	for (var i = 0; i < tagObj.length; i++) {
-		var tmpTag = $(tagObj[i]).html().replace("#", "");
-		tags.push(tmpTag);
-	}
-
-	// Currently separates tags by strings but need to separate into objects
-	var displayTags = "";
-	for (var i = 0; i < tags.length; i++) {
-		if (i != 0) {
-			displayTags += ", " + tags[i];
-		} else {
-			displayTags += tags[i];
-		}
-	}
-	$("#prependedtext").val(displayTags);
-
-	$("#submitBtn").html("Submit Reply");
+	$("#replyTitleInput").val("");
+	$("#replyMessageArea").val("");
+	$("#replyTags").val("");
 }
 
-function submitReply(replyID) {
-	var title = $("#textinput").val();
-	var text = $("#textarea").val();
-	var tags = $("#prependedtext").val();
-
-	// need to grab three side button data
+function submitReply() {
+	var title = $("#replyTitleInput").val();
+	var text = $("#replyMessageArea").val();
+	var tags = $("#replyTags").val();
 
 	tags = tags.split(",");
 	for (var i = 0; i < tags.length; i++) {
 		tags[i] = tags[i].replace(/\s/g, '');
 	}
 
-	author = 'Julie';
-	date = new Date('19 Mar, 2013 13:07:00');
-	var reply = new Reply(title, text, author, tags, date);
-	console.log(msg);
-	db.getMessage(replyID).addReply(reply);
+	var author = getUsername();
+	var date = new Date();
 
-	reset();
+	//var msg = new Message(title, text, author, tags, type, priority, alert, date);
+	Message.replyTags(title, text, author, tags, date);
+
+	resetReply();
 }

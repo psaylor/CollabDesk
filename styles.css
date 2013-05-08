@@ -227,7 +227,7 @@
 	}
 
 	.row {
-		margin: 5px;
+		margin: 10px;
 	}
 
 	#messageHeader {
@@ -301,6 +301,15 @@
 
 	.tag:focus {
 		background: #79D2A6;
+	}
+
+	#replyMessageArea {
+		width: 800px;
+		height: 200px;
+	}
+
+	.reply-footer {
+		float: right;
 	}
 
 
