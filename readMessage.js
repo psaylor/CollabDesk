@@ -47,7 +47,8 @@ function msgHandler(msg_object) {
   for (var j=0; j<tags.length; j++) {
     var tag = tags[j];
     var tagDiv = $(document.createElement('button'))
-        .addClass('btn')
+        .addClass('btn-info')
+        .addClass('btn-mini')
         .addClass('tag')
         .html("#"+tag);
     $('#messageTags').append(tagDiv);
