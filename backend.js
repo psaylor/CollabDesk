@@ -378,25 +378,34 @@ getImagesForUsers();
 
 	*/
 	function advancedSearch(options, onSuccess, onError) {
-		var query = new Parse.Query(Message);
+		console.debug('advancedSearch');
+		
 
+		var tagQuery = new Parse.Query(Message);
+		var titleQuery = new Parse.Query(Message);
+		var textQuery = new Parse.Query(Message);
+		var authorQuery = new Parse.Query(Message);
+
+		console.log(query);
 		if (options.tags) {
-			query.containsAll("tags", options.tags);
+			console.log('adding tags');
+			tagQuery.containsAll("tags", options.tags);
 		}
 		if (options.title) {
 			for (var i = options.title.length - 1; i >= 0; i--) {
-				query.contains("title", options.title[i]);
+				titleQuery.contains("title", options.title[i]);
 			};
 		}
 		if (options.text) {
 			for (var i = options.text.length - 1; i >= 0; i--) {
-				query.contains("text", options.text[i]);
+				textQuery.contains("text", options.text[i]);
 			};
 		}
 		if (options.author) {
-			query.contains("author", options.author);
+			authorQuery.contains("author", options.author);
 		}
 
+		var query = new Parse.Query.or(tagQuery, titleQuery, textQuery, authorQuery);
 		query.find({
 			success: function(matches) {
 				console.log("got all matches");
