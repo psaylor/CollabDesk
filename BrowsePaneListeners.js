@@ -10,6 +10,7 @@ function browsePaneReady() {
         //var messageIDs=getMessageIDs(inp);
         if(inp.length>0){
             updateSearchedBrowsePane("message-table", inp);
+            addClickListener();
         }
         //$(".ui-menu-item").hide()
     });
@@ -26,6 +27,7 @@ function browsePaneReady() {
             //console.log("Listening to ENTER. input is "+inp+"matching messages are ");
             //console.log("messageIDs");
             updateSearchedBrowsePane("message-table", inp);
+            addClickListener();
             //$(".ui-menu-item").hide()
         }
 
@@ -45,6 +47,7 @@ function browsePaneReady() {
                 var inp=$("#search-tbox").val();
                 //var messageIDs=getMessageIDs(inp);
                 updateSearchedBrowsePane("message-table", inp);
+                addClickListener();
             }
             else{
             	updateBrowsePane("message-table");

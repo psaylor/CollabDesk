@@ -160,7 +160,6 @@ function updateSearchedBrowsePane(divID, input){
 		console.log(matches);
 		if(matches.length>0){
 				for (i in matches){
-
 					msg=matches[i];
 					var title = msg.get('title');
 					var date = msg.get('date');
@@ -182,16 +181,19 @@ function updateSearchedBrowsePane(divID, input){
 								"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
 								"</div>"+
 								"</li>";
+					//console.log("output is now "+output);
 				}		
 		}
-	});
 	output+="</ul></div>";
 	console.log("in update");
+	console.log("OUTPUT--------------------------------------------------");
 	console.log(output);
 	$("#"+divID).append(output);
-
-	//adding listeners again
 	addClickListener();
+	});
+	
+	//adding listeners again
+	//addClickListener();
 
 };
 
