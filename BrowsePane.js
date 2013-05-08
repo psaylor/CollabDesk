@@ -110,11 +110,29 @@ function updateBrowsePane (divID){
 		}
 		//console.log("output is "+output);
 		$("#"+divID).append(output);
+		addClickListener();
 	});
 
 	console.log("done adding messages.");
 	//adding listeners again
-	addClickListener();
+	//addClickListener();
+
+ 	$(".message").click(function(){
+        console.log("CLICKED ON NAVBAR");
+        //var focusedId=$(this).attr("id"); //id of message that is clicked
+        //replyId = focusedId;
+        //displayMessage(focusedId);
+
+        /*
+        //marking message as read
+        getMessage(focusedId, function(msg){
+            markRead(msg);
+        });        
+        */
+
+        //updateBrowsePane();
+    });
+
 	console.log("listeners added again. leaving updateBrowsePane()...-------------------------------------------");
 };
 

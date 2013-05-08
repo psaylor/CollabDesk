@@ -429,7 +429,7 @@ function markRead(msg) {
 }
 
 
-
+/*
 var title = 'Visa card found';
 	var text = 'A visa card was found on one of the tables at dining today. It does not have a name on it.';
 	var author = 'Kayla';
@@ -447,6 +447,7 @@ var title = 'Visa card found';
 	priority = Message.LOW_PRI;
 	alert = true;
 	var date = new Date('17 Mar, 2013 10:28:00');
+*/
 
 // var msg = Message.create(title, text, author, tags, type, priority, alert, date);
 // console.log("done with message.");
