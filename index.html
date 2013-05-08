@@ -182,8 +182,26 @@
             $("#submitBtn").keydown(function (e) {
                 console.log('submit btn keydown');
                 if (e.which == 13) {
-                    submit();
-                    $('#createMsgModal').modal('hide')
+                    isTitleEmpty = ($("#textinput").val() == "");
+                    isMsgEmpty = ($("#textarea").val() == "");
+
+                    if (isTitleEmpty) {
+                        $(".titleAlert").slideDown();
+                    } else {
+                        $(".titleAlert").slideUp();
+                    }
+                    if(isMsgEmpty) {
+                        $(".msgAlert").slideDown();
+                    } else {
+                        $(".msgAlert").slideUp();
+                    }
+
+                    if (isTitleEmpty || isMsgEmpty) { 
+                        return;
+                    } else {
+                        submit();
+                        $('#createMsgModal').modal('hide');
+                    }
                 }
             
             });
