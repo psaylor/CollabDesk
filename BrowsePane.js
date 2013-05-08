@@ -269,7 +269,7 @@ function getDateTableHTML(date, messageList){
 	if(messageList.length==0){
 		return "";
 	}
-	var outputDate=date.substring(0,2)+"/"+date.substring(2);
+	var outputDate=date;
 	var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul>"
 	var msg;
 	for(index in messageList){
