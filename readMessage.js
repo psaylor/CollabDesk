@@ -47,12 +47,14 @@ function msgHandler(msg_object) {
   $('#messageTags').empty();
   for (var j=0; j<tags.length; j++) {
     var tag = tags[j];
-    var tagDiv = $(document.createElement('button'))
-        .addClass('btn-info')
-        .addClass('btn-mini')
-        .addClass('tag')
-        .html("#"+tag);
-    $('#messageTags').append(tagDiv);
+    if (tag.trim() != "") {
+      var tagDiv = $(document.createElement('button'))
+          .addClass('btn-info')
+          .addClass('btn-mini')
+          .addClass('tag')
+          .html("#"+tag);
+      $('#messageTags').append(tagDiv);
+    }
   }
 
   // Display replies 
