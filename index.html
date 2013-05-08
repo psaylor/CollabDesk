@@ -119,7 +119,7 @@
             /*Submits search to browse pane when a tag is clicked*/
             $(".tag").click(function() {
                 var tagText = $(this).html();
-                // tagText = tagText.substring(1, tagText.length);
+                tagText = tagText.substring(1, tagText.length);
                 $('#search-tbox').val(tagText);
                 updateSearchedBrowsePane('message-table', getMessageIDs(tagText));
             });
@@ -135,13 +135,13 @@
 
             // Hiding Alerts on FocusOut
             $("#replyTitleInput").focusout(function () {
-                if ($("#replyTitleInput").val() != "") {
+                if ($("#replyTitleInput").val().trim() != "") {
                     $(".replyTitleAlert").slideUp();
                 }
             });
 
             $("#replyMessageArea").focusout(function () {
-                if ($("#replyMessageArea").val() != "") {
+                if ($("#replyMessageArea").val().trim() != "") {
                     $(".replyMsgAlert").slideUp();
                 }
             });
@@ -155,8 +155,8 @@
             })
 
             $("#replySubmitBtn").click(function() {
-                var isTitleEmpty = ($("#replyTitleInput").val() == "");
-                var isMsgEmpty = ($("#replyMessageArea").val() == "");
+                var isTitleEmpty = ($("#replyTitleInput").val().trim() == "");
+                var isMsgEmpty = ($("#replyMessageArea").val().trim() == "");
 
                 if (isTitleEmpty) {
                     $(".replyTitleAlert").slideDown();
@@ -182,8 +182,8 @@
             */
             $("#submitBtn").keydown(function (e) {
                 if (e.which == 13) {
-                    var isTitleEmpty = ($("#replyTitleInput").val() == "");
-                    var isMsgEmpty = ($("#replyMessageArea").val() == "");
+                    var isTitleEmpty = ($("#replyTitleInput").val().trim() == "");
+                    var isMsgEmpty = ($("#replyMessageArea").val().trim() == "");
 
                     if (isTitleEmpty) {
                         $(".replyTitleAlert").slideDown();
@@ -233,13 +233,13 @@
 
             // Hiding Alerts on FocusOut
             $("#textinput").focusout(function () {
-            	if ($("#textinput").val() != "") {
+            	if ($("#textinput").val().trim() != "") {
             		$(".titleAlert").slideUp();
             	}
             });
 
             $("#textarea").focusout(function () {
-            	if ($("#textarea").val() != "") {
+            	if ($("#textarea").val().trim() != "") {
             		$(".msgAlert").slideUp();
             	}
             });
@@ -254,8 +254,8 @@
             $("#submitBtn").click(function() {
                 console.log('submit btn click');
 
-               	var isTitleEmpty = ($("#textinput").val() == "");
-               	var isMsgEmpty = ($("#textarea").val() == "");
+               	var isTitleEmpty = ($("#textinput").val().trim() == "");
+               	var isMsgEmpty = ($("#textarea").val().trim() == "");
 
                 if (isTitleEmpty) {
                     $(".titleAlert").slideDown();
@@ -282,8 +282,8 @@
             $("#submitBtn").keydown(function (e) {
                 console.log('submit btn keydown');
                 if (e.which == 13) {
-                    var isTitleEmpty = ($("#textinput").val() == "");
-                    var isMsgEmpty = ($("#textarea").val() == "");
+                    var isTitleEmpty = ($("#textinput").val().trim() == "");
+                    var isMsgEmpty = ($("#textarea").val().trim() == "");
 
                     if (isTitleEmpty) {
                         $(".titleAlert").slideDown();
