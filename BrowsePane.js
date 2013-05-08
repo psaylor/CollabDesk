@@ -148,6 +148,7 @@ function updateSearchedBrowsePane(divID, input){
 	var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
 	
 	inputArray = input.toLowerCase().split(" ");
+	console.log(inputArray);
 	var options = {};
 	options.tags=inputArray;
 	options.title=inputArray;
@@ -216,10 +217,10 @@ function determineIcons(alert, priority, noteOrIssue){
 	}
 
 	if(alert){
-		output+="<i class='icon-envelope icon-color'></i>";
+		output+="<i class='icon-user icon-color'></i>";
 	}
 	else{
-		output+="<i class='icon-envelope icon-color hidden'></i>";		
+		output+="<i class='icon-user icon-color hidden'></i>";		
 	}
 	return output
 };
@@ -233,6 +234,9 @@ function getMessageHTML(msg, id){
 	var date = msg.get('date');
 	var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
 	var text = msg.get('text').substring(0,125);
+	var alert=msg.get('alert'); //boolean
+	var priority = msg.get('priority'); //boolean
+	var noteVsIssue = msg.get('type'); //string
 	if(msg.get('text').length>125){ //if message was truncated to display
 		text+="...";
 	}
@@ -241,7 +245,8 @@ function getMessageHTML(msg, id){
 
 	var output ="<li class = 'message' id='"+id+"'>"+
 				"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-				"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+				//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+				determineIcons(alert, priority, noteVsIssue)+ "</div>"+
 				"<div class='message-content'>"+
 				"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
 				"</div>"+

@@ -8,7 +8,9 @@ function browsePaneReady() {
         var inp=$("#search-tbox").val();
         //console.log(inp);
         //var messageIDs=getMessageIDs(inp);
-        updateSearchedBrowsePane("message-table", inp);
+        if(inp.length>0){
+            updateSearchedBrowsePane("message-table", inp);
+        }
         //$(".ui-menu-item").hide()
     });
 
@@ -20,8 +22,7 @@ function browsePaneReady() {
         // 	popoverShowing=true;
         // }
 
-        if(event.which==13){ //checking for 'enter'
-            var inp=$("#search-tbox").val();
+        if(event.which==13 && inp.length>0){ //checking for 'enter'
             //console.log("Listening to ENTER. input is "+inp+"matching messages are ");
             //console.log("messageIDs");
             updateSearchedBrowsePane("message-table", inp);
