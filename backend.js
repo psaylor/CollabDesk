@@ -428,8 +428,6 @@ function markRead(msg) {
 	});
 }
 
-
-
 // var title = 'Visa card found';
 // 	var text = 'A visa card was found on one of the tables at dining today. It does not have a name on it.';
 // 	var author = 'Kayla';

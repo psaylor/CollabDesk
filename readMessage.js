@@ -24,103 +24,101 @@ function msgHandler(msg_object) {
   var replies = msg_object.get("replies");
   var tags = msg_object.get("tags");
 
-  console.log(title);
-  console.log(text);
-  console.log(type);
-  console.log(time);
-  console.log(day);
-  console.log(author);
-  console.log(priority);
-  console.log(alert);
-  console.log(replies);
-  console.log(tags);
-
   // Display original message
-  $('.originalMsgTitle').html(type + ": " + title);
-  $('.originalMsgAuthor').html(author);
-  $('.originalMsgTime').html(time + ' on ' + day);
-  $('.originalMsgText').html(text);
+  $('#messageTitle').html(type + ": " + title);
+  $('#messageAuthor').html(author);
+  $('#messageTime').html(time + ' on ' + day);
+  $('#messageText').html(text);
 
-  $('.captain').removeClass('hidden');
-  $('.high_pri').removeClass('hidden');
+  $('#captainIcon').removeClass('hidden');
+  $('#priorityIcon').removeClass('hidden');
 
   // Display/hide appropriate icons
   if(alert == NO_ALERT) {
-    $('.captain').addClass('hidden');
+    $('#captainIcon').addClass('hidden');
   }
   if(priority == LOW_PRI) {
-    $('.high_pri').addClass('hidden');
+    $('#priorityIcon').addClass('hidden');
   }
 
   // Display tags
-  $('.hashtags').empty();
+  $('#messageTags').empty();
   for (var j=0; j<tags.length; j++) {
     var tag = tags[j];
     var tagDiv = $(document.createElement('button'))
         .addClass('btn')
         .addClass('tag')
         .html("#"+tag);
-    $('.hashtags').append(tagDiv);
+    $('#messageTags').append(tagDiv);
   }
 
-  // Display replies
+  // Display replies 
+  getRepliesForMessage(msg_object,replyHandler);
+
+}
+
+// Reply handler for new backend. After all replies have been loaded, displays replies.
+function replyHandler(replies) {
+
   $('.replies').empty();
-  console.log(replies.length);
   for (var i=0; i< replies.length; i++) {
     var reply = replies[i];
+    var title = reply.get("title");
+    var text = reply.get("text");
+    var time = reply.getTime();
+    var day = reply.getDay();
+    var author = reply.get("author");
+    var tags = reply.get("tags");
+
 
     // Create new div for each reply
     var replyDiv = $(document.createElement('div'))
         .addClass('well')
-        .addClass('white')
-        .addClass('reply');
+        .addClass('white');
     $('.replies').append(replyDiv);
 
-    // Create new div for heading (title)
-    var replyHeaderDiv = $(document.createElement('div'))
+    // Create new row for reply header
+    var replyHeader = $(document.createElement('div'))
         .addClass('replyHeader')
-        .html(reply.title);
-    $(replyDiv).append(replyHeaderDiv);
+        .addClass('title')
+        .addClass('row')
+        .html(title);
+    $(replyDiv).append(replyHeader);
 
-    // Create new div for body
-    var replyBodyDiv = $(document.createElement('div'))
-        .addClass('replyBody');
-    $(replyDiv).append(replyBodyDiv);
+    // Create new row for reply second header
+    var replySecondHeader = $(document.createElement('div'))
+        .addClass('replySecondHeader')
+        .addClass('row');
+    $(replyDiv).append(replySecondHeader);
 
-    // Create new div for body details (author, time, date, picture)
-    var replyDetailsDiv = $(document.createElement('div'))
-        .addClass('replyDetails');
-    $(replyBodyDiv).append(replyDetailsDiv);
-
-    // Add table for body details divs to appear side by side
-    var replyTable = $(document.createElement('table'));
-    var replyRow = $(document.createElement('tr'));
-    $(replyTable).append(replyRow);
-    var authorCell = $(document.createElement('td'));
-    $(replyRow).append(authorCell);
-    var textCell = $(document.createElement('td'));
-    $(replyRow).append(textCell);
-    $(replyDetailsDiv).append(replyTable);
-
-    // Create new div for author picture
-    var authorPicDiv = $(document.createElement('div'))
-        .addClass('authorPic');
-    var authorPicImg = $("<img class='authorPic', src='images/generic_avatar.jpg'>");
-    $(authorPicDiv).append(authorPicImg);
-    $(authorCell).append(authorPicDiv);
-
-    // Create new div for body details text (author, time, date)
-    var replyDetailsTextDiv = $(document.createElement('div'))
-        .addClass('replyDetailsText')
-        .html(reply.author + " at " + reply.getTime() + " on " + reply.getDay());
-    $(textCell).append(replyDetailsTextDiv);
-
-    // Create new div for body text (actual text of reply)
-    var replyTextDiv = $(document.createElement('div'))
+    // Create new row for reply text
+    var replyText = $(document.createElement('div'))
         .addClass('replyText')
-        .addClass('offset1')
-        .html(reply.text);
-    $(replyBodyDiv).append(replyTextDiv);
-  }
+        .addClass('row')
+        .html(text);
+    $(replyDiv).append(replyText);
 
+    // Add content to reply second header
+    var authorImg = $("<img src='images/generic_avatar.jpg'>");
+    var authorImgDiv = $(document.createElement('div'))
+        .addClass('authorImg');
+    $(authorImgDiv).append(authorImg);
+    $(replySecondHeader).append(authorImgDiv);
+
+    var replyAuthor = $(document.createElement('div'))
+        .addClass('author')
+        .html(author);
+    $(replySecondHeader).append(replyAuthor);
+
+    var replyTime = $(document.createElement('div'))
+        .addClass('time')
+        .html(time + ' on ' + day);
+    $(replySecondHeader).append(replyTime);
+
+    var clockIcon = $("<i class='icon-time icon-large'></i>");
+    var clockIconDiv = $(document.createElement('div'))
+        .addClass('clockIcon');
+    $(clockIconDiv).append(clockIcon);
+    $(replySecondHeader).append(clockIconDiv);
+  }
 }
