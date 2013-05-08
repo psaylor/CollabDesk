@@ -125,6 +125,11 @@
                 $("#replyFormDiv").show();
             })
 
+            $("#replyXClose").click(function() {
+                reset();
+                $("#replyFormDiv").hide();
+            })
+
             // Hiding Alerts on FocusOut
             $("#replyTitleInput").focusout(function () {
                 if ($("#replyTitleInput").val() != "") {
@@ -143,8 +148,70 @@
             })
 
             $(".replyMsgClose").click(function() {
-                $(".replyMsgAlert").slideUp();
+                $(".replyMessageArea").slideUp();
             })
+
+            $("#replySubmitBtn").click(function() {
+                var isTitleEmpty = ($("#replyTitleInput").val() == "");
+                var isMsgEmpty = ($("#replyMessageArea").val() == "");
+
+                if (isTitleEmpty) {
+                    $(".replyTitleAlert").slideDown();
+                } else {
+                    $(".replyTitleAlert").slideUp();
+                }
+                if(isMsgEmpty) {
+                    $(".replyMsgAlert").slideDown();
+                } else {
+                    $(".replyMsgAlert").slideUp();
+                }
+
+                if (isTitleEmpty || isMsgEmpty) { 
+                    return;
+                } else {
+                    submitReply();
+                    $("#replyFormDiv").hide();
+                }
+            });
+
+            /*
+            Submits the form when the user has focus on the Submit button and presses enter
+            */
+            $("#submitBtn").keydown(function (e) {
+                if (e.which == 13) {
+                    var isTitleEmpty = ($("#replyTitleInput").val() == "");
+                    var isMsgEmpty = ($("#replyMessageArea").val() == "");
+
+                    if (isTitleEmpty) {
+                        $(".replyTitleAlert").slideDown();
+                    } else {
+                        $(".replyTitleAlert").slideUp();
+                    }
+                    if(isMsgEmpty) {
+                        $(".replyMsgAlert").slideDown();
+                    } else {
+                        $(".replyMsgAlert").slideUp();
+                    }
+
+                    if (isTitleEmpty || isMsgEmpty) { 
+                        return;
+                    } else {
+                        submitReply();
+                        $("#replyFormDiv").hide();
+                    }
+                }
+            });
+
+             $("#replyClearBtn").click(function() {
+                resetReply();
+            });
+
+          $("#replyClearBtn").keydown(function (e) {
+                if (e.which == 13) {
+                    resetReply();
+                }
+                
+            });
 		}		
 
 		function createPaneReady() {
@@ -184,8 +251,8 @@
             $("#submitBtn").click(function() {
                 console.log('submit btn click');
 
-               	isTitleEmpty = ($("#textinput").val() == "");
-               	isMsgEmpty = ($("#textarea").val() == "");
+               	var isTitleEmpty = ($("#textinput").val() == "");
+               	var isMsgEmpty = ($("#textarea").val() == "");
 
                 if (isTitleEmpty) {
                     $(".titleAlert").slideDown();
@@ -212,8 +279,8 @@
             $("#submitBtn").keydown(function (e) {
                 console.log('submit btn keydown');
                 if (e.which == 13) {
-                    isTitleEmpty = ($("#textinput").val() == "");
-                    isMsgEmpty = ($("#textarea").val() == "");
+                    var isTitleEmpty = ($("#textinput").val() == "");
+                    var isMsgEmpty = ($("#textarea").val() == "");
 
                     if (isTitleEmpty) {
                         $(".titleAlert").slideDown();
@@ -248,6 +315,11 @@
                 }
                 
             });
+
+           $("#submitXClose").click(function() {
+                reset();
+            })
+
 
           $("#closeBtn").keydown(function (e) {
           	if (e.which == 13) {

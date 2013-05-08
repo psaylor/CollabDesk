@@ -21,7 +21,7 @@
 	ICON STYLES
 */
 	.icon-exclamation-sign {
-		color: red;
+		color: #DA4F49;
 	}
 
 	.icon-envelope-alt {
@@ -46,6 +46,10 @@
 
 	.icon-reorder {
 		color: purple;
+	}
+
+	.icon-user {
+		color: #FAA732;
 	}
 
 
@@ -141,12 +145,14 @@
 	}
 
 	.bucket{
-		background-color: #339966;
+		/*background-color: #339966;*/
 		color: white;
 		font-weight:bold;
 		border-bottom: 1px solid gray;
 		padding: 5px;
 		text-indent:1em;
+		background-color: #49AFCD;
+	    background-image: linear-gradient(to bottom, #5BC0DE, #2F96B4);
 	}
 
 	.hidden{
@@ -241,6 +247,12 @@
 		font-size: 1.5em;
 	}
 
+	#replyTitle{
+		font-size: 2em;
+		padding-bottom: 10px;
+		float: left;
+	}
+
 	#captainIcon {
 		float: right;
 		margin-bottom: 10px;
@@ -279,15 +291,15 @@
 	}
 
 	.tag {
-		display: inline-block;
+	/*	display: inline-block;
 		font-size: 12px;
 		line-height: 14px;
-		background: #9FDFBF;
+		background: #9FDFBF;*/
 		margin-right: 5px;
-		font-family: sans-serif;
+		/*font-family: sans-serif;*/
 	}
 
-	.tag:hover {
+/*	.tag:hover {
 		background: #79D2A6;
 	}
 
@@ -297,11 +309,11 @@
 
 	.tag:focus {
 		background: #79D2A6;
-	}
+	}*/
 
 	#replyMessageArea {
-		width: 800px;
-		height: 200px;
+		width: 700px;
+		height: 75px;
 	}
 
 	.reply-footer {
