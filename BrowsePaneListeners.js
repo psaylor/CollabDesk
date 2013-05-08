@@ -3,8 +3,6 @@ function browsePaneReady() {
 
 	updateBrowsePane("message-table");
 
-	//addClickListener();
-
     $("#search-button").click(function(event){
         //console.log("clicked search button");
         var inp=$("#search-tbox").val();
@@ -69,6 +67,8 @@ function browsePaneReady() {
     // 	html: true,
     // 	content: showSearchDetails()
     // });
+    console.log("MESSAGES: ");
+    console.log($(".message"));
 
      $(".message").click(function(){
         console.log("!CLICKED ON "+$('.message').attr('id'));

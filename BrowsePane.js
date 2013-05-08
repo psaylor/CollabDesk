@@ -94,10 +94,10 @@ function updateBrowsePane (divID){
 
 			//adding to hashtable
 			if(hash.hasOwnProperty(date)){
-				hash[date].push(index);
+				hash[date].push(readList[index].id);
 			}
 			else{
-				hash[date]=[index];
+				hash[date]=[readList[index].id];
 			}
 		}
 
@@ -239,27 +239,33 @@ function getMessageHTML(msg, id){
 * 
 */
 function getDateTableHTML(date, messageIdList){
+	console.log("getDateTableHTML()");
+	console.log(messageIdList);
+	if(messageIdList.length==0){
+		return "";
+	}
 	var outputDate=date.substring(0,2)+"/"+date.substring(2);
 	var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul id='unread-content'>"
 	var msg;
 	for(index in messageIdList){
-		msg = getMessage(messageIdList[index]);
-		output+=getMessageHTML(msg, index);
+		getMessage(messageIdList[index], function(msg){
+			output+=getMessageHTML(msg, msg.id);
+		});
 	}
 	output+="</ul></div>";
 	return output;
 
 }
 
-/**
-* Given a list of message ids, return the html corresponding to the id of the filtered 
-*/
-function getSelectedMessagesHTML(messageList){
-	//console.log(messageList);
-	var output = "";
-	for (i in messageList){
-		output+=getMessageHTML(getMessage(messageList[i]), messageList[i]);
-	}
-	//console.log(output);
-	return output;
-};
+// /**
+// * Given a list of message ids, return the html corresponding to the id of the filtered 
+// */
+// function getSelectedMessagesHTML(messageList){
+// 	//console.log(messageList);
+// 	var output = "";
+// 	for (i in messageList){
+// 		output+=getMessageHTML(getMessage(messageList[i]), messageList[i]);
+// 	}
+// 	//console.log(output);
+// 	return output;
+// };
