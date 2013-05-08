@@ -318,7 +318,7 @@ function setReadRelation(user) {
 		var query = new Parse.Query(Reply);
 		query.equalTo("parent", msg_obj);
 		// Retrieve the most recent ones
-		query.descending("createdAt");
+		query.ascending("createdAt");
 		query.find({
 			success: function(replies) {
 				console.log("got replies for " + msg_obj);
