@@ -451,21 +451,22 @@ function markRead(msg) {
 // console.log(msg);
 // console.log('message day: ' + msg.getDay());
 
-// title = 'Fixed';
-// 	text = 'Sally picked up her id. All better =]';
-// 	author = 'Sam';
-// 	tags = ['fixed'];
-// 	date = new Date('19 Mar, 2013 15:31:00');
-// 	var reply = Reply.create(title, text, author, tags, date, msg);
-// 	// msg.addReply(reply);
-// 	console.debug("msg day: " + msg.getDay());
+
+	// msg.addReply(reply);
+	// console.debug("msg day: " + msg.getDay());
 
 // var MsgQuery = new Parse.Query(Message);
 // var msg2 = null;
-// MsgQuery.get("6LU7Ua5OEp", {
+// MsgQuery.get("POqBGuEw1S", {
 // 	success: function(object) {
 // 		msg2 = object;
 // 		console.debug('successful get msg');
+// 		title = 'Returned';
+// 	text = 'Mary picked up her ID =]';
+// 	author = 'Sam';
+// 	tags = ['returned'];
+// 	date = new Date('19 Mar, 2013 15:31:00');
+// 	var reply = Reply.create(title, text, author, tags, date, msg2);
 // 	},
 // 	error : function(object, error) {
 // 		console.debug('error getting object');

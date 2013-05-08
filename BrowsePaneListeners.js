@@ -3,11 +3,7 @@ function browsePaneReady() {
 
 	updateBrowsePane("message-table");
 
-	$(".message").click(function(){
-    var focusedId=$(this).attr("id"); //id of message that is clicked
-    replyId = focusedId;
-    displayMessage(focusedId);
-    });
+	//addClickListener();
 
     $("#search-button").click(function(event){
         //console.log("clicked search button");
@@ -56,23 +52,57 @@ function browsePaneReady() {
         }
     });
 
-    //Advanced Search Popover
-    $('#search-tbox').blur(function(event){
-    	console.log(event);
-    	console.log("FOCUS IS BELOW");
-    	console.log($(':focus'));
-    	if(!$('.popover').is('focus')){
-    		//$(this).popover('hide');
-    		//popoverShowing=false;
-    	}
+    // //Advanced Search Popover
+    // $('#search-tbox').blur(function(event){
+    // 	console.log(event);
+    // 	console.log("FOCUS IS BELOW");
+    // 	console.log($(':focus'));
+    // 	if(!$('.popover').is('focus')){
+    // 		//$(this).popover('hide');
+    // 		//popoverShowing=false;
+    // 	}
+    // });
+
+    // $('#search-tbox').popover({
+    // 	title: 'Search Options',
+    // 	trigger: 'manual',
+    // 	html: true,
+    // 	content: showSearchDetails()
+    // });
+
+     $(".message").click(function(){
+        console.log("!CLICKED ON "+$('.message').attr('id'));
+        var focusedId=$(this).attr("id"); //id of message that is clicked
+        replyId = focusedId;
+        displayMessage(focusedId);
+
+        /*
+        //marking message as read
+        getMessage(focusedId, function(msg){
+            markRead(msg);
+        });        
+        */
+
+        //updateBrowsePane();
     });
 
-    $('#search-tbox').popover({
-    	title: 'Search Options',
-    	trigger: 'manual',
-    	html: true,
-    	content: showSearchDetails()
+
+}
+
+function addClickListener(){
+    console.log("in addClickListener()");
+    $(".message").click(function(){
+        console.log("CLICKED ON "+$(this).attr('id'));
+        var focusedId=$(this).attr("id"); //id of message that is clicked
+        replyId = focusedId;
+        displayMessage(focusedId);
+
+        
+        //marking message as read
+        getMessage(focusedId, function(msg){
+            markRead(msg);
+        });        
+        
+        //updateBrowsePane();
     });
-
-
 }

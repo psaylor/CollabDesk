@@ -18,6 +18,7 @@ function reset() {
 	$('#ni-issue').addClass('hide');
 }
 
+var activeBtns = null;
 function submit() {
 	console.log('submit called');
 	var title = $("#textinput").val();
@@ -35,28 +36,27 @@ function submit() {
 	var noteIssue = "ni-btn";
 	var hiLowPriority = "pri-btn";
 	var alertCpt = "alert-btn";
-	var activeBtns = {noteIssue : NOTE, hiLowPriority : LOW_PRI, alertCpt : NO_ALERT } ;
+
+	var type = NOTE;
+	var priority = LOW_PRI;
+	var alert = NO_ALERT;
 
 	$(".btn-group .btn.active").each(function() {
 		switch(this.id) {
 			case noteIssue:
-				activeBtns[noteIssue] = ISSUE;
+				type = ISSUE;
 				break;
 			case hiLowPriority:
-				activeBtns[hiLowPriority] = HIGH_PRI;
+				priority = HIGH_PRI;
 				break;
 			case alertCpt:
-				activeBtns[alertCpt] = ALERT;
+				alert = ALERT;
 				break;
 		}
 	});
 
-	var type = activeBtns[noteIssue];
-	var priority = activeBtns[priority];
-	var alert = activeBtns[alert];
 	var date = new Date();
 
-	//var msg = new Message(title, text, author, tags, type, priority, alert, date);
 	Message.create(title,text, author, tags, type, priority, alert, date);
 
 	reset();

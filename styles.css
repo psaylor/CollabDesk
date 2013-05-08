@@ -36,10 +36,6 @@
 		/*color: blue;*/
 	}
 
-	.icon-user {
-		color: red;
-	}
-
 	.icon-time {
 
 	}
@@ -186,7 +182,7 @@
 	    vertical-align: top;
 	    height:5em;
 	}
-	.message-content:hover {
+	.message:hover {
 	    background-color: LightGray;
 	}
 	.text{
