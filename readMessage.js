@@ -26,6 +26,7 @@ function msgHandler(msg_object) {
   var tags = msg_object.get("tags");
 
   // Display original message
+  if(type=="undefined") {type = ISSUE;}
   $('#messageTitle').html(type + ": " + title);
   $('#messageAuthor').html(author);
   $('div.authorImg img').attr('src', USER_IMAGES[author]);
