@@ -252,22 +252,24 @@
 
                 <!-- Title -->
                 <div class="controls-row">
-                    <div class="control-group span4">
+                    <div class="control-group span6">
                         <div class="controls">
-                        <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
+                            <input id="textinput" name="textinput" type="text" placeholder="Title" class="input-xlarge">
                         </div>
                         <div class="btn-group" data-toggle="buttons-checkbox">
-                                <button type="button" class="btn" id="ni-btn">
-                                    <div id="ni-note">
-                                    <i class="icon-color icon-note"></i> Note
-                                    </div>
-                                    <div id="ni-issue" class="hide">
-                                    <i class="icon-color icon-issue"></i> Issue
-                                    </div>
-                                </button>
-                                <button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
-                                <button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert Captain</button>
-                            </div>
+                            <button type="button" class="btn" id="pri-btn"><i class="icon-exclamation-sign icon-color"></i> High Priority</button>
+                            <button type="button" class="btn" id="alert-btn"><i class="icon-envelope icon-color"></i> Alert Captain</button>
+                        </div>
+                        <div>
+                            <label class="radio inline">
+                              <input type="radio" name="optionsRadios" style="vertical-align: top" id="noteBtn" value="option1" checked>
+                              Note
+                            </label>
+                            <label class="radio inline">
+                              <input type="radio" name="optionsRadios" style="vertical-align: top" id="issueBtn" value="option2">
+                              Issue
+                            </label>
+                        </div>
                     </div>
 
                 <!-- Message Text Area -->
@@ -282,7 +284,7 @@
                       <div class="controls span6">
                         <div class="input-prepend input-xlarge" id="tags-input">
                             <span class="add-on" id="hashtag">#</span>
-                            <input id="prependedtext" name="prependedtext" class="" placeholder="#tags" type="text">
+                            <input id="prependedtext" name="prependedtext" class="" placeholder="tags" type="text">
                         </div>
                         
                       </div>

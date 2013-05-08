@@ -123,10 +123,12 @@
 
             $("#replyButton").click(function() {
                 $("#replyFormDiv").show();
+                $("#replyButton").attr("disabled", "true");
             })
 
             $("#replyXClose").click(function() {
-                reset();
+                resetReply();
+                $("#replyButton").removeAttr("disabled");
                 $("#replyFormDiv").hide();
             })
 
@@ -171,6 +173,7 @@
                 } else {
                     submitReply();
                     $("#replyFormDiv").hide();
+                    $("#replyButton").removeAttr("disabled");
                 }
             });
 
