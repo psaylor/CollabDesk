@@ -71,9 +71,9 @@
                 //console.log("clicked search button");
                 var inp=$("#search-tbox").val();
                 //console.log(inp);
-                var messageIDs=getMessageIDs(inp,db);
-                updateSearchedBrowsePane("message-table", messageIDs);
-                $(".ui-menu-item").hide()
+                //var messageIDs=getMessageIDs(inp,db);
+                updateSearchedBrowsePane("message-table", inp);
+                //$(".ui-menu-item").hide()
             });
 
             $("#search-tbox").keydown(function(event){

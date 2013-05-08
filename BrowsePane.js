@@ -38,8 +38,8 @@ function updateBrowsePane (divID){
 
 				output +="<li class = 'message' id='"+id+"'>"+
 							"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-							"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
-							//determineIcons(alert, priority, noteVsIssue)+ "</div>"+
+							//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+							determineIcons(alert, priority, noteVsIssue)+ "</div>"+
 							"<div class='message-content'>"+
 							"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
 							"</div>"+
@@ -137,38 +137,51 @@ function updateBrowsePane (divID){
 };
 
 
-function updateSearchedBrowsePane(divID, messageList){
+function updateSearchedBrowsePane(divID, input){
+	console.log("--------------------IN updateSearchBrowsePane()-----------------------");
 	$("#"+divID).empty();
 	var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
-	if(unreadList.length>0){
-			for (i in messageList){
+	
+	inputArray = input.toLowerCase().split(" ");
+	var options = {};
+	options.tags=inputArray;
+	options.title=inputArray;
+	options.text=inputArray;
 
-				msg=unreadList[i];
-				var title = msg.get('title');
-				var date = msg.get('date');
-				var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
-				var text = msg.get('text').substring(0,125);
-				var id = msg.id;
-				var alert=msg.get('alert'); //boolean
-				var priority = msg.get('priority'); //boolean
-				var noteVsIssue = msg.get('type'); //string
-				if(msg.get('text').length>125){ //if message was truncated to display
-					text+="...";
-				}
+	//TODO: add attributes to options object
+	advancedSearch(options, function(matches){
+		console.log("matches:");
+		console.log(matches);
+		if(matches.length>0){
+				for (i in matches){
 
-				output +="<li class = 'message' id='"+id+"'>"+
-							"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-							"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
-							//determineIcons(alert, priority, noteVsIssue)+ "</div>"+
-							"<div class='message-content'>"+
-							"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
-							"</div>"+
-							"</li>";
-			}		
+					msg=matches[i];
+					var title = msg.get('title');
+					var date = msg.get('date');
+					var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
+					var text = msg.get('text').substring(0,125);
+					var id = msg.id;
+					var alert=msg.get('alert'); //boolean
+					var priority = msg.get('priority'); //boolean
+					var noteVsIssue = msg.get('type'); //string
+					if(msg.get('text').length>125){ //if message was truncated to display
+						text+="...";
+					}
+
+					output +="<li class = 'message' id='"+id+"'>"+
+								"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
+								//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+								determineIcons(alert, priority, noteVsIssue)+ "</div>"+
+								"<div class='message-content'>"+
+								"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
+								"</div>"+
+								"</li>";
+				}		
 		}
+	});
 	output+="</ul></div>";
-	//console.log("in update");
-	//console.log(output);
+	console.log("in update");
+	console.log(output);
 	$("#"+divID).append(output);
 
 	//adding listeners again
@@ -190,11 +203,11 @@ function determineIcons(alert, priority, noteOrIssue){
 		output+="<i class='icon-exclamation-sign icon-color hidden'></i>"
 	}
 
-	if(noteOrIssue=='note'){
-		output+="<i class='icon-reorder icon-color'></i>";
-	}
-	else if(noteOrIssue='issue'){
+	if(noteOrIssue=='issue'){
 		output+="<i class='icon-question-issue icon-color'></i>";
+	}
+	else{
+		output+="<i class='icon-reorder icon-color'></i>";
 	}
 
 	if(alert){
