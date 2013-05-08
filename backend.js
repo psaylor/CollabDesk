@@ -405,7 +405,7 @@ getImagesForUsers();
 			authorQuery.contains("author", options.author);
 		}
 
-		var query = new Parse.Query.or(tagQuery, titleQuery, textQuery, authorQuery);
+		var query = new Parse.Query.or(tagQuery, titleQuery, textQuery);
 		query.find({
 			success: function(matches) {
 				console.log("got all matches");
