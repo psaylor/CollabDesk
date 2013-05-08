@@ -108,12 +108,109 @@
 			// display a static message in the reading pane (until this is called from browsing pane)
 	        displayMessage("POqBGuEw1S");
 
+            // initially hide all alerts
+            $(".alert").hide();
+
+            $("#replyFormDiv").hide();
+
             /*Submits search to browse pane when a tag is clicked*/
             $(".tag").click(function() {
                 var tagText = $(this).html();
                 // tagText = tagText.substring(1, tagText.length);
                 $('#search-tbox').val(tagText);
                 updateSearchedBrowsePane('message-table', getMessageIDs(tagText));
+            });
+
+            $("#replyButton").click(function() {
+                $("#replyFormDiv").show();
+            })
+
+            $("#replyXClose").click(function() {
+                reset();
+                $("#replyFormDiv").hide();
+            })
+
+            // Hiding Alerts on FocusOut
+            $("#replyTitleInput").focusout(function () {
+                if ($("#replyTitleInput").val() != "") {
+                    $(".replyTitleAlert").slideUp();
+                }
+            });
+
+            $("#replyMessageArea").focusout(function () {
+                if ($("#replyMessageArea").val() != "") {
+                    $(".replyMsgAlert").slideUp();
+                }
+            });
+
+            $(".replyTitleClose").click(function() {
+                $(".replyTitleAlert").slideUp();
+            })
+
+            $(".replyMsgClose").click(function() {
+                $(".replyMessageArea").slideUp();
+            })
+
+            $("#replySubmitBtn").click(function() {
+                var isTitleEmpty = ($("#replyTitleInput").val() == "");
+                var isMsgEmpty = ($("#replyMessageArea").val() == "");
+
+                if (isTitleEmpty) {
+                    $(".replyTitleAlert").slideDown();
+                } else {
+                    $(".replyTitleAlert").slideUp();
+                }
+                if(isMsgEmpty) {
+                    $(".replyMsgAlert").slideDown();
+                } else {
+                    $(".replyMsgAlert").slideUp();
+                }
+
+                if (isTitleEmpty || isMsgEmpty) { 
+                    return;
+                } else {
+                    submitReply();
+                    $("#replyFormDiv").hide();
+                }
+            });
+
+            /*
+            Submits the form when the user has focus on the Submit button and presses enter
+            */
+            $("#submitBtn").keydown(function (e) {
+                if (e.which == 13) {
+                    var isTitleEmpty = ($("#replyTitleInput").val() == "");
+                    var isMsgEmpty = ($("#replyMessageArea").val() == "");
+
+                    if (isTitleEmpty) {
+                        $(".replyTitleAlert").slideDown();
+                    } else {
+                        $(".replyTitleAlert").slideUp();
+                    }
+                    if(isMsgEmpty) {
+                        $(".replyMsgAlert").slideDown();
+                    } else {
+                        $(".replyMsgAlert").slideUp();
+                    }
+
+                    if (isTitleEmpty || isMsgEmpty) { 
+                        return;
+                    } else {
+                        submitReply();
+                        $("#replyFormDiv").hide();
+                    }
+                }
+            });
+
+             $("#replyClearBtn").click(function() {
+                resetReply();
+            });
+
+          $("#replyClearBtn").keydown(function (e) {
+                if (e.which == 13) {
+                    resetReply();
+                }
+                
             });
 		}		
 
@@ -133,7 +230,7 @@
 
             // Hiding Alerts on FocusOut
             $("#textinput").focusout(function () {
-            	if ($("textinput").val() != "") {
+            	if ($("#textinput").val() != "") {
             		$(".titleAlert").slideUp();
             	}
             });
@@ -154,8 +251,8 @@
             $("#submitBtn").click(function() {
                 console.log('submit btn click');
 
-               	isTitleEmpty = ($("#textinput").val() == "");
-               	isMsgEmpty = ($("#textarea").val() == "");
+               	var isTitleEmpty = ($("#textinput").val() == "");
+               	var isMsgEmpty = ($("#textarea").val() == "");
 
                 if (isTitleEmpty) {
                     $(".titleAlert").slideDown();
@@ -182,8 +279,26 @@
             $("#submitBtn").keydown(function (e) {
                 console.log('submit btn keydown');
                 if (e.which == 13) {
-                    submit();
-                    $('#createMsgModal').modal('hide')
+                    var isTitleEmpty = ($("#textinput").val() == "");
+                    var isMsgEmpty = ($("#textarea").val() == "");
+
+                    if (isTitleEmpty) {
+                        $(".titleAlert").slideDown();
+                    } else {
+                        $(".titleAlert").slideUp();
+                    }
+                    if(isMsgEmpty) {
+                        $(".msgAlert").slideDown();
+                    } else {
+                        $(".msgAlert").slideUp();
+                    }
+
+                    if (isTitleEmpty || isMsgEmpty) { 
+                        return;
+                    } else {
+                        submit();
+                        $('#createMsgModal').modal('hide');
+                    }
                 }
             
             });
@@ -200,6 +315,11 @@
                 }
                 
             });
+
+           $("#submitXClose").click(function() {
+                reset();
+            })
+
 
           $("#closeBtn").keydown(function (e) {
           	if (e.which == 13) {

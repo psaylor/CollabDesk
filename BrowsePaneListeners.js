@@ -3,8 +3,6 @@ function browsePaneReady() {
 
 	updateBrowsePane("message-table");
 
-	//addClickListener();
-
     $("#search-button").click(function(event){
         //console.log("clicked search button");
         var inp=$("#search-tbox").val();
@@ -69,6 +67,8 @@ function browsePaneReady() {
     // 	html: true,
     // 	content: showSearchDetails()
     // });
+    console.log("MESSAGES: ");
+    console.log($(".message"));
 
      $(".message").click(function(){
         console.log("!CLICKED ON "+$('.message').attr('id'));
@@ -91,11 +91,6 @@ function browsePaneReady() {
 
 function addClickListener(){
     console.log("in addClickListener()");
-    for (var i = 2000 - 1; i >= 0; i--) {
-        i = i;
-    };
-    console.log('.message objects');
-    console.log($(".message"));
     $(".message").click(function(){
         console.log("CLICKED ON "+$(this).attr('id'));
         var focusedId=$(this).attr("id"); //id of message that is clicked
