@@ -16,8 +16,6 @@
 
 	.create-btn {
 		margin-top: 6px;
-		font-size: 16px;
-		height: auto;
 	}
 /* 
 	ICON STYLES
@@ -228,84 +226,66 @@
 		margin: 10px;
 	}
 
-	.captain {
+	.row {
+		margin: 5px;
+	}
+
+	#messageHeader {
+		border-bottom: solid LightGray 1px;
+	}
+
+	.replyHeader {
+		width: 100%;
+		padding-bottom: 10px;
+		border-bottom: solid LightGray 1px;
+	}
+
+	.title {
+		float: left;
+		font-size: 1.5em;
+	}
+
+	#captainIcon {
 		float: right;
 		margin-bottom: 10px;
 	}
 
-	.high_pri {
+	#priorityIcon {
 		float: right;
 		margin-right: 10px;
 		margin-bottom: 10px;
 	}
 
-	.section {
-		padding: 10px;
-		border-radius: 4px;
-		margin: 10px;
-	}
-
-	img.authorPic {
+	.authorImg {
+		float: left;
 		height: 30px;
 		width: 30px;
 		margin-bottom: 10px;
 	}
 
-	.clockPic {
-		margin-right: 5px;
-	}
-
-	.originalMsgAuthor {
+	.author {
+		float: left;
 		margin-left: 10px;
 		font-size: 1.2em;
 	}
 
-	.originalMsgHeader {
-		border-bottom: solid LightGray 1px;
+	.clockIcon {
+		float: right;
+		margin-right: 5px;
 	}
 
-	.originalMsgTitle {
-		float: left;
-		font-size: 1.5em;
+	.time {
+		float: right;
 	}
 
-	.originalMsgBody {
-		padding-top: 5px;
-		padding-bottom: 5px;
-	}
-
-	.reply {
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-
-	.replyHeader {
-		font-size: 1.2em;
-	}
-
-	.replyBody {
-		padding-top: 10px;
-	}
-
-	.replyDetailsText {
-		padding-left: 10px;
-	}
-
-	.alignBottom {
-		position: absolute;
-		bottom: 10px;
-	}
-
-	.parentWidth {
-		width: 100%;
+	#replyButton {
+		float: right;
 	}
 
 	.tag {
 		display: inline-block;
 		font-size: 12px;
 		line-height: 14px;
-		/*padding: 5px 7px;*/
-		/*border-radius: 3px;*/
 		background: #9FDFBF;
 		margin-right: 5px;
 		font-family: sans-serif;
@@ -348,8 +328,8 @@
 
 	#createMsgModal {
 		min-height: 300px;
-		min-width: 800px;
-		max-width: 800px;
+		min-width: 450px;
+		max-width: 600px;
 		max-height: 500px;
 		width: auto;
 		height: auto;
@@ -358,11 +338,21 @@
 
 	.modal-body {
 		min-height: 300px;
-		min-width: 600px;
-		max-width: 800px;
+		min-width: 450px;
+		max-width: 600px;
 		max-height: 500px;
 		width: auto;
 		height: auto;
 		overflow: auto;
 		background-color: white;
+	}
+
+	#textarea {
+		width: 425px;
+		height: 250px;
+	}
+
+	.alert {
+		max-width: 400px;
+		width: auto;
 	}

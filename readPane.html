@@ -96,7 +96,7 @@
 		function readPaneReady() {
 			console.debug('ready to work on read pane');
 			// display a static message in the reading pane (until this is called from browsing pane)
-	        displayMessage("8MOn7IaVyn");
+	        displayMessage("POqBGuEw1S");
 
             /*Submits search to browse pane when a tag is clicked*/
             $(".tag").click(function() {
@@ -258,31 +258,23 @@
 	        <!-- reading pane -->
             <div class="reading" id="reading-pane-wrapper">
                 <div id="reading-pane-inner">
-                    <div class="originalMsg well white">
-                        <div class="originalMsgHeader">
-                            <div class="originalMsgTitle"></div>
-                            <div class="captain"><i class="icon-envelope-alt icon-large"></i></div>
-                            <div class="high_pri"><i class="icon-exclamation-sign icon-large"></i></div>
+                    <div class="well white">
+                        <div id="messageHeader" class="row">
+                            <div id="messageTitle" class="title"></div>
+                            <div id="captainIcon"><i class="icon-envelope-alt icon-large"></i></div>
+                            <div id="priorityIcon"><i class="icon-exclamation-sign icon-large"></i></div>
                             <div style="clear:right"></div>
                         </div>
-                        <div class="originalMsgBody">
-                            <div class="originalMsgDetails"></div>
-                            <table>
-                                <tr>
-                                    <td><div class="authorPic"><img class="authorPic" src="images/generic_avatar.jpg"/></div></td>
-                                    <td><div class="originalMsgAuthor"></div></td>
-                                    <td align="right" width="99%"><div class="clockPic"><i class="icon-time icon-large"></div></td>
-                                    <td align="right" nowrap="nowrap"><div class="originalMsgTime"></div></td>
-                                </tr>
-                            </table>
-                            <div class="originalMsgText"></div>
+                        <div id="messageSecondHeader" class="row">
+                            <div class="authorImg"><img src="images/generic_avatar.jpg"/></div>
+                            <div id="messageAuthor" class="author"></div>
+                            <div id="messageTime" class="time"></div>
+                            <div class="clockIcon"><i class="icon-time icon-large"></i></div>
+                            <div style="clear:right"></div>
                         </div>
-                        <div>
-                            <table class="parentWidth">
-                                <tr><td><div class="hashtags"></div></td></tr>
-                                <tr><td align="right"><button type="button" class="replyButton btn btn-primary"><i class="icon-reply"></i>  Reply</button></td></tr>
-                            </table>
-                        </div>
+                        <div id="messageText" class="row"></div>
+                        <div id="messageTags" class="row"></div>
+                        <div class="row"><button id= "replyButton" type="button" class="btn btn-success"><i class="icon-reply"></i>  Reply</button></div>
                     </div>
                     <div class="replies"></div>
                 </div>
