@@ -236,8 +236,8 @@ function setReadRelation(user) {
 
 	function getUnreadMessages(onSuccess, onError) {
 		// Retrieve the most recent ones
-		query.descending("createdAt");
 		var query = new Parse.Query(Message);
+		query.descending("createdAt");
 		// var innerQuery = readRelation.query();
 		// query.doesNotMatchQuery("")
 		query.doesNotExist("read");
@@ -261,8 +261,9 @@ function setReadRelation(user) {
 
 	function getReadMessages(onSuccess, onError) {
 		// Retrieve the most recent ones
+		var query = readRelation.query();
 		query.descending("createdAt");
-		var query = readRelation.query().find({
+		query.find({
 			success: function(readMsgList) {
 				console.log("got all read messages");
 				console.log(readMsgList);
