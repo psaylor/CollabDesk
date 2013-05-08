@@ -294,12 +294,12 @@ function setReadRelation(user) {
 
 
 	function getMessage(message_id, onSuccess, onError) {
-		console.log('call to get Message backend: ' + message_id);
+		// console.log('call to get Message backend: ' + message_id);
 		var query = new Parse.Query(Message);
 		query.get( message_id, {
 			success: function(msg) {
-				console.log("got message " + message_id);
-				console.log(msg);
+				// console.log("got message " + message_id);
+				// console.log(msg);
 				if (onSuccess) {
 					onSuccess(msg);
 				}

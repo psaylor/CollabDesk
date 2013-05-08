@@ -15,9 +15,9 @@ function updateBrowsePane (divID){
 	console.log("in updateBrowsePane() for " + divID+"------------------------------------------------------------------");
 	$("#"+divID).empty();
 	//console.log($("#"+divID).html());
-
+	var output="";
 	getUnreadMessages(function(unreadList){
-		var output="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
+		output+="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
 		if(unreadList.length>0){
 			for (i in unreadList){
 
@@ -47,7 +47,6 @@ function updateBrowsePane (divID){
 			}		
 		}
 		output+="</ul></div>"
-		$("#"+divID).append(output);
 	});
 	
 	console.log("unread is done. now onto read:");
@@ -60,53 +59,59 @@ function updateBrowsePane (divID){
 		var date; //string
 		var dateList=[];
 		var month; //string
-		var day; //string
-		var output="";
+		var day;
 
 		for (index in readList){ 
 			msg=readList[index];
+			day=msg.get('formattedDay');
+			if(day in hash){
+				hash[day].push(msg);
+			}
+			else{
+				hash[day]=[msg];
+			}
+
 			//console.log(msg);
-			date= msg.get('date');
-			//console.log(date);
+			// date= msg.get('date');
+			// //console.log(date);
 
-			//setting 2 digit month
-			if(date.getMonth()+1<10){
-				month="0"+(date.getMonth()+1).toString();
-			}
-			else{
-				month=(date.getMonth()+1).toString();
-			}
-			//console.log(month);
+			// //setting 2 digit month
+			// if(date.getMonth()+1<10){
+			// 	month="0"+(date.getMonth()+1).toString();
+			// }
+			// else{
+			// 	month=(date.getMonth()+1).toString();
+			// }
+			// //console.log(month);
 
-			//setting 2 digit day
-			if(date.getDate().length<2){
-				day="0"+date.getDate();
-			}
-			else{
-				day=date.getDate();
-			}
+			// //setting 2 digit day
+			// if(date.getDate().length<2){
+			// 	day="0"+date.getDate();
+			// }
+			// else{
+			// 	day=date.getDate();
+			// }
 
-			date=month+day; //4 numbers (as string)
+			// date=month+day; //4 numbers (as string)
 			
-			if(dateList.indexOf(date)<0){
-				dateList.push(date);				
-			}
+			// if(dateList.indexOf(date)<0){
+			// 	dateList.push(date);				
+			// }
 
-			//adding to hashtable
-			if(hash.hasOwnProperty(date)){
-				hash[date].push(readList[index].id);
-			}
-			else{
-				hash[date]=[readList[index].id];
-			}
+			// //adding to hashtable
+			// if(hash.hasOwnProperty(date)){
+			// 	hash[date].push(readList[index].id);
+			// }
+			// else{
+			// 	hash[date]=[readList[index].id];
+			// }
 		}
 
-		dateList.reverse();
+		//dateList.reverse();
 		//console.log("dates: "+dateList);
 
-		for(index in dateList){
-			date = dateList[index];
-			output+=getDateTableHTML(date, hash[date])
+		for(day in hash){
+			output+=getDateTableHTML(day, hash[day]);
 		}
 		//console.log("output is "+output);
 		$("#"+divID).append(output);
@@ -251,24 +256,24 @@ function getMessageHTML(msg, id){
 * date: string of length 4 representing month(first 2 digits), day(next 2 digits)
 * 
 */
-function getDateTableHTML(date, messageIdList){
+function getDateTableHTML(date, messageList){
 	console.log("getDateTableHTML()");
-	console.log(messageIdList);
-	if(messageIdList.length==0){
+	console.log(messageList);
+	if(messageList.length==0){
 		return "";
 	}
 	var outputDate=date.substring(0,2)+"/"+date.substring(2);
-	var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul id='unread-content'>"
+	var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul>"
 	var msg;
-	for(index in messageIdList){
-		getMessage(messageIdList[index], function(msg){
-			output+=getMessageHTML(msg, msg.id);
-		});
-	}
+	for(index in messageList){
+		msg=messageList[index]
+		output+=getMessageHTML(msg, msg.id);
+		}
+
 	output+="</ul></div>";
 	return output;
 
-}
+};
 
 // /**
 // * Given a list of message ids, return the html corresponding to the id of the filtered 
