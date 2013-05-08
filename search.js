@@ -13,9 +13,9 @@
  function getMessageIDs(input){
  	var msgIDs=[];
  	//default parameters
- 	var searchTags = $('#check-tag').is(':checked');
- 	var searchTitles = $('#check-title').is(':checked');
- 	var searchText = $('#check-text').is(':checked');
+ 	//var searchTags = $('#check-tag').is(':checked');
+ 	//var searchTitles = $('#check-title').is(':checked');
+ 	//var searchText = $('#check-text').is(':checked');
  	var inputArray = input.toLowerCase().split(" ");
 
  	var options={};

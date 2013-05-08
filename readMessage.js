@@ -6,6 +6,7 @@
 // Given a message id, display all the content of that message in the read message pane,
 // including all the content of any replies to that message.
 function displayMessage(message_id) {
+  console.log('asked to display message ' + message_id);
   getMessage(message_id, msgHandler);
 }
 
@@ -46,7 +47,8 @@ function msgHandler(msg_object) {
   for (var j=0; j<tags.length; j++) {
     var tag = tags[j];
     var tagDiv = $(document.createElement('button'))
-        .addClass('btn')
+        .addClass('btn-info')
+        .addClass('btn-mini')
         .addClass('tag')
         .html("#"+tag);
     $('#messageTags').append(tagDiv);
