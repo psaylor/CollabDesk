@@ -12,12 +12,15 @@
 *
 */
 function updateBrowsePane (divID){
+
 	console.log("in updateBrowsePane() for " + divID+"------------------------------------------------------------------");
-	$("#"+divID).empty();
+	// $("#"+divID).empty();
+	$("#unread-table").empty();
+	$("#read-table").empty();
 	//console.log($("#"+divID).html());
-	var output="";
+	var unreadOutput="";
 	getUnreadMessages(function(unreadList){
-		output+="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
+		unreadOutput+="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
 		if(unreadList.length>0){
 			for (i in unreadList){
 
@@ -36,7 +39,7 @@ function updateBrowsePane (divID){
 
 
 
-				output +="<li class = 'message' id='"+id+"'>"+
+				unreadOutput +="<li class = 'message' id='"+id+"'>"+
 							"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
 							//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
 							determineIcons(alert, priority, noteVsIssue)+ "</div>"+
@@ -46,12 +49,18 @@ function updateBrowsePane (divID){
 							"</li>";
 			}		
 		}
-		output+="</ul></div>"
+		unreadOutput+="</ul></div>"
+		console.log('output string for unread msgs');
+		console.log(unreadOutput);
+		$("#unread-table").append(unreadOutput);
 	});
+
+	var output = "";
 	
 	console.log("unread is done. now onto read:");
 
 	getReadMessages(function(readList){ //list of type messages
+		var readOutput = "";
 		console.log("IN updateBrowsePane(): getReadMessages():");
 		console.log(readList);
 		var hash = {};
@@ -111,10 +120,11 @@ function updateBrowsePane (divID){
 		//console.log("dates: "+dateList);
 
 		for(day in hash){
-			output+=getDateTableHTML(day, hash[day]);
+			readOutput+=getDateTableHTML(day, hash[day]);
 		}
 		//console.log("output is "+output);
-		$("#"+divID).append(output);
+		// $("#"+divID).append(output);
+		$("#read-table").append(readOutput);
 		addClickListener();
 	});
 
