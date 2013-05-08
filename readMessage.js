@@ -28,6 +28,7 @@ function msgHandler(msg_object) {
   // Display original message
   $('#messageTitle').html(type + ": " + title);
   $('#messageAuthor').html(author);
+  $('div.authorImg img').attr('src', USER_IMAGES[author]);
   $('#messageTime').html(time + ' on ' + day);
   $('#messageText').html(text);
 
@@ -101,7 +102,7 @@ function replyHandler(replies) {
     $(replyDiv).append(replyText);
 
     // Add content to reply second header
-    var authorImg = $("<img src='images/generic_avatar.jpg'>");
+    var authorImg = $("<img src='" + USER_IMAGES[author] + " '>");
     var authorImgDiv = $(document.createElement('div'))
         .addClass('authorImg');
     $(authorImgDiv).append(authorImg);
