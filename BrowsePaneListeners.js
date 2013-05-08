@@ -79,5 +79,12 @@ function addClickListener(){
         var focusedId=$(this).attr("id"); //id of message that is clicked
         replyId = focusedId;
         displayMessage(focusedId);
+
+        //marking message as read
+        getMessage(focusedId, function(msg){
+            markRead(msg);
+        });
+
+        updateBrowsePane();
     });
 }

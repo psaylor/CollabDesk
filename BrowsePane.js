@@ -12,7 +12,7 @@
 *
 */
 function updateBrowsePane (divID){
-	//console.log("in updateBrowsePane() for " + divID);
+	console.log("in updateBrowsePane() for " + divID+"------------------------------------------------------------------");
 	$("#"+divID).empty();
 	//console.log($("#"+divID).html());
 
@@ -27,13 +27,19 @@ function updateBrowsePane (divID){
 				var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
 				var text = msg.get('text').substring(0,125);
 				var id = msg.id;
+				var alert=msg.get('alert'); //boolean
+				var priority = msg.get('priority'); //boolean
+				var noteVsIssue = msg.get('type'); //string
 				if(msg.get('text').length>125){ //if message was truncated to display
 					text+="...";
 				}
 
+
+
 				output +="<li class = 'message' id='"+id+"'>"+
 							"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-							"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+							"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+							//determineIcons(alert, priority, noteVsIssue)+ "</div>"+
 							"<div class='message-content'>"+
 							"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
 							"</div>"+
@@ -43,7 +49,8 @@ function updateBrowsePane (divID){
 		output+="</ul></div>"
 		$("#"+divID).append(output);
 	});
-
+	
+	console.log("unread is done. now onto read:");
 
 	getReadMessages(function(readList){ //list of type messages
 		console.log("IN updateBrowsePane(): getReadMessages():");
@@ -105,9 +112,10 @@ function updateBrowsePane (divID){
 		$("#"+divID).append(output);
 	});
 
-
+	console.log("done adding messages.");
 	//adding listeners again
 	addClickListener();
+	console.log("listeners added again. leaving updateBrowsePane()...-------------------------------------------");
 };
 
 
@@ -123,13 +131,17 @@ function updateSearchedBrowsePane(divID, messageList){
 				var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
 				var text = msg.get('text').substring(0,125);
 				var id = msg.id;
+				var alert=msg.get('alert'); //boolean
+				var priority = msg.get('priority'); //boolean
+				var noteVsIssue = msg.get('type'); //string
 				if(msg.get('text').length>125){ //if message was truncated to display
 					text+="...";
 				}
 
 				output +="<li class = 'message' id='"+id+"'>"+
 							"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-							"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+							"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+							//determineIcons(alert, priority, noteVsIssue)+ "</div>"+
 							"<div class='message-content'>"+
 							"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
 							"</div>"+
@@ -149,6 +161,32 @@ function updateSearchedBrowsePane(divID, messageList){
 //////////////////
 //helper functions
 //////////////////
+
+function determineIcons(alert, priority, noteOrIssue){
+	var hidden;
+	var output="";
+	if(priority){
+		output+="<i class='icon-exclamation-sign icon-color'></i>";
+	}
+	else{
+		output+="<i class='icon-exclamation-sign icon-color hidden'></i>"
+	}
+
+	if(noteOrIssue=='note'){
+		output+="<i class='icon-reorder icon-color'></i>";
+	}
+	else(noteOrIssue='issue'){
+		output+="<i class='icon-question-issue icon-color'></i>";
+	}
+
+	if(alert){
+		output+="<i class='icon-envelope icon-color'></i>";
+	}
+	else{
+		output+="<i class='icon-envelope icon-color hidden'></i>";		
+	}
+	return output
+};
 
 /**
 * Converts a single message to HTML to be displayed in the BrowserPane
