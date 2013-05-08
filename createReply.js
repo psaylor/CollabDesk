@@ -20,7 +20,7 @@ function submitReply() {
 	var date = new Date();
 
 	//var msg = new Message(title, text, author, tags, type, priority, alert, date);
-	Message.replyTags(title, text, author, tags, date);
+	Reply.create(title, author, tags, date, text);
 
 	resetReply();
 }
