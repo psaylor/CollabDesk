@@ -205,24 +205,24 @@ function determineIcons(alert, priority, noteOrIssue){
 	var hidden;
 	var output="";
 	if(priority){
-		output+="<i class='icon-exclamation-sign icon-color'></i>";
+		output+="<i class='icon-exclamation-sign'></i>";
 	}
 	else{
-		output+="<i class='icon-exclamation-sign icon-color hidden'></i>"
+		output+="<i class='icon-exclamation-sign hidden'></i>"
 	}
 
-	if(noteOrIssue=='issue'){
-		output+="<i class='icon-question-issue icon-color'></i>";
+	if(noteOrIssue==ISSUE){
+		output+="<i class='icon-question-sign'></i>";
 	}
 	else{
-		output+="<i class='icon-reorder icon-color'></i>";
+		output+="<i class='icon-reorder'></i>";
 	}
 
 	if(alert){
-		output+="<i class='icon-user icon-color'></i>";
+		output+="<i class='icon-user'></i>";
 	}
 	else{
-		output+="<i class='icon-user icon-color hidden'></i>";		
+		output+="<i class='icon-user hidden'></i>";		
 	}
 	return output
 };

@@ -50,14 +50,20 @@ function login(username, password, successCallback, errorCallback) {
 			console.log(user + " successfully logged in");
 			cdUser = user;
 			setReadRelation(user);
-			successCallback(user);
+			if (successCallback) {
+				successCallback(user);
+			}
   		},
   		error: function(user, error) {
   			console.debug(user + " failed to log in");
+  			if (errorCallback) {
   			errorCallback(user, error);
+  			}
   		}
 	});
 }
+
+login('Timberlake', '123');
 
 function signup(username, pswd, email) {
 	var user = new Parse.User();

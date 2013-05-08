@@ -20,7 +20,7 @@ function submitReply() {
 	var date = new Date();
 
 	console.log("YO MAMA");
-	console.log(msg);
+	// console.log(msg);
 	//var msg = new Message(title, text, author, tags, type, priority, alert, date);
 	// (title, text, author, tags, date, parentMsg)
 	var reply = Reply.create(title, text, author, tags, date, readingMessage);
@@ -28,4 +28,7 @@ function submitReply() {
 	// readingMessage.addReply(reply);
 
 	resetReply();
+	console.log('replying to msg');
+	console.log(readingMessage);
+	getRepliesForMessage(readingMessage, replyHandler);
 }

@@ -61,4 +61,5 @@ function submit() {
 	Message.create(title,text, author, tags, type, priority, alert, date);
 
 	reset();
+	updateBrowsePane();
 }

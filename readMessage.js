@@ -65,6 +65,7 @@ function msgHandler(msg_object) {
 
 // Reply handler for new backend. After all replies have been loaded, displays replies.
 function replyHandler(replies) {
+  console.log('handling replies');
 
   $('.replies').empty();
   for (var i=0; i< replies.length; i++) {
