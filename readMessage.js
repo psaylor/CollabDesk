@@ -6,6 +6,7 @@
 // Given a message id, display all the content of that message in the read message pane,
 // including all the content of any replies to that message.
 function displayMessage(message_id) {
+  console.log('asked to display message ' + message_id);
   getMessage(message_id, msgHandler);
 }
 

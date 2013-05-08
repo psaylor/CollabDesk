@@ -247,12 +247,12 @@ function setReadRelation(user) {
 		// Retrieve the most recent ones
 		var query = new Parse.Query(Message);
 		query.descending("createdAt");
-		// var innerQuery = readRelation.query();
-		// query.doesNotMatchQuery("")
-		query.doesNotExist("read");
+		var readQuery = readRelation.query();
+		query.doesNotMatchKeyInQuery("msgId", "msgId", readQuery);
 		query.find({
 			success: function(unreadMsgList) {
-				console.log("got all UNread messages");
+				console.log("got all " + unreadMsgList.length + " UNread messages");
+				console.log(unreadMsgList.length);
 				console.log(unreadMsgList);
 				if (onSuccess) {
 					onSuccess(unreadMsgList);
@@ -274,7 +274,7 @@ function setReadRelation(user) {
 		query.descending("createdAt");
 		query.find({
 			success: function(readMsgList) {
-				console.log("got all read messages");
+				console.log("got all " + readMsgList.length + " read messages");
 				console.log(readMsgList);
 				if (onSuccess) {
 					onSuccess(readMsgList);
@@ -290,29 +290,9 @@ function setReadRelation(user) {
 		});
 	}
 
-	function getAllMessages(onSuccess, onError) {
-		var query = new Parse.Query(Message);
-		// Retrieve the most recent ones
-		query.descending("createdAt");
-		query.find({
-			success: function(allMsgs) {
-				console.log("got all messages");
-				console.log(allMsgs);
-				if (onSuccess) {
-					onSuccess(allMsgs);
-				}
-			},
-			error: function(obj, error) {
-				console.log('could not get read msgs');
-				console.log(error);
-				if (onError) {
-					onError(obj, error);
-				}
-			}
-		});
-	}
 
 	function getMessage(message_id, onSuccess, onError) {
+		console.log('call to get Message backend: ' + message_id);
 		var query = new Parse.Query(Message);
 		query.get( message_id, {
 			success: function(msg) {

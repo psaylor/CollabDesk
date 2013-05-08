@@ -243,6 +243,7 @@ function getDateTableHTML(date, messageIdList){
 	var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul id='unread-content'>"
 	var msg;
 	for(index in messageIdList){
+		console.log('gonna get msg with '+ index + ' , ' + messageIdList[index]);
 		msg = getMessage(messageIdList[index]);
 		output+=getMessageHTML(msg, index);
 	}

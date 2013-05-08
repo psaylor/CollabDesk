@@ -91,6 +91,11 @@ function browsePaneReady() {
 
 function addClickListener(){
     console.log("in addClickListener()");
+    for (var i = 2000 - 1; i >= 0; i--) {
+        i = i;
+    };
+    console.log('.message objects');
+    console.log($(".message"));
     $(".message").click(function(){
         console.log("CLICKED ON "+$(this).attr('id'));
         var focusedId=$(this).attr("id"); //id of message that is clicked
