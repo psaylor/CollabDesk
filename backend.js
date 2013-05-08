@@ -209,6 +209,8 @@ function setReadRelation(user) {
 */
 
 	function getUnreadMessages(onSuccess, onError) {
+		// Retrieve the most recent ones
+		query.descending("createdAt");
 		var query = new Parse.Query(Message);
 		// var innerQuery = readRelation.query();
 		// query.doesNotMatchQuery("")
@@ -232,6 +234,8 @@ function setReadRelation(user) {
 	}
 
 	function getReadMessages(onSuccess, onError) {
+		// Retrieve the most recent ones
+		query.descending("createdAt");
 		var query = readRelation.query().find({
 			success: function(readMsgList) {
 				console.log("got all read messages");
@@ -252,6 +256,8 @@ function setReadRelation(user) {
 
 	function getAllMessages(onSuccess, onError) {
 		var query = new Parse.Query(Message);
+		// Retrieve the most recent ones
+		query.descending("createdAt");
 		query.find({
 			success: function(allMsgs) {
 				console.log("got all messages");
@@ -289,6 +295,30 @@ function setReadRelation(user) {
 			}
 		});
 	}
+
+	function getRepliesForMessage(msg_obj, onSuccess, onError) {
+		var query = new Parse.Query(Reply);
+		query.equalTo("parent", msg_obj);
+		// Retrieve the most recent ones
+		query.descending("createdAt");
+		query.find({
+			success: function(replies) {
+				console.log("got replies for " + msg_obj);
+				console.log(replies);
+				if (onSuccess) {
+					onSuccess(replies);
+				}
+			},
+			error: function(obj, error) {
+				console.log('could not get replies for ' + obj);
+				console.log(error);
+				if (onError) {
+					onError(obj, error);
+				}
+			}
+		});
+	}
+
 
 	/* 
 		ADVANCED SEARCHING
