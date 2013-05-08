@@ -166,6 +166,8 @@ function setReadRelation(user) {
 				msg.save(null, {
 					success: function(object) {
 						console.debug("msg saved");
+						msg.set("msgId", msg.id);
+						msg.save();
 					},
 					error: function(object, error) {
 						console.debug(error);
