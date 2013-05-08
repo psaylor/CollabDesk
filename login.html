@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<!--
+  COLLABDESK PROTOTYPE:
+  	Patricia Saylor
+  	Divya Bajekal
+  	Jonathan Lui
+  	Benjamin Xie
+  	
+-->
+
+<html>
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<title>CollabDesk Sign In</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Log into CollabDesk">
+    <meta name="author" content="Patricia Saylor">
+
+	<!-- Load style sheets -->
+	<link rel="stylesheet" href="jquery-ui-1.10.2/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="font-awesome.min.css">
+
+	<!-- Load any external Javascript libraries here -->
+	<script type="text/javascript" src="jquery-ui-1.10.2/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="jquery-ui-1.10.2/ui/jquery-ui.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+	<script src="http://www.parsecdn.com/js/parse-1.2.7.min.js"></script>
+
+	<!-- Load our own Javascript files and stylesheets here -->
+	<script type="text/javascript" src="backend.js"></script>
+	<!-- <link rel="stylesheet" href="styles.css" /> -->
+	<link rel="stylesheet" href="login-styles.css" />
+
+	<script type="text/javascript">
+
+	var cdUser = getCurrentUser();
+	console.debug('current user is: ');
+	console.debug(cdUser);
+
+
+    $(document).ready(function(){
+    	$('#login-alert').hide();
+
+    	function loginComplete() {
+    		console.debug('login complete---redirecting to ' + MESSAGE_PAGE + ' ....');
+
+    		window.location.replace(MESSAGE_PAGE);
+    	}
+
+    	function loginError(u, e) {
+    		console.debug('error logging in');
+    		console.debug(e);
+    		switch (e.code) 
+    		{
+    			case 101: //object not found
+    			console.debug('invalid login params');
+    			$('#login-alert').show();
+    			break;
+    			
+    			default:
+    			console.debug('did not match error code');
+    		}
+    	}
+
+    	if (cdUser) {
+    		// loginComplete();
+    	}
+
+    	$('#login-btn').click(function() {
+    		$('#login-alert').hide();
+    		var email = $('#email-input').val();
+    		var pswd = $('#pd-input').val();
+    		console.debug("logging in " + email + " with password " + pswd);
+    		login(email, pswd, loginComplete, loginError);
+    	});
+    	
+	
+    });
+	</script>
+
+</head>
+
+<body>
+	<!-- page header -->
+	<div class="container-fluid">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<a class="brand" href="#">
+					  <i class="icon-book icon-large "></i> CollabDesk
+				</a>
+				
+			</div> <!-- navbar-inner -->
+		</div> <!-- navbar -->
+	</div> <!-- container div -->
+	<!-- end of page header -->
+
+
+	<!-- alert bar -->
+	<div class="alert alert-error" id="login-alert">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h4>Login Failed</h4>
+		<p>Either your email or your password were incorrect. Please try again.</p>
+		<p>To request access, please email your desk captain.</p>
+	</div>
+
+	<!-- login form -->
+	<div class="form-signin">
+		<h2 class="form-signin-heading">Please sign in</h2>
+		<input type="text" class="input-block-level" placeholder="Email address" id="email-input">
+		<input type="password" class="input-block-level" placeholder="Password" id="pd-input">
+		<!-- <label class="checkbox">
+			<input type="checkbox" value="remember-me" id="rem-check"> Remember me
+		</label> -->
+		<button class="btn btn-large btn-primary input-block-level" type="submit" id="login-btn">Sign in</button>
+	</div>
+	<!-- need to request access? email the desk captain
+ -->
+
+
+</body>
+</html>

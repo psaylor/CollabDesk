@@ -45,6 +45,16 @@
 
     $(document).ready(function(){
 
+        /*
+            PAGE NAVBAR HEADER LISTENERS
+        */
+
+            $('#username').html(getUsername());
+            $('#logout').click(function() {
+                console.debug('logout clicked');
+                logoutUser();
+            });
+
 	    /*
 			LOAD THE DIFFERENT PANES FROM THEIR SEPARATE HTML PAGES
 			the pane-inner div is loaded into its corresponding pane-wrapper div
@@ -217,13 +227,13 @@
 					  <i class="icon-book icon-large "></i> CollabDesk
 				</a>
 				<!-- Button to trigger modal -->
-				<button type="button" data-toggle="modal" class="btn btn-success" data-target="#createMsgModal"><i class="icon-pencil icon-large"></i> Create Message</button>
+				<button type="button" data-toggle="modal" class="btn btn-success btn-medium" data-target="#createMsgModal"><i class="icon-pencil icon-large"></i> Create Message</button>
 				
 				<img class="avatar pull-right" src="images/generic_avatar.jpg"/>
 				<ul class="nav pull-right">
-					<li><a class="dropdown-toggle" data-toggle="dropdown" id="username-link">Sally <i class="icon-caret-down"></i></a>
+					<li><a class="dropdown-toggle" data-toggle="dropdown"><span id="username">Sally</span> <i class="icon-caret-down"></i></a>
 						<ul class="dropdown-menu">
-							<li><a><i class="icon-signout"></i> Logout</a></li>
+							<li id="logout"><a><i class="icon-signout"></i> Logout</a></li>
 							<li><a><i class="icon-group"></i> Manage Access</a></li>
 						</ul>
 					</li>
@@ -278,7 +288,7 @@
                         <div>
                             <table class="parentWidth">
                                 <tr><td><div class="hashtags"></div></td></tr>
-                                <tr><td align="right"><button type="button" class="replyButton btn btn-primary">Reply</button></td></tr>
+                                <tr><td align="right"><button type="button" class="replyButton btn btn-success"><i class="icon-reply"></i> Reply</button></td></tr>
                             </table>
                         </div>
                     </div>

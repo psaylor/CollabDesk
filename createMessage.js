@@ -29,7 +29,7 @@ function submit() {
 		tags[i] = tags[i].replace(/\s/g, '');
 	}
 
-	var author = String(cdUser);
+	var author = getUsername();
 
 	// Determine which buttons are pressed
 	var noteIssue = "ni-btn";
@@ -54,7 +54,7 @@ function submit() {
 	var type = activeBtns[noteIssue];
 	var priority = activeBtns[priority];
 	var alert = activeBtns[alert];
-	var date = new Date('17 Mar, 2013 15:15:00');
+	var date = new Date();
 
 	//var msg = new Message(title, text, author, tags, type, priority, alert, date);
 	Message.create(title,text, author, tags, type, priority, alert, date);

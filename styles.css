@@ -6,10 +6,17 @@
 	}
 
 	img.avatar {
-		height: 45px;
-		width: 45px;
+		height: 46px;
+		width: 46px;
 	}
 
+	.navbar-inner {
+		border: 0px;
+	}
+
+	.create-btn {
+		margin-top: 6px;
+	}
 /* 
 	ICON STYLES
 */
@@ -56,7 +63,7 @@
 
 	.column {
 		position: absolute;
-		top: 47px;
+		top: 46px;
 		bottom: 0px;
 	}
 
@@ -321,8 +328,8 @@
 
 	#createMsgModal {
 		min-height: 300px;
-		min-width: 800px;
-		max-width: 800px;
+		min-width: 450px;
+		max-width: 600px;
 		max-height: 500px;
 		width: auto;
 		height: auto;
@@ -331,11 +338,21 @@
 
 	.modal-body {
 		min-height: 300px;
-		min-width: 600px;
-		max-width: 800px;
+		min-width: 450px;
+		max-width: 600px;
 		max-height: 500px;
 		width: auto;
 		height: auto;
 		overflow: auto;
 		background-color: white;
+	}
+
+	#textarea {
+		width: 425px;
+		height: 250px;
+	}
+
+	.alert {
+		max-width: 400px;
+		width: auto;
 	}

@@ -24,22 +24,42 @@ ALERT = true;
 NO_ALERT = false;
 NOTE = "Note";
 ISSUE = "Issue";
+LOGIN_PAGE = "login.html";
+MESSAGE_PAGE= "index.html";
+
+function getCurrentUser( ){
+	return Parse.User.current();
+}
+
+function setup() {
+	cdUser = getCurrentUser();
+	console.log('user');
+	console.log(cdUser);
+	if (cdUser) {
+		setReadRelation(cdUser);
+	}
+}
+
+setup();
 
 
-function login(username, password ) {
+
+function login(username, password, successCallback, errorCallback) {
 	Parse.User.logIn(username, password, {
 		success: function(user) {
 			console.log(user + " successfully logged in");
 			cdUser = user;
 			setReadRelation(user);
+			successCallback(user);
   		},
   		error: function(user, error) {
   			console.debug(user + " failed to log in");
+  			errorCallback(user, error);
   		}
 	});
 }
 
-function signup( username, pswd, email) {
+function signup(username, pswd, email) {
 	var user = new Parse.User();
 	user.set('username', username);
 	user.set('password', pswd);
@@ -62,11 +82,18 @@ function signup( username, pswd, email) {
 	return user;
 }
 
-login('Timberlake', '123');
+function logoutUser() {
+	console.debug("logging out current user");
+	Parse.User.logOut();
+	cdUser = Parse.User.current();
+	window.location.replace(LOGIN_PAGE);
+}
 
 
-function getUsername( ){
-	return Parse.User.current();
+// login('Timberlake', '123');
+
+function getUsername() {
+	return cdUser.getUsername();
 }
 
 function setReadRelation(user) {
@@ -84,9 +111,11 @@ function setReadRelation(user) {
 					return formattedDay;
 				}
 				var date = this.get("date");
-				formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
-				this.set("formattedDay", formattedDay);
-				this.save();
+				if (date) {
+					formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
+					this.set("formattedDay", formattedDay);
+					this.save();
+				}
 				return formattedDay;
 			}, 
 
@@ -96,12 +125,14 @@ function setReadRelation(user) {
 					return formattedTime;
 				}
 				var date = this.get("date");
-				var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-			    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
-			    var ampm = date.getHours() < 12 ? "AM" : "PM";
-			    formattedTime = hours + ":" + minutes + " " + ampm;
-			    this.set("formattedTime", formattedTime);
-			    this.save();
+				if (date) {
+					var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+				    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
+				    var ampm = date.getHours() < 12 ? "AM" : "PM";
+				    formattedTime = hours + ":" + minutes + " " + ampm;
+				    this.set("formattedTime", formattedTime);
+				    this.save();
+				}
 			    return formattedTime;
 			},
 
@@ -154,9 +185,11 @@ function setReadRelation(user) {
 					return formattedDay;
 				}
 				var date = this.get("date");
-				formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
-				this.set("formattedDay", formattedDay);
-				this.save();
+				if (date) {
+					formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
+					this.set("formattedDay", formattedDay);
+					this.save();
+				}
 				return formattedDay;
 		},
 
@@ -166,12 +199,14 @@ function setReadRelation(user) {
 				return formattedTime;
 			}
 			var date = this.get("date");
-			var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-		    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
-		    var ampm = date.getHours() < 12 ? "AM" : "PM";
-		    formattedTime = hours + ":" + minutes + " " + ampm;
-		    this.set("formattedTime", formattedTime);
-		    this.save();
+			if (date) {
+				var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+			    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
+			    var ampm = date.getHours() < 12 ? "AM" : "PM";
+			    formattedTime = hours + ":" + minutes + " " + ampm;
+			    this.set("formattedTime", formattedTime);
+			    this.save();
+			}
 		    return formattedTime;
 		},
 	}, {
@@ -210,8 +245,8 @@ function setReadRelation(user) {
 
 	function getUnreadMessages(onSuccess, onError) {
 		// Retrieve the most recent ones
-		query.descending("createdAt");
 		var query = new Parse.Query(Message);
+		query.descending("createdAt");
 		// var innerQuery = readRelation.query();
 		// query.doesNotMatchQuery("")
 		query.doesNotExist("read");
@@ -235,8 +270,9 @@ function setReadRelation(user) {
 
 	function getReadMessages(onSuccess, onError) {
 		// Retrieve the most recent ones
+		var query = readRelation.query();
 		query.descending("createdAt");
-		var query = readRelation.query().find({
+		query.find({
 			success: function(readMsgList) {
 				console.log("got all read messages");
 				console.log(readMsgList);
@@ -391,8 +427,6 @@ function markRead(msg) {
 		}
 	});
 }
-
-
 
 // var title = 'Visa card found';
 // 	var text = 'A visa card was found on one of the tables at dining today. It does not have a name on it.';
