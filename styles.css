@@ -186,7 +186,8 @@
 	    vertical-align: top;
 	    height:5em;
 	}
-	.message-content:hover {
+	
+	.message:hover {
 	    background-color: LightGray;
 	}
 	.text{
@@ -286,6 +287,7 @@
 		display: inline-block;
 		font-size: 12px;
 		line-height: 14px;
+
 		/*background: #9FDFBF;*/
 		margin-right: 5px;
 		font-family: sans-serif;
@@ -295,17 +297,6 @@ border-color: #d6e9c6;
 background-image: none;
 	}
 
-	/*.tag:hover {
-		background: #79D2A6;
-	}
-
-	.tag:active {
-		background: #79D2A6;
-	}
-
-	.tag:focus {
-		background: #79D2A6;
-	}*/
 
 
 /*
