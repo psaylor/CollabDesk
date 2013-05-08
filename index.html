@@ -45,7 +45,15 @@
 
     $(document).ready(function(){
 
-        $('#username').html(getUsername());
+        /*
+            PAGE NAVBAR HEADER LISTENERS
+        */
+
+            $('#username').html(getUsername());
+            $('#logout').click(function() {
+                console.debug('logout clicked');
+                logoutUser();
+            });
 
 	    /*
 			LOAD THE DIFFERENT PANES FROM THEIR SEPARATE HTML PAGES
@@ -225,7 +233,7 @@
 				<ul class="nav pull-right">
 					<li><a class="dropdown-toggle" data-toggle="dropdown"><span id="username">Sally</span> <i class="icon-caret-down"></i></a>
 						<ul class="dropdown-menu">
-							<li><a><i class="icon-signout"></i> Logout</a></li>
+							<li id="logout"><a><i class="icon-signout"></i> Logout</a></li>
 							<li><a><i class="icon-group"></i> Manage Access</a></li>
 						</ul>
 					</li>

@@ -24,6 +24,8 @@ ALERT = true;
 NO_ALERT = false;
 NOTE = "Note";
 ISSUE = "Issue";
+LOGIN_PAGE = "login.html";
+MESSAGE_PAGE= "index.html";
 
 function getCurrentUser( ){
 	return Parse.User.current();
@@ -69,6 +71,13 @@ function signup(username, pswd, email) {
 	});
 	cdUser = user;
 	return user;
+}
+
+function logoutUser() {
+	console.debug("logging out current user");
+	Parse.User.logOut();
+	cdUser = Parse.User.current();
+	window.location.replace(LOGIN_PAGE);
 }
 
 

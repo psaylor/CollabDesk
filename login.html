@@ -37,7 +37,6 @@
 	<script type="text/javascript">
 
 	var cdUser = getCurrentUser();
-	var REDIRECT_PAGE = "index.html";
 	console.debug('current user is: ');
 	console.debug(cdUser);
 
@@ -46,9 +45,9 @@
     	$('#login-alert').hide();
 
     	function loginComplete() {
-    		console.debug('login complete---redirecting to ' + REDIRECT_PAGE + ' ....');
+    		console.debug('login complete---redirecting to ' + MESSAGE_PAGE + ' ....');
 
-    		window.location.replace(REDIRECT_PAGE);
+    		window.location.replace(MESSAGE_PAGE);
     	}
 
     	function loginError(u, e) {
