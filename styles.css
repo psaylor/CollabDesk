@@ -29,7 +29,7 @@
 	}
 
 	.icon-question-mark{
-		color: green;
+		color: #1E347B;
 	}
 
 	.icon-reply {
@@ -45,7 +45,7 @@
 	}
 
 	.icon-reorder {
-		color: purple;
+		color: #1E347B;
 	}
 
 	.icon-user {
@@ -177,7 +177,7 @@
 		bottom: 0px;
 		overflow: auto;
 		border-top: 1px solid black;
-		width: 100%;
+		width:100%;
 	}
 
 	.message-content{

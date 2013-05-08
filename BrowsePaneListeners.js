@@ -7,26 +7,25 @@ function browsePaneReady() {
         //console.log("clicked search button");
         var inp=$("#search-tbox").val();
         //console.log(inp);
-        var messageIDs=getMessageIDs(inp);
-        updateSearchedBrowsePane("message-table", messageIDs);
-        $(".ui-menu-item").hide()
+        //var messageIDs=getMessageIDs(inp);
+        updateSearchedBrowsePane("message-table", inp);
+        //$(".ui-menu-item").hide()
     });
 
     $("#search-tbox").keydown(function(event){
         var inp=$("#search-tbox").val();
         
-        if(!popoverShowing){
-        	$(this).popover('show');
-        	popoverShowing=true;
-        }
+        // if(!popoverShowing){
+        // 	$(this).popover('show');
+        // 	popoverShowing=true;
+        // }
 
         if(event.which==13){ //checking for 'enter'
             var inp=$("#search-tbox").val();
             //console.log("Listening to ENTER. input is "+inp+"matching messages are ");
-            var messageIDs=getMessageIDs(inp);
             //console.log("messageIDs");
-            updateSearchedBrowsePane("message-table", messageIDs);
-            $(".ui-menu-item").hide()
+            updateSearchedBrowsePane("message-table", inp);
+            //$(".ui-menu-item").hide()
         }
 
         if(inp==null || inp.length<2){
@@ -39,10 +38,12 @@ function browsePaneReady() {
         source: function(request, response){
             //console.log(request.term);
             if(request.term.length>2){
-                response(getMessageTitles(request.term.toLowerCase(),db));
+                response(function(){
+
+                });
                 var inp=$("#search-tbox").val();
-                var messageIDs=getMessageIDs(inp);
-                updateSearchedBrowsePane("message-table", messageIDs);
+                //var messageIDs=getMessageIDs(inp);
+                updateSearchedBrowsePane("message-table", inp);
             }
             else{
             	updateBrowsePane("message-table");
@@ -67,25 +68,6 @@ function browsePaneReady() {
     // 	html: true,
     // 	content: showSearchDetails()
     // });
-    console.log("MESSAGES: ");
-    console.log($(".message"));
-
-     $(".message").click(function(){
-        console.log("!CLICKED ON "+$('.message').attr('id'));
-        var focusedId=$(this).attr("id"); //id of message that is clicked
-        replyId = focusedId;
-        displayMessage(focusedId);
-
-        /*
-        //marking message as read
-        getMessage(focusedId, function(msg){
-            markRead(msg);
-        });        
-        */
-
-        //updateBrowsePane();
-    });
-
 
 }
 
@@ -96,13 +78,15 @@ function addClickListener(){
         var focusedId=$(this).attr("id"); //id of message that is clicked
         replyId = focusedId;
         displayMessage(focusedId);
-
+        $("#replyFormDiv").hide();
+        $("#replyButton").removeAttr("disabled");
+        resetReply();
         
         //marking message as read
         getMessage(focusedId, function(msg){
             markRead(msg);
         });        
         
-        //updateBrowsePane();
+        updateBrowsePane();
     });
 }

@@ -119,17 +119,19 @@
             /*Submits search to browse pane when a tag is clicked*/
             $(".tag").click(function() {
                 var tagText = $(this).html();
-                // tagText = tagText.substring(1, tagText.length);
+                tagText = tagText.substring(1, tagText.length);
                 $('#search-tbox').val(tagText);
                 updateSearchedBrowsePane('message-table', getMessageIDs(tagText));
             });
 
             $("#replyButton").click(function() {
                 $("#replyFormDiv").show();
+                $("#replyButton").attr("disabled", "true");
             })
 
             $("#replyXClose").click(function() {
-                reset();
+                resetReply();
+                $("#replyButton").removeAttr("disabled");
                 $("#replyFormDiv").hide();
             })
 
@@ -174,6 +176,7 @@
                 } else {
                     submitReply();
                     $("#replyFormDiv").hide();
+                    $("#replyButton").removeAttr("disabled");
                 }
             });
 
