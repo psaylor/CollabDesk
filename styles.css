@@ -6,8 +6,8 @@
 	}
 
 	img.avatar {
-		height: 46px;
-		width: 46px;
+		height: 48px;
+		width: 48px;
 	}
 
 	.navbar-inner {
@@ -17,6 +17,7 @@
 	.create-btn {
 		margin-top: 6px;
 	}
+
 /* 
 	ICON STYLES
 */
@@ -68,7 +69,7 @@
 
 	.column {
 		position: absolute;
-		top: 46px;
+		top: 48px;
 		bottom: 0px;
 	}
 
@@ -225,7 +226,7 @@
 	READING PANE
 */
 	.reading {
-		left:400px;
+		left: 400px;
 		bottom: 0px;
 	}
 
