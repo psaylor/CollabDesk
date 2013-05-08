@@ -7,12 +7,14 @@
 // including all the content of any replies to that message.
 function displayMessage(message_id) {
   console.log('asked to display message ' + message_id);
+
   getMessage(message_id, msgHandler);
 }
 
 var readingMessage = null;
 // Message handler for new backend. After all message data has been loaded, displays message.
 function msgHandler(msg_object) {
+  $(".reading").show();
   readingMessage = msg_object;
   var title = msg_object.get("title");
   var text = msg_object.get("text");
@@ -26,7 +28,8 @@ function msgHandler(msg_object) {
   var tags = msg_object.get("tags");
 
   // Display original message
-  if(type=="undefined") {type = ISSUE;}
+  if(type== undefined) {type = ISSUE;}
+
   $('#messageTitle').html(type + ": " + title);
   $('#messageAuthor').html(author);
   $('div.authorImg img').attr('src', USER_IMAGES[author]);

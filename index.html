@@ -109,7 +109,7 @@
 		function readPaneReady() {
 			console.debug('ready to work on read pane');
 			// display a static message in the reading pane (until this is called from browsing pane)
-	        displayMessage("POqBGuEw1S");
+	        $(".reading").hide();
 
             // initially hide all alerts
             $(".alert").hide();
@@ -382,6 +382,8 @@
 					</div>
 					<div class="" id="message-table">
 						<!--MESSAGES DYNAMICALLY ADDED HERE-->
+                        <div id="unread-table"></div>
+                        <div id="read-table"></div>
 					</div>
 				</div>
 			</div>

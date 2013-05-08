@@ -51,8 +51,9 @@ function updateBrowsePane (divID){
 		}
 		unreadOutput+="</ul></div>"
 		console.log('output string for unread msgs');
-		console.log(unreadOutput);
+		// console.log(unreadOutput);
 		$("#unread-table").append(unreadOutput);
+		addClickListener();
 	});
 
 	var output = "";
