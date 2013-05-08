@@ -28,6 +28,7 @@ function msgHandler(msg_object) {
   // Display original message
   $('#messageTitle').html(type + ": " + title);
   $('#messageAuthor').html(author);
+  $('div.authorImg img').attr('src', USER_IMAGES[author]);
   $('#messageTime').html(time + ' on ' + day);
   $('#messageText').html(text);
 
@@ -46,12 +47,14 @@ function msgHandler(msg_object) {
   $('#messageTags').empty();
   for (var j=0; j<tags.length; j++) {
     var tag = tags[j];
-    var tagDiv = $(document.createElement('button'))
-        .addClass('btn-info')
-        .addClass('btn-mini')
-        .addClass('tag')
-        .html("#"+tag);
-    $('#messageTags').append(tagDiv);
+    if (tag.trim() != "") {
+      var tagDiv = $(document.createElement('button'))
+          .addClass('btn-info')
+          .addClass('btn-mini')
+          .addClass('tag')
+          .html("#"+tag);
+      $('#messageTags').append(tagDiv);
+    }
   }
 
   // Display replies 
@@ -101,7 +104,7 @@ function replyHandler(replies) {
     $(replyDiv).append(replyText);
 
     // Add content to reply second header
-    var authorImg = $("<img src='images/generic_avatar.jpg'>");
+    var authorImg = $("<img src='" + USER_IMAGES[author] + " '>");
     var authorImgDiv = $(document.createElement('div'))
         .addClass('authorImg');
     $(authorImgDiv).append(authorImg);

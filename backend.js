@@ -100,6 +100,27 @@ function setReadRelation(user) {
 	readRelation = user.relation("read");
 }
 
+var USER_IMAGES = {};
+function getImagesForUsers() {
+	var query = new Parse.Query(Parse.User);
+	query.find({
+		success: function(users) {
+			console.debug("found users");
+			for (var i = users.length - 1; i >= 0; i--) {
+				var u = users[i];
+				USER_IMAGES[u.getUsername()] = u.get('img');
+			};
+			console.debug(USER_IMAGES);
+		},
+		error: function(obj, error) {
+
+		}
+	});
+}
+
+getImagesForUsers();
+// console.debug(USER_IMAGES);
+
 /*
 	INITLIALIZETHE BACKEND OBJECTS MESSAGE AND REPLY
 */	
@@ -455,3 +476,4 @@ function markRead(msg) {
 // 		console.debug(error);
 // 	}
 // });
+

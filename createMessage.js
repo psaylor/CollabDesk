@@ -33,19 +33,20 @@ function submit() {
 	var author = getUsername();
 
 	// Determine which buttons are pressed
-	var noteIssue = "ni-btn";
 	var hiLowPriority = "pri-btn";
 	var alertCpt = "alert-btn";
 
 	var type = NOTE;
+	console.log(document.getElementById('issueBtn').checked);
+	if (document.getElementById('issueBtn').checked) {
+		type = ISSUE;
+	}
+
 	var priority = LOW_PRI;
 	var alert = NO_ALERT;
 
 	$(".btn-group .btn.active").each(function() {
 		switch(this.id) {
-			case noteIssue:
-				type = ISSUE;
-				break;
 			case hiLowPriority:
 				priority = HIGH_PRI;
 				break;
