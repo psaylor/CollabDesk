@@ -175,7 +175,7 @@ function determineIcons(alert, priority, noteOrIssue){
 	if(noteOrIssue=='note'){
 		output+="<i class='icon-reorder icon-color'></i>";
 	}
-	else(noteOrIssue='issue'){
+	else if(noteOrIssue='issue'){
 		output+="<i class='icon-question-issue icon-color'></i>";
 	}
 
