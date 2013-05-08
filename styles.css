@@ -6,10 +6,17 @@
 	}
 
 	img.avatar {
-		height: 45px;
-		width: 45px;
+		height: 46px;
+		width: 46px;
 	}
 
+	.navbar-inner {
+		border: 0px;
+	}
+
+	.create-btn {
+		margin-top: 6px;
+	}
 /* 
 	ICON STYLES
 */
@@ -56,7 +63,7 @@
 
 	.column {
 		position: absolute;
-		top: 47px;
+		top: 46px;
 		bottom: 0px;
 	}
 
