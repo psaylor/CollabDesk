@@ -45,6 +45,8 @@
 
     $(document).ready(function(){
 
+        $('#username').html(getUsername());
+
 	    /*
 			LOAD THE DIFFERENT PANES FROM THEIR SEPARATE HTML PAGES
 			the pane-inner div is loaded into its corresponding pane-wrapper div
@@ -221,7 +223,7 @@
 				
 				<img class="avatar pull-right" src="images/generic_avatar.jpg"/>
 				<ul class="nav pull-right">
-					<li><a class="dropdown-toggle" data-toggle="dropdown" id="username-link">Sally <i class="icon-caret-down"></i></a>
+					<li><a class="dropdown-toggle" data-toggle="dropdown"><span id="username">Sally</span> <i class="icon-caret-down"></i></a>
 						<ul class="dropdown-menu">
 							<li><a><i class="icon-signout"></i> Logout</a></li>
 							<li><a><i class="icon-group"></i> Manage Access</a></li>

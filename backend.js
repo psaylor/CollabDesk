@@ -75,7 +75,7 @@ function signup(username, pswd, email) {
 // login('Timberlake', '123');
 
 function getUsername() {
-	return cdUser.get("name");
+	return cdUser.getUsername();
 }
 
 function setReadRelation(user) {
