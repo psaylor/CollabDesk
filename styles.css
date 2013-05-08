@@ -285,15 +285,15 @@
 	}
 
 	.tag {
-		display: inline-block;
+	/*	display: inline-block;
 		font-size: 12px;
 		line-height: 14px;
-		background: #9FDFBF;
+		background: #9FDFBF;*/
 		margin-right: 5px;
-		font-family: sans-serif;
+		/*font-family: sans-serif;*/
 	}
 
-	.tag:hover {
+/*	.tag:hover {
 		background: #79D2A6;
 	}
 
@@ -303,7 +303,7 @@
 
 	.tag:focus {
 		background: #79D2A6;
-	}
+	}*/
 
 	#replyMessageArea {
 		width: 700px;
