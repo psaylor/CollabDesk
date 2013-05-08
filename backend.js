@@ -31,9 +31,18 @@ function getCurrentUser( ){
 	return Parse.User.current();
 }
 
-cdUser = getCurrentUser();
-console.log('user');
-console.log(cdUser);
+function setup() {
+	cdUser = getCurrentUser();
+	console.log('user');
+	console.log(cdUser);
+	if (cdUser) {
+		setReadRelation(cdUser);
+	}
+}
+
+setup();
+
+
 
 function login(username, password, successCallback, errorCallback) {
 	Parse.User.logIn(username, password, {
