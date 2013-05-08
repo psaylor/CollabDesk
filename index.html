@@ -125,6 +125,11 @@
                 $("#replyFormDiv").show();
             })
 
+            $("#replyXClose").click(function() {
+                reset();
+                $("#replyFormDiv").hide();
+            })
+
             // Hiding Alerts on FocusOut
             $("#replyTitleInput").focusout(function () {
                 if ($("#replyTitleInput").val() != "") {
@@ -310,6 +315,11 @@
                 }
                 
             });
+
+           $("#submitXClose").click(function() {
+                reset();
+            })
+
 
           $("#closeBtn").keydown(function (e) {
           	if (e.which == 13) {
