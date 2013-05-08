@@ -25,21 +25,30 @@ NO_ALERT = false;
 NOTE = "Note";
 ISSUE = "Issue";
 
+function getCurrentUser( ){
+	return Parse.User.current();
+}
 
-function login(username, password ) {
+cdUser = getCurrentUser();
+console.log('user');
+console.log(cdUser);
+
+function login(username, password, successCallback, errorCallback) {
 	Parse.User.logIn(username, password, {
 		success: function(user) {
 			console.log(user + " successfully logged in");
 			cdUser = user;
 			setReadRelation(user);
+			successCallback(user);
   		},
   		error: function(user, error) {
   			console.debug(user + " failed to log in");
+  			errorCallback(user, error);
   		}
 	});
 }
 
-function signup( username, pswd, email) {
+function signup(username, pswd, email) {
 	var user = new Parse.User();
 	user.set('username', username);
 	user.set('password', pswd);
@@ -62,11 +71,11 @@ function signup( username, pswd, email) {
 	return user;
 }
 
-login('Timberlake', '123');
 
+// login('Timberlake', '123');
 
-function getUsername( ){
-	return Parse.User.current();
+function getUsername() {
+	return cdUser.get("name");
 }
 
 function setReadRelation(user) {
@@ -84,9 +93,11 @@ function setReadRelation(user) {
 					return formattedDay;
 				}
 				var date = this.get("date");
-				formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
-				this.set("formattedDay", formattedDay);
-				this.save();
+				if (date) {
+					formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
+					this.set("formattedDay", formattedDay);
+					this.save();
+				}
 				return formattedDay;
 			}, 
 
@@ -96,12 +107,14 @@ function setReadRelation(user) {
 					return formattedTime;
 				}
 				var date = this.get("date");
-				var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-			    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
-			    var ampm = date.getHours() < 12 ? "AM" : "PM";
-			    formattedTime = hours + ":" + minutes + " " + ampm;
-			    this.set("formattedTime", formattedTime);
-			    this.save();
+				if (date) {
+					var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+				    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
+				    var ampm = date.getHours() < 12 ? "AM" : "PM";
+				    formattedTime = hours + ":" + minutes + " " + ampm;
+				    this.set("formattedTime", formattedTime);
+				    this.save();
+				}
 			    return formattedTime;
 			},
 
@@ -154,9 +167,11 @@ function setReadRelation(user) {
 					return formattedDay;
 				}
 				var date = this.get("date");
-				formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
-				this.set("formattedDay", formattedDay);
-				this.save();
+				if (date) {
+					formattedDay = MONTHS[date.getMonth()] + ' ' + date.getDate();
+					this.set("formattedDay", formattedDay);
+					this.save();
+				}
 				return formattedDay;
 		},
 
@@ -166,12 +181,14 @@ function setReadRelation(user) {
 				return formattedTime;
 			}
 			var date = this.get("date");
-			var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-		    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
-		    var ampm = date.getHours() < 12 ? "AM" : "PM";
-		    formattedTime = hours + ":" + minutes + " " + ampm;
-		    this.set("formattedTime", formattedTime);
-		    this.save();
+			if (date) {
+				var hours = date.getHours() == 0 ? "12" : date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+			    var minutes = (date.getMinutes() < 9 ? "0" : "") + date.getMinutes();
+			    var ampm = date.getHours() < 12 ? "AM" : "PM";
+			    formattedTime = hours + ":" + minutes + " " + ampm;
+			    this.set("formattedTime", formattedTime);
+			    this.save();
+			}
 		    return formattedTime;
 		},
 	}, {
@@ -412,10 +429,10 @@ var title = 'Visa card found';
 	alert = true;
 	var date = new Date('17 Mar, 2013 10:28:00');
 
-var msg = Message.create(title, text, author, tags, type, priority, alert, date);
-console.log("done with message.");
-console.log(msg);
-console.log('message day: ' + msg.getDay());
+// var msg = Message.create(title, text, author, tags, type, priority, alert, date);
+// console.log("done with message.");
+// console.log(msg);
+// console.log('message day: ' + msg.getDay());
 
 // title = 'Fixed';
 // 	text = 'Sally picked up her id. All better =]';
