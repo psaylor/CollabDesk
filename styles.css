@@ -286,9 +286,12 @@
 		display: inline-block;
 		font-size: 12px;
 		line-height: 14px;
-		background: #9FDFBF;
+		/*background: #9FDFBF;*/
 		margin-right: 5px;
 		font-family: sans-serif;
+		color: #468847;
+background-color: #dff0d8;
+border-color: #d6e9c6;
 	}
 
 	.tag:hover {
