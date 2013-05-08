@@ -16,8 +16,8 @@ function msgHandler(msg_object) {
   var title = msg_object.get("title");
   var text = msg_object.get("text");
   var type = msg_object.get("type");
-  var time = msg_object.getDay()
-  var day = msg_object.getTime();
+  var time = msg_object.getTime()
+  var day = msg_object.getDay();
   var author = msg_object.get("author");
   var priority = msg_object.get("priority");
   var alert = msg_object.get("alert");
@@ -37,7 +37,8 @@ function msgHandler(msg_object) {
 
   // Display original message
   $('.originalMsgTitle').html(type + ": " + title);
-  $('.originalMsgDetailsText').html(author + " at " + time + " on " + day);
+  $('.originalMsgAuthor').html(author);
+  $('.originalMsgTime').html(time + ' on ' + day);
   $('.originalMsgText').html(text);
 
   $('.captain').removeClass('hidden');
