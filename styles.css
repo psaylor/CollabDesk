@@ -161,6 +161,11 @@
 	    background-image: linear-gradient(to bottom, #5BC0DE, #2F96B4);
 	}
 
+	.nav-pills > li {
+		width: 50%;
+		text-align: center;
+	}
+
 	.hidden{
 		visibility: hidden;
 	}
@@ -179,7 +184,7 @@
 		border-collapse: collapse;
 		border-spacing: 0;
 		position: absolute;
-		top: 40px;
+		top: 75px;
 		bottom: 0px;
 		overflow: auto;
 		border-top: 1px solid black;

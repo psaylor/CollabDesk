@@ -15,8 +15,8 @@ function updateBrowsePane (divID){
 
 	console.log("in updateBrowsePane() for " + divID+"------------------------------------------------------------------");
 	// $("#"+divID).empty();
-	$("#unread-table").empty();
-	$("#read-table").empty();
+	// $("#unread-table").empty();
+	// $("#read-table").empty();
 	//console.log($("#"+divID).html());
 	var unreadOutput="";
 	getUnreadMessages(function(unreadList){
@@ -52,7 +52,7 @@ function updateBrowsePane (divID){
 		unreadOutput+="</ul></div>"
 		console.log('output string for unread msgs');
 		// console.log(unreadOutput);
-		$("#unread-table").append(unreadOutput);
+		$("#unread-table").html(unreadOutput);
 		addClickListener();
 	});
 
@@ -125,7 +125,7 @@ function updateBrowsePane (divID){
 		}
 		//console.log("output is "+output);
 		// $("#"+divID).append(output);
-		$("#read-table").append(readOutput);
+		$("#read-table").html(readOutput);
 		addClickListener();
 	});
 

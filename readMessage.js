@@ -28,7 +28,7 @@ function msgHandler(msg_object) {
   var tags = msg_object.get("tags");
 
   // Display original message
-  if(type== undefined) {type = ISSUE;}
+  if(type== undefined) {type = NOTE;}
 
   $('#messageTitle').html(type + ": " + title);
   $('#messageAuthor').html(author);

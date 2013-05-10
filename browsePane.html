@@ -25,9 +25,6 @@
 
 	<!-- Load our own Javascript files and stylesheets here -->
 	<script type="text/javascript" src="backend.js"></script>
-	<!--<script type="text/javascript" src="message.js"></script>-->
-	<!--<script type="text/javascript" src="database.js"></script>-->
-	<!--<script type="text/javascript" src="preloadData.js"></script>-->
 	<script type="text/javascript" src="readMessage.js"></script>
 	<script type="text/javascript" src="createMessage.js"></script>
 	<script type="text/javascript" src="createReply.js"></script>
@@ -197,6 +194,14 @@
 							<input type="text" class="input-block-level" rel="popover" id="search-tbox" placeholder="Search by Tags, Titles, Message Body..." autofocus />
 							<span class="add-on btn"><i class="icon-search" id="search-button"></i></span>
 						</div>
+					</div>
+					<div id="search-pills">
+						<ul class="nav nav-pills">
+						  <li class="active">
+						    <a href="#">All</a>
+						  </li>
+						  <li><a href="#">Unread</a></li>
+						</ul>
 					</div>
 					<div id="message-table">
 						<!--MESSAGES DYNAMICALLY ADDED HERE-->
