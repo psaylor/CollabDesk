@@ -29,7 +29,7 @@ function addBrowsepaneTooltips () {
 }
 
 function addReadPaneTooltips () {
-	$('.tag').click(function () {
+	$('.tag').tooltip({
 		trigger: 'hover',
 		placement: 'top',
 		title: 'Click to Search',

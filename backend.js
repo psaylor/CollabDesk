@@ -366,14 +366,10 @@ function updateMsgCollection(onSuccess ) {
 
 	// deprecated : returns all messages actually
 	function getReadMessages(onSuccess, onError) {
-		if (msgCollection) {
-			onSuccess(msgCollection);
-		}
-		getMsgCollection();
-		updateMsgCollection(onSuccess);
+		getAllMessages(onSuccess, onError);
 	}
 
-	function getAllMessage(onSuccess, onError) {
+	function getAllMessages(onSuccess, onError) {
 		if (msgCollection) {
 			onSuccess(msgCollection);
 		}
