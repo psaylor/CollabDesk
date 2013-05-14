@@ -63,7 +63,8 @@ function login(username, password, successCallback, errorCallback) {
 	});
 }
 
-login('Timberlake', '123');
+// login('Timberlake', '123');
+login("Adele", 'test');
 
 function signup(username, pswd, email) {
 	var user = new Parse.User();
@@ -272,73 +273,103 @@ getImagesForUsers();
 	QUERY FUNCTIONALITY
 */
 
+var MsgCollection = Parse.Collection.extend( {
+	model: Message,
+});
+
+/* COLLECTIONS */
+var unreadCollection;
+var msgCollection;
+
+function getUnreadCollection() {
+	var query = new Parse.Query(Message);
+	// query.descending("createdAt");
+	var readQuery = readRelation.query();
+	query.doesNotMatchKeyInQuery("msgId", "msgId", readQuery);
+	unreadCollection = query.collection();
+	unreadCollection.comparator = function(msg) {
+		return msg.get("date");
+	}
+	console.log('unread collection');
+	console.log(unreadCollection);
+	return unreadCollection;
+}
+
+function getMsgCollection() {
+	msgCollection = new MsgCollection();
+	msgCollection.comparator = function(msg) {
+		return msg.get("date");
+	}
+	return msgCollection;
+}
+
+function updateUnreadCollection(onSuccess) {
+	unreadCollection.fetch({
+		success: function(collection) {
+	    	console.log('updated unread msg collection');
+	    	console.debug(collection);
+	    	if (onSuccess) {
+	    		onSuccess(collection);
+	    	}
+		},
+		error: function(collection, error) {
+	    // The collection could not be retrieved.
+	    	console.log('failed to retrieve unread collection');
+		},
+
+		update : true,	
+
+	});
+}
+ 
+function updateMsgCollection(onSuccess ) {
+	msgCollection.fetch({
+		success: function(coll) {
+	    	console.log('updated msg collection');
+	    	console.debug(coll);
+	    	if (onSuccess) {
+	    		onSuccess(coll);
+	    	}
+		},
+		error: function(coll, error) {
+	    // The collection could not be retrieved.
+	    	console.log('failed to retrieve collection');
+		},
+
+		update : true,	
+	});
+}
+
+
+
 	function getUnreadMessages(onSuccess, onError) {
-		// Retrieve the most recent ones
-		var query = new Parse.Query(Message);
-		query.descending("createdAt");
-		var readQuery = readRelation.query();
-		query.doesNotMatchKeyInQuery("msgId", "msgId", readQuery);
-		query.find({
-			success: function(unreadMsgList) {
-				console.log("got all " + unreadMsgList.length + " UNread messages");
-				console.log(unreadMsgList.length);
-				console.log(unreadMsgList);
-				if (onSuccess) {
-					onSuccess(unreadMsgList);
-				}
-			},
-			error: function(obj, error) {
-				console.log('could not get unread msgs');
-				console.log(error);
-				if (onError) {
-					onError(obj, error);
-				}
-			}
-		});
+		if (unreadCollection) {
+			onSuccess(unreadCollection);
+		}
+		getUnreadCollection();
+		updateUnreadCollection(onSuccess);	
 	}
 
+	// deprecated : returns all messages actually
 	function getReadMessages(onSuccess, onError) {
-		// Retrieve the most recent ones
-		var query = readRelation.query();
-		query.descending("createdAt");
-		query.find({
-			success: function(readMsgList) {
-				console.log("got all " + readMsgList.length + " read messages");
-				console.log(readMsgList);
-				if (onSuccess) {
-					onSuccess(readMsgList);
-				}
-			},
-			error: function(obj, error) {
-				console.log('could not get read msgs');
-				console.log(error);
-				if (onError) {
-					onError(obj, error);
-				}
-			}
-		});
+		if (msgCollection) {
+			onSuccess(msgCollection);
+		}
+		getMsgCollection();
+		updateMsgCollection(onSuccess);
+	}
+
+	function getAllMessage(onSuccess, onError) {
+		if (msgCollection) {
+			onSuccess(msgCollection);
+		}
+		getMsgCollection();
+		updateMsgCollection(onSuccess);
 	}
 
 
 	function getMessage(message_id, onSuccess, onError) {
-		// console.log('call to get Message backend: ' + message_id);
-		var query = new Parse.Query(Message);
-		query.get( message_id, {
-			success: function(msg) {
-				// console.log("got message " + message_id);
-				// console.log(msg);
-				if (onSuccess) {
-					onSuccess(msg);
-				}
-			},
-			error: function(obj, error) {
-				console.log('could not get msg ' + message_id);
-				console.log(error);
-				if (onError) {
-					onError(obj, error);
-				}
-			}
-		});
+		onSuccess( msgCollection.get(message_id) );
 	}
 
 	function getRepliesForMessage(msg_obj, onSuccess, onError) {

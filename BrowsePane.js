@@ -22,9 +22,9 @@ function updateBrowsePane (divID){
 	getUnreadMessages(function(unreadList){
 		unreadOutput+="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
 		if(unreadList.length>0){
-			for (i in unreadList){
+			for (var i=0; i< unreadList.length; i++){
 
-				msg=unreadList[i];
+				msg=unreadList.at(i);
 				var title = msg.get('title');
 				var date = msg.get('date');
 				var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
@@ -51,7 +51,7 @@ function updateBrowsePane (divID){
 		}
 		unreadOutput+="</ul></div>"
 		console.log('output string for unread msgs');
-		// console.log(unreadOutput);
+		console.log(unreadOutput);
 		$("#unread-table").html(unreadOutput);
 		addClickListener();
 	});
@@ -71,8 +71,8 @@ function updateBrowsePane (divID){
 		var month; //string
 		var day;
 
-		for (index in readList){ 
-			msg=readList[index];
+		for (var index = 0; index < readList.length; index++) {
+			msg=readList.at(index);
 			day=msg.get('formattedDay');
 			if(day in hash){
 				hash[day].push(msg);
@@ -123,7 +123,7 @@ function updateBrowsePane (divID){
 		for(day in hash){
 			readOutput+=getDateTableHTML(day, hash[day]);
 		}
-		//console.log("output is "+output);
+		console.log("read output is "+ output);
 		// $("#"+divID).append(output);
 		$("#read-table").html(readOutput);
 		addClickListener();
