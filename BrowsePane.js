@@ -7,12 +7,12 @@
 //"PUBLIC" FUNCTIONS
 ////////////////////
 
+
 /**
 * Refreshes View for Browse Pane (called any time message or reply is added)
 *
 */
 function updateBrowsePane (divID){
-
 	console.log("in updateBrowsePane() for " + divID+"------------------------------------------------------------------");
 	// $("#"+divID).empty();
 	// $("#unread-table").empty();
@@ -20,7 +20,7 @@ function updateBrowsePane (divID){
 	//console.log($("#"+divID).html());
 	var unreadOutput="";
 	getUnreadMessages(function(unreadList){
-		unreadOutput+="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
+		unreadOutput+="<div class='group'><ul id='unread-content'>";
 		if(unreadList.length>0){
 			for (var i=0; i< unreadList.length; i++){
 
@@ -47,11 +47,14 @@ function updateBrowsePane (divID){
 							"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
 							"</div>"+
 							"</li>";
-			}		
+			}
+			unreadOutput+="</ul>";
+		} else {
+			unreadOutput = getNoUnreadAlert();
 		}
-		unreadOutput+="</ul></div>"
+		
 		console.log('output string for unread msgs');
-		console.log(unreadOutput);
+		// console.log(unreadOutput);
 		$("#unread-table").html(unreadOutput);
 		addClickListener();
 	});
@@ -123,7 +126,7 @@ function updateBrowsePane (divID){
 		for(day in hash){
 			readOutput+=getDateTableHTML(day, hash[day]);
 		}
-		console.log("read output is "+ output);
+		// console.log("read output is "+ output);
 		// $("#"+divID).append(output);
 		$("#read-table").html(readOutput);
 		addClickListener();
@@ -305,3 +308,23 @@ function getDateTableHTML(date, messageList){
 // 	//console.log(output);
 // 	return output;
 // };
+
+
+function getNoUnreadAlert() {
+	
+	var alertContent = $(document.createElement('strong'))
+		.html('No Unread Messages');
+	var alertDiv = $(document.createElement('div'))
+		.addClass('alert')
+		.addClass('alert-info')
+		.html(alertContent);
+	return alertDiv;
+}
+
+function updateUnreadCount(count) {
+	if (count){
+		$('#unread-count').html(count);
+	} else {
+		$('#unread-count').html(unreadCollection.length);
+	}
+}

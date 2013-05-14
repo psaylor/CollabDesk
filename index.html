@@ -113,8 +113,11 @@
 
             // initially hide all alerts
             $(".alert").hide();
+            $("#splashAlert").show();
 
             $("#replyFormDiv").hide();
+
+            
 
             /*Submits search to browse pane when a tag is clicked*/
             $(".tag").click(function() {
@@ -225,6 +228,7 @@
 
             // Initially hide all alerts
             $(".alert").hide();
+            $("#splashAlert").show();
 
             $(".titleClose").click(function() {
                 $(".titleAlert").slideUp();
@@ -384,8 +388,8 @@
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
                         <!-- tab headers -->
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#read-table" data-toggle="tab">All Messages</a></li>
-                            <li><a href="#unread-table" data-toggle="tab">Unread Messages</a></li>
+                            <li class="active" id="all-tab"><a href="#read-table" data-toggle="tab">All Messages</a></li>
+                            <li id="unread-tab"><a href="#unread-table" data-toggle="tab">Unread Messages <span class="badge badge-info" id="unread-count">0</span></a></li>
                         </ul>
 
                         <!-- tab content -->
@@ -394,7 +398,9 @@
                                 <p>All Messages</p>
                             </div>
                             <div class="tab-pane" id="unread-table">
-                                <p>Only Unread Messages</p>
+                                <div class="alert alert-info">
+                                    <h4>No Unread Messages</h4>
+                                </div>
                             </div>
                         </div>
 
@@ -436,6 +442,11 @@
                     </div>
                     <div class="replies"></div>
                 </div>
+            </div>
+
+            <div class="alert alert-info" id="splashAlert">
+                <h4>Welcome to CollabDesk!</h4>
+                <p>Select a message on the left to begin.</p>
             </div>
 	    </div>
 
