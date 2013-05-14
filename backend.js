@@ -63,8 +63,8 @@ function login(username, password, successCallback, errorCallback) {
 	});
 }
 
-// login('Timberlake', '123');
-login("Adele", 'test');
+login('Timberlake', '123');
+// login("Adele", 'test');
 
 function signup(username, pswd, email) {
 	var user = new Parse.User();
@@ -366,10 +366,14 @@ function updateMsgCollection(onSuccess ) {
 
 	// deprecated : returns all messages actually
 	function getReadMessages(onSuccess, onError) {
-		getAllMessages(onSuccess, onError);
+		if (msgCollection) {
+			onSuccess(msgCollection);
+		}
+		getMsgCollection();
+		updateMsgCollection(onSuccess);
 	}
 
-	function getAllMessages(onSuccess, onError) {
+	function getAllMessage(onSuccess, onError) {
 		if (msgCollection) {
 			onSuccess(msgCollection);
 		}
