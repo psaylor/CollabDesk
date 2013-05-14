@@ -382,8 +382,12 @@
 	}
 
 	#textarea {
-		width: 425px;
+		width: 80%;
 		height: 250px;
+		min-width: 20%;
+		max-width: 95%;
+		min-height: 25%;
+		max-height: 95%;
 	}
 
 	.alert {
