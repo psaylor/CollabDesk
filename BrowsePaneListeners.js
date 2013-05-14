@@ -57,7 +57,7 @@ function displayUnreadMessages(unreadList) {
 function onClickUnreadTab() {
     console.error('unread tab clicked');
     $('#unread-table').html(spinner);
-    updateUnreadCollection(displayUnreadMessages);
+    updateUnreadCollection(updateUnreadTab);
 }
 
 function onClickAllTab() {

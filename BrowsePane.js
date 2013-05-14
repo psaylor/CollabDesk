@@ -12,6 +12,68 @@
 * Refreshes View for Browse Pane (called any time message or reply is added)
 *
 */
+
+function getDayHash(msglist) {
+	console.log('getting day hash for msglist');
+	console.log(msglist);
+	var hash = {};
+	var msg;
+	var day;
+
+	for (var index = 0; index < msglist.length; index++) {
+		// console.log('index ' + index);
+		msg = msglist.at(index);
+		day = msg.getDay();
+		if (day in hash) {
+			// console.log(day + " already in hash ");
+			hash[day].push(msg);
+		}
+		else {
+			hash[day] = [msg];
+		}
+	}
+
+	return hash;
+}
+
+function updateUnreadTab(unreadList) {
+	console.debug('updating unread tab view');
+
+	var hash = getDayHash(unreadList);
+
+	var unreadTableID = '#unread-table';
+	$(unreadTableID).empty();
+
+	for(day in hash){
+		getDateTableHTML(day, hash[day], unreadTableID);
+	}
+
+	
+	addClickListener();
+
+}
+
+function updateAllTab(allList) {
+	console.debug('updating all tab view');
+	//console.log("IN updateBrowsePane(): getReadMessages():");
+	//console.log(readList);
+	var hash = getDayHash(allList);
+
+	//dateList.reverse();
+	//console.log("dates: "+dateList);
+
+	var readTableID = '#read-table';
+	$(readTableID).empty();
+
+	for(day in hash){
+		getDateTableHTML(day, hash[day], readTableID);
+	}
+
+	// $("#"+divID).append(output);
+
+	addClickListener();
+}
+
 function updateBrowsePane (){
 	console.log("in updateBrowsePane()");
 	// $("#"+divID).empty();
@@ -19,97 +81,13 @@ function updateBrowsePane (){
 	$("#read-table").empty();
 	//console.log($("#"+divID).html());
 	//var unreadOutput="";
-	getUnreadMessages(function(unreadList){
-		//unreadOutput+="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
-		//var group = createGroup('unread', 'Unread', 'unread-content');
-		
-		//outermost div
-		var group = $(document.createElement('div')).addClass('group');
-
-		$("#unread-table").empty();
-		$("#unread-table").append(group);
-		
-		
-		//outputDate within bucket
-		var bucket = $(document.createElement('div'))
-			.addClass('bucket')
-			.attr('id','unread')
-			.append('Unread');
-
-		//messages (<li>) in here
-		var ul = $(document.createElement('ul'))
-			.attr('id', 'unread-content');
-
-		$(group).append(bucket);
-		$(group).append(ul);
-
-		if(unreadList.length>0){
-			for (var i=0; i< unreadList.length; i++){
-
-				msg=unreadList.at(i);
-
-				$(ul).append(getMessageHTML(msg));
-				}
-
-			// unreadOutput +="<li class = 'message' id='"+id+"'>"+
-			// 			"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-			// 			//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
-			// 			determineIcons(alert, priority, noteVsIssue)+ "</div>"+
-			// 			"<div class='message-content'>"+
-			// 			"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
-			// 			"</div>"+
-			// 			"</li>";
-		}		
-
-	});
-	//unreadOutput+="</ul></div>"
-	//console.log('output string for unread msgs');
-	//console.log(unreadOutput);
-
-	//$('#unread-table').empty();
-
+	getUnreadMessages(updateUnreadTab);
 
 	addClickListener();	
-
-	//var output = "";
 	
 	//console.log("unread is done. now onto read:");
 
-	getReadMessages(function(readList){ //list of type messages
-		var readOutput = "";
-		//console.log("IN updateBrowsePane(): getReadMessages():");
-		//console.log(readList);
-		var hash = {};
-		var msg;
-		var date; //string
-		var dateList=[];
-		var month; //string
-		var day;
-
-		for (var index = 0; index < readList.length; index++) {
-			msg=readList.at(index);
-			day=msg.get('formattedDay');
-			if(day in hash){
-				hash[day].push(msg);
-			}
-			else{
-				hash[day]=[msg];
-			}
-		}
-
-		//dateList.reverse();
-		//console.log("dates: "+dateList);
-
-		for(day in hash){
-			getDateTableHTML(day, hash[day], '#read-table');
-		}
-
-		//console.log("read output is "+ output);
-
-		// $("#"+divID).append(output);
-		//$("#read-table").html(readOutput);
-		addClickListener();
-	});
+	getAllMessages(updateAllTab);
 
 	console.log("done adding messages.");
 	//adding listeners again
@@ -261,7 +239,7 @@ function getMessageHTML(msg){
 	var titleDiv = $(document.createElement('div'))
 		.addClass('title');
 	$(titleDiv).append(title);
-	var textDiv = $(document.createElement('div')).addClass('text');
+	var textDiv = $(document.createElement('p')).addClass('text');
 	$(textDiv).append(text);
 	$(content)
 		.append(titleDiv)
@@ -291,10 +269,10 @@ function getMessageHTML(msg){
 * date: string of length 4 representing month(first 2 digits), day(next 2 digits)
 * 
 */
-function getDateTableHTML(date, messageList, containerID){
+function getDateTableHTML(date, messageList, containerID) {
 	//console.log("getDateTableHTML()");
 	//console.log(messageList);
-	if(messageList.length==0){
+	if (messageList.length==0) {
 		return "";
 	}
 	var outputDate=date;
@@ -321,10 +299,9 @@ function getDateTableHTML(date, messageList, containerID){
 		$(ul).append(getMessageHTML(msg));
 		}
 
-	$(containerID).empty();
 	$(containerID).append(group);
 
-};
+}
 
 // /**
 // * Given a list of message ids, return the html corresponding to the id of the filtered 

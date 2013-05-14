@@ -39,3 +39,11 @@ $(document).ready(function(){
 	*/
 
 });
+
+function addBrowsePaneTooltips() {
+	
+}
+
+function addReadPaneTooltips() {
+	
+}
