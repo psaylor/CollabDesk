@@ -145,6 +145,7 @@ function addClickListener(){
         resetReply();  
         $("#splashAlert").hide();
     });
+    addBrowsepaneTooltips();
     addUnreadListeners();
 }
 

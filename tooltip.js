@@ -1,49 +1,39 @@
-$(document).ready(function(){
-
-	/* 
-		CREATE PANE TOOL TIPS
-	*/
-	$('#selectTemplate').tooltip( {
+function addBrowsepaneTooltips () {
+	// Tooltip for important icon in browse pane
+	$('.icon-exclamation-sign').tooltip({
 		trigger: 'hover',
-		placement: 'bottom',
-		title: 'Select a template (Opt)',
+		placement: 'top',
+		title: 'High Priority',
 		delay: 200,
+		container: 'body',
 	});
 
-	$('#tags-input').tooltip({
+	// Tooltip for note icon in browse pane
+	$('.icon-reorder').tooltip({
 		trigger: 'hover',
-		placement: 'bottom',
-		title: 'Add searchable tags to your message',
+		placement: 'top',
+		title: 'Note',
 		delay: 200,
+		container: 'body',
 	});
 
-	$('#alert-btn').tooltip({
+	// Tooltip for alert desk captain icon in browse pane
+	$('.icon-user').tooltip({
 		trigger: 'hover',
-		placement: 'bottom',
-		title: 'Automatically email this message to the Desk Captain',
+		placement: 'top',
+		title: 'Desk Captain Notified',
 		delay: 200,
+		container: 'body',
 	});
 
-	$('#ni-btn').click(function() {
-		$('#ni-note').toggleClass('hide');
-		$('#ni-issue').toggleClass('hide');
-
-	});
-
-	/* 
-		READ PANE TOOL TIPS
-	*/
-
-	/* 
-		BROWSE PANE TOOL TIPS
-	*/
-
-});
-
-function addBrowsePaneTooltips() {
-	
 }
 
-function addReadPaneTooltips() {
-	
+function addReadPaneTooltips () {
+	$('.tag').click(function () {
+		trigger: 'hover',
+		placement: 'top',
+		title: 'Click to Search',
+		delay: 200,
+		container: 'body',
+	});
 }

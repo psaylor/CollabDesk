@@ -324,6 +324,10 @@
 	#replyMessageArea {
 		width: 70%;
 		height: 20%;
+		max-width: 95%;
+		min-width: 35%;
+		max-height: 800px;
+		min-height: 15%;
 	}
 
 	.reply-footer {
