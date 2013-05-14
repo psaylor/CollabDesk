@@ -62,6 +62,10 @@
 		color: purple;
 	}
 
+	.icon-spinner {
+		color: #2f96b4;
+	}
+
 
 /*
 	GLOBAL STYLES
@@ -316,17 +320,6 @@
 		/*font-family: sans-serif;*/
 	}
 
-/*	.tag:hover {
-		background: #79D2A6;
-	}
-
-	.tag:active {
-		background: #79D2A6;
-	}
-
-	.tag:focus {
-		background: #79D2A6;
-	}*/
 
 	#replyMessageArea {
 		width: 70%;
@@ -337,6 +330,9 @@
 		float: right;
 	}
 
+	#splashAlert {
+		margin: 10px;
+	}
 
 /*
 	CREATE PANE

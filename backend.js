@@ -196,6 +196,7 @@ getImagesForUsers();
 						console.debug("msg saved");
 						msg.set("msgId", msg.id);
 						msg.save();
+						msgCollection.add(msg);
 					},
 					error: function(object, error) {
 						console.debug(error);
@@ -290,9 +291,20 @@ function getUnreadCollection() {
 	unreadCollection.comparator = function(msg) {
 		return msg.get("date");
 	}
+	unreadCollection.bind('remove', function() {
+		console.log('removed something from unread collection');
+		updateUnreadCount();
+	});
 	console.log('unread collection');
 	console.log(unreadCollection);
 	return unreadCollection;
+}
+
+function onSingleMessageAdd(msg, another) {
+	console.log('onSingleMessageAdd');
+	console.log(msg);
+	console.log(another);
+
 }
 
 function getMsgCollection() {
@@ -300,6 +312,7 @@ function getMsgCollection() {
 	msgCollection.comparator = function(msg) {
 		return msg.get("date");
 	}
+	msgCollection.bind('add', onSingleMessageAdd);
 	return msgCollection;
 }
 
@@ -308,6 +321,7 @@ function updateUnreadCollection(onSuccess) {
 		success: function(collection) {
 	    	console.log('updated unread msg collection');
 	    	console.debug(collection);
+	    	updateUnreadCount();
 	    	if (onSuccess) {
 	    		onSuccess(collection);
 	    	}
@@ -469,6 +483,7 @@ function markRead(msg) {
 			console.log("saved that user read msg");
 			console.log(obj);
 			cdUser = obj;
+			unreadCollection.remove(obj);
 		},
 		error: function(obj, error) {
 			console.log('could not save user reading msg');
