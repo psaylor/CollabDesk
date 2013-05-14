@@ -15,50 +15,67 @@ function updateBrowsePane (divID){
 
 	console.log("in updateBrowsePane() for " + divID+"------------------------------------------------------------------");
 	// $("#"+divID).empty();
-	// $("#unread-table").empty();
+	
 	// $("#read-table").empty();
 	//console.log($("#"+divID).html());
-	var unreadOutput="";
+	//var unreadOutput="";
 	getUnreadMessages(function(unreadList){
-		unreadOutput+="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
+		//unreadOutput+="<div class='group'><div class='bucket' id='unread'>Unread</div><ul id='unread-content'>";
+		//var group = createGroup('unread', 'Unread', 'unread-content');
+		
+		//outermost div
+		var group = $(document.createElement('div')).addClass('group');
+
+		$("#unread-table").empty();
+		$("#unread-table").append(group);
+		
+		
+		//outputDate within bucket
+		var bucket = $(document.createElement('div'))
+			.addClass('bucket')
+			.attr('id','unread')
+			.append('Unread');
+
+		//messages (<li>) in here
+		var ul = $(document.createElement('ul'))
+			.attr('id', 'unread-content');
+
+		$(group).append(bucket);
+		$(group).append(ul);
+
+
 		if(unreadList.length>0){
 			for (var i=0; i< unreadList.length; i++){
 
 				msg=unreadList.at(i);
-				var title = msg.get('title');
-				var date = msg.get('date');
-				var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
-				var text = msg.get('text').substring(0,125);
-				var id = msg.id;
-				var alert=msg.get('alert'); //boolean
-				var priority = msg.get('priority'); //boolean
-				var noteVsIssue = msg.get('type'); //string
-				if(msg.get('text').length>125){ //if message was truncated to display
-					text+="...";
+
+				$(ul).append(getMessageHTML(msg));
 				}
 
 
 
-				unreadOutput +="<li class = 'message' id='"+id+"'>"+
-							"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-							//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
-							determineIcons(alert, priority, noteVsIssue)+ "</div>"+
-							"<div class='message-content'>"+
-							"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
-							"</div>"+
-							"</li>";
-			}		
-		}
-		unreadOutput+="</ul></div>"
-		console.log('output string for unread msgs');
-		console.log(unreadOutput);
-		$("#unread-table").html(unreadOutput);
-		addClickListener();
+			// unreadOutput +="<li class = 'message' id='"+id+"'>"+
+			// 			"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
+			// 			//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+			// 			determineIcons(alert, priority, noteVsIssue)+ "</div>"+
+			// 			"<div class='message-content'>"+
+			// 			"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
+			// 			"</div>"+
+			// 			"</li>";
+		}		
 	});
+	//unreadOutput+="</ul></div>"
+	//console.log('output string for unread msgs');
+	//console.log(unreadOutput);
 
-	var output = "";
+	//$('#unread-table').empty();
+
+
+	addClickListener();	
+
+	//var output = "";
 	
-	console.log("unread is done. now onto read:");
+	//console.log("unread is done. now onto read:");
 
 	getReadMessages(function(readList){ //list of type messages
 		var readOutput = "";
@@ -80,76 +97,24 @@ function updateBrowsePane (divID){
 			else{
 				hash[day]=[msg];
 			}
-
-			//console.log(msg);
-			// date= msg.get('date');
-			// //console.log(date);
-
-			// //setting 2 digit month
-			// if(date.getMonth()+1<10){
-			// 	month="0"+(date.getMonth()+1).toString();
-			// }
-			// else{
-			// 	month=(date.getMonth()+1).toString();
-			// }
-			// //console.log(month);
-
-			// //setting 2 digit day
-			// if(date.getDate().length<2){
-			// 	day="0"+date.getDate();
-			// }
-			// else{
-			// 	day=date.getDate();
-			// }
-
-			// date=month+day; //4 numbers (as string)
-			
-			// if(dateList.indexOf(date)<0){
-			// 	dateList.push(date);				
-			// }
-
-			// //adding to hashtable
-			// if(hash.hasOwnProperty(date)){
-			// 	hash[date].push(readList[index].id);
-			// }
-			// else{
-			// 	hash[date]=[readList[index].id];
-			// }
 		}
 
 		//dateList.reverse();
 		//console.log("dates: "+dateList);
 
 		for(day in hash){
-			readOutput+=getDateTableHTML(day, hash[day]);
+			getDateTableHTML(day, hash[day], '#read-table');
 		}
-		console.log("read output is "+ output);
+		//console.log("read output is "+ output);
 		// $("#"+divID).append(output);
-		$("#read-table").html(readOutput);
+		//$("#read-table").html(readOutput);
 		addClickListener();
 	});
 
 	console.log("done adding messages.");
 	//adding listeners again
 	//addClickListener();
-
- 	$(".message").click(function(){
-        console.log("CLICKED ON NAVBAR");
-        //var focusedId=$(this).attr("id"); //id of message that is clicked
-        //replyId = focusedId;
-        //displayMessage(focusedId);
-
-        /*
-        //marking message as read
-        getMessage(focusedId, function(msg){
-            markRead(msg);
-        });        
-        */
-
-        //updateBrowsePane();
-    });
-
-	console.log("listeners added again. leaving updateBrowsePane()...-------------------------------------------");
+	//console.log("listeners added again. leaving updateBrowsePane()...-------------------------------------------");
 };
 
 
@@ -157,7 +122,8 @@ function updateSearchedBrowsePane(divID, input){
 	console.log("--------------------IN updateSearchBrowsePane()-----------------------");
 	$("#"+divID).empty();
 	var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
-	
+
+	//setting up search terms
 	inputArray = input.toLowerCase().split(" ");
 	console.log(inputArray);
 	var options = {};
@@ -165,41 +131,36 @@ function updateSearchedBrowsePane(divID, input){
 	options.title=inputArray;
 	options.text=inputArray;
 
-	//TODO: add attributes to options object
+
+	//bucket and ul divs within group
+	var group = $(document.createElement('div')).addClass('group');
+	
+	//outputDate within bucket
+	var bucket = $(document.createElement('div'))
+		.addClass('bucket')
+		.attr('id','search')
+		.append('Search Results');
+
+	//messages (<li>) in here
+	var ul = $(document.createElement('ul'))
+		.attr('id','search-content');
+
+	$(bucket).append(outputDate);
+	$(group).append(bucket);
+	$(group).append(ul);
+
 	advancedSearch(options, function(matches){
 		console.log("matches:");
 		console.log(matches);
-		if(matches.length>0){
-				for (i in matches){
-					msg=matches[i];
-					var title = msg.get('title');
-					var date = msg.get('date');
-					var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
-					var text = msg.get('text').substring(0,125);
-					var id = msg.id;
-					var alert=msg.get('alert'); //boolean
-					var priority = msg.get('priority'); //boolean
-					var noteVsIssue = msg.get('type'); //string
-					if(msg.get('text').length>125){ //if message was truncated to display
-						text+="...";
-					}
 
-					output +="<li class = 'message' id='"+id+"'>"+
-								"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-								//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-reorder icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
-								determineIcons(alert, priority, noteVsIssue)+ "</div>"+
-								"<div class='message-content'>"+
-								"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
-								"</div>"+
-								"</li>";
-					//console.log("output is now "+output);
-				}		
+		var msg;
+
+		for (index in matches){
+			msg=matches[index]
+			$(ul).append(getMessageHTML(msg));
 		}
-	output+="</ul></div>";
-	console.log("in update");
-	console.log("OUTPUT--------------------------------------------------");
-	console.log(output);
-	$("#"+divID).append(output);
+
+	$("#"+divID).html(group);
 	addClickListener();
 	});
 	
@@ -238,11 +199,35 @@ function determineIcons(alert, priority, noteOrIssue){
 	return output
 };
 
+function createGroup(bucketId, bucketTitle, ulID){
+	//bucket and ul divs within group
+	var group = $(document.createElement('div')).addClass('group');
+	
+	//outputDate within bucket
+	var bucket = $(document.createElement('div'))
+		.addClass('bucket')
+		.attr('id',bucketId)
+		.append(bucketTitle);
+
+	//messages (<li>) in here
+	var ul = $(document.createElement('ul'))
+		.attr('id', ulID);
+
+	$(bucket).append(outputDate);
+	$(group).append(bucket);
+	$(group).append(ul);
+
+	return group;
+
+}
+
 /**
 * Converts a single message to HTML to be displayed in the BrowserPane
 *
 */
-function getMessageHTML(msg, id){
+function getMessageHTML(msg){
+
+
 	var title = msg.get('title');
 	var date = msg.get('date');
 	var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
@@ -250,22 +235,52 @@ function getMessageHTML(msg, id){
 	var alert=msg.get('alert'); //boolean
 	var priority = msg.get('priority'); //boolean
 	var noteVsIssue = msg.get('type'); //string
+	var id = msg.id;
 	if(msg.get('text').length>125){ //if message was truncated to display
 		text+="...";
 	}
 	//console.log("title: "+title);
 	//console.log("text:" +text);
 
-	var output ="<li class = 'message' id='"+id+"'>"+
-				"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-				//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
-				determineIcons(alert, priority, noteVsIssue)+ "</div>"+
-				"<div class='message-content'>"+
-				"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
-				"</div>"+
-				"</li>";
+	var li = $(document.createElement('li'))
+		.addClass('message')
+		.attr('id', id);
+	var metadata = $(document.createElement('div'))
+		.addClass('message-metadata');
+	var timestamp = $(document.createElement('div'))
+		.addClass('timestamp');
+
+	$(timestamp).append(dateStr);
+	$(metadata).append(timestamp);
+	$(metadata).append(determineIcons(alert,priority,noteVsIssue));
+
+	var content = $(document.createElement('div'))
+		.addClass('message-content');
+	var titleDiv = $(document.createElement('div'))
+		.addClass('title');
+	$(titleDiv).append(title);
+	var textDiv = $(document.createElement('div')).addClass('text');
+	$(textDiv).append(text);
+	$(content)
+		.append(titleDiv)
+		.append(textDiv);
+
+	$(li).append(metadata);
+	$(li).append(content);
+
+
+	// var output ="<li class = 'message' id='"+id+"'>"+
+	// 			"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
+	// 			//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
+	// 			determineIcons(alert, priority, noteVsIssue)+ "</div>"+
+	// 			"<div class='message-content'>"+
+	// 			"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
+	// 			"</div>"+
+	// 			"</li>";
 	//console.log(output);
-	return output;
+	//return output;
+
+	return li;
 };
 
 
@@ -274,22 +289,38 @@ function getMessageHTML(msg, id){
 * date: string of length 4 representing month(first 2 digits), day(next 2 digits)
 * 
 */
-function getDateTableHTML(date, messageList){
+function getDateTableHTML(date, messageList, containerID){
 	console.log("getDateTableHTML()");
 	console.log(messageList);
 	if(messageList.length==0){
 		return "";
 	}
 	var outputDate=date;
-	var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul>"
-	var msg;
+	//var output="<div class='group'><div class='bucket' id='"+date+"'>"+outputDate+"</div><ul>"
+	
+	//bucket and ul divs within group
+	var group = $(document.createElement('div')).addClass('group');
+	
+	//outputDate within bucket
+	var bucket = $(document.createElement('div'))
+		.addClass('bucket')
+		.attr('id',date);
+
+	//messages (<li>) in here
+	var ul = $(document.createElement('ul'));
+
+	$(bucket).append(outputDate);
+	$(group).append(bucket);
+	$(group).append(ul);
+
+	//var msg;
 	for(index in messageList){
 		msg=messageList[index]
-		output+=getMessageHTML(msg, msg.id);
+		$(ul).append(getMessageHTML(msg));
 		}
 
-	output+="</ul></div>";
-	return output;
+	$(containerID).empty();
+	$(containerID).append(group);
 
 };
 
