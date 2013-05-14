@@ -142,9 +142,6 @@
 /*
 	BROWSE PANE
 */
-	.captain{
-
-	}
 
 	.browse {
 		border:0px;
@@ -170,6 +167,11 @@
 		text-align: center;
 	}
 
+	.nav-tabs > li {
+		width: 50%;
+		text-align: center;
+	}
+
 	.hidden{
 		visibility: hidden;
 	}
@@ -188,10 +190,9 @@
 		border-collapse: collapse;
 		border-spacing: 0;
 		position: absolute;
-		top: 75px;
+		top: 82px;
 		bottom: 0px;
 		overflow: auto;
-		border-top: 1px solid black;
 		width:100%;
 	}
 
