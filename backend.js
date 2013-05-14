@@ -63,8 +63,8 @@ function login(username, password, successCallback, errorCallback) {
 	});
 }
 
-// login('Timberlake', '123');
-login("Adele", 'test');
+login('Timberlake', '123');
+// login("Adele", 'test');
 
 function signup(username, pswd, email) {
 	var user = new Parse.User();
