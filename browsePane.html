@@ -195,19 +195,27 @@
 							<span class="add-on btn"><i class="icon-search" id="search-button"></i></span>
 						</div>
 					</div>
-					<div id="search-pills">
-						<ul class="nav nav-pills">
-						  <li class="active">
-						    <a href="#">All</a>
-						  </li>
-						  <li><a href="#">Unread</a></li>
-						</ul>
-					</div>
-					<div id="message-table">
-						<!--MESSAGES DYNAMICALLY ADDED HERE-->
-						<div id="unread-table"></div>
-						<div id="read-table"></div>
-					</div>
+
+					<div class="tabbable"> <!-- Only required for left/right tabs -->
+                        <!-- tab headers -->
+                        <ul class="nav nav-tabs">
+                            <li class="active" id="all-tab"><a href="#read-table" data-toggle="tab">All Messages</a></li>
+                            <li id="unread-tab"><a href="#unread-table" data-toggle="tab">Unread Messages <span class="badge badge-info" id="unread-count">0</span></a></li>
+                        </ul>
+
+                        <!-- tab content -->
+                        <div class="tab-content" id="message-table">
+                            <div class="tab-pane active" id="read-table">
+                                <i class="icon-spinner icon-spin icon-3x"></i>
+                            </div>
+                            <div class="tab-pane" id="unread-table">
+                                <div class="alert alert-info">
+                                    <h4>No Unread Messages</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- end tabbable section -->
 				</div>
 			</div>
 
@@ -243,7 +251,6 @@
 	            </div>
             </div>
         </div>
-
 
 
 		<!-- create message pane -->

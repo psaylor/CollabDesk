@@ -7,16 +7,16 @@
 //"PUBLIC" FUNCTIONS
 ////////////////////
 
+
 /**
 * Refreshes View for Browse Pane (called any time message or reply is added)
 *
 */
-function updateBrowsePane (divID){
-
-	console.log("in updateBrowsePane() for " + divID+"------------------------------------------------------------------");
+function updateBrowsePane (){
+	console.log("in updateBrowsePane()");
 	// $("#"+divID).empty();
 	
-	// $("#read-table").empty();
+	$("#read-table").empty();
 	//console.log($("#"+divID).html());
 	//var unreadOutput="";
 	getUnreadMessages(function(unreadList){
@@ -43,7 +43,6 @@ function updateBrowsePane (divID){
 		$(group).append(bucket);
 		$(group).append(ul);
 
-
 		if(unreadList.length>0){
 			for (var i=0; i< unreadList.length; i++){
 
@@ -51,8 +50,6 @@ function updateBrowsePane (divID){
 
 				$(ul).append(getMessageHTML(msg));
 				}
-
-
 
 			// unreadOutput +="<li class = 'message' id='"+id+"'>"+
 			// 			"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
@@ -63,6 +60,7 @@ function updateBrowsePane (divID){
 			// 			"</div>"+
 			// 			"</li>";
 		}		
+
 	});
 	//unreadOutput+="</ul></div>"
 	//console.log('output string for unread msgs');
@@ -79,8 +77,8 @@ function updateBrowsePane (divID){
 
 	getReadMessages(function(readList){ //list of type messages
 		var readOutput = "";
-		console.log("IN updateBrowsePane(): getReadMessages():");
-		console.log(readList);
+		//console.log("IN updateBrowsePane(): getReadMessages():");
+		//console.log(readList);
 		var hash = {};
 		var msg;
 		var date; //string
@@ -105,7 +103,9 @@ function updateBrowsePane (divID){
 		for(day in hash){
 			getDateTableHTML(day, hash[day], '#read-table');
 		}
+
 		//console.log("read output is "+ output);
+
 		// $("#"+divID).append(output);
 		//$("#read-table").html(readOutput);
 		addClickListener();
@@ -118,10 +118,13 @@ function updateBrowsePane (divID){
 };
 
 
-function updateSearchedBrowsePane(divID, input){
+function updateSearchedBrowsePane(input){
 	console.log("--------------------IN updateSearchBrowsePane()-----------------------");
+
+	//this is a hack...
+	divID='read-table';
 	$("#"+divID).empty();
-	var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
+	//var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
 
 	//setting up search terms
 	inputArray = input.toLowerCase().split(" ");
@@ -145,7 +148,6 @@ function updateSearchedBrowsePane(divID, input){
 	var ul = $(document.createElement('ul'))
 		.attr('id','search-content');
 
-	$(bucket).append(outputDate);
 	$(group).append(bucket);
 	$(group).append(ul);
 
@@ -290,8 +292,8 @@ function getMessageHTML(msg){
 * 
 */
 function getDateTableHTML(date, messageList, containerID){
-	console.log("getDateTableHTML()");
-	console.log(messageList);
+	//console.log("getDateTableHTML()");
+	//console.log(messageList);
 	if(messageList.length==0){
 		return "";
 	}
@@ -336,3 +338,23 @@ function getDateTableHTML(date, messageList, containerID){
 // 	//console.log(output);
 // 	return output;
 // };
+
+
+function getNoUnreadAlert() {
+	
+	var alertContent = $(document.createElement('strong'))
+		.html('No Unread Messages');
+	var alertDiv = $(document.createElement('div'))
+		.addClass('alert')
+		.addClass('alert-info')
+		.html(alertContent);
+	return alertDiv;
+}
+
+function updateUnreadCount(count) {
+	if (count){
+		$('#unread-count').html(count);
+	} else {
+		$('#unread-count').html(unreadCollection.length);
+	}
+}
