@@ -61,6 +61,14 @@ function msgHandler(msg_object) {
     }
   }
 
+  $(".tag").click(function() {
+      var tagText = $(this).html();
+      tagText = tagText.substring(1, tagText.length);
+      $('#search-tbox').val(tagText);
+      $("#search-button").click();
+      updateSearchedBrowsePane('message-table', getMessageIDs(tagText));
+  })
+
   // Display replies 
   getRepliesForMessage(msg_object,replyHandler);
 
