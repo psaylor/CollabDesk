@@ -39,6 +39,7 @@ function addBrowsepaneTooltips () {
 
 function addReadPaneTooltips () {
 	$('.tag').tooltip({
+		trigger: 'hover',
 		placement: 'top',
 		title: 'Click to Search',
 		delay: 200,

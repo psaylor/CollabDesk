@@ -57,7 +57,7 @@ function displayUnreadMessages(unreadList) {
 function onClickUnreadTab() {
     console.error('unread tab clicked');
     $('#unread-table').html(spinner);
-    updateUnreadCollection(displayUnreadMessages);
+    updateUnreadCollection(updateUnreadTab);
 }
 
 function onClickAllTab() {
@@ -66,9 +66,9 @@ function onClickAllTab() {
 
 
 function browsePaneReady() {
-	console.debug('ready to work on browse pane');
+    console.debug('ready to work on browse pane');
 
-	updateBrowsePane("message-table");
+    updateBrowsePane("message-table");
 
     $("#search-button").click(function(event){
         //console.log("clicked search button");
@@ -123,7 +123,7 @@ function browsePaneReady() {
                 addClickListener();
             }
             else{
-            	updateBrowsePane();
+                updateBrowsePane();
             }
         }
     });
@@ -145,8 +145,8 @@ function addClickListener(){
         resetReply();  
         $("#splashAlert").hide();
     });
-    addBrowsepaneTooltips();
     addUnreadListeners();
+    addBrowsepaneTooltips();
 }
 
 function addUnreadListeners() {
