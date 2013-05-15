@@ -237,6 +237,17 @@
 		margin: 0;
 	}
 
+	.unread {
+
+	}
+
+	.unread .title {
+		font-weight: bold;
+	}
+
+
+
+
 /*
 	READING PANE
 */
@@ -394,4 +405,8 @@
 	.alert {
 		max-width: 400px;
 		width: auto;
+	}
+
+	.readingnow {
+		background: #d9edf7;
 	}

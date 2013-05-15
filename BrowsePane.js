@@ -14,8 +14,6 @@
 */
 
 function getDayHash(msglist) {
-	console.log('getting day hash for msglist');
-	console.log(msglist);
 	var hash = {};
 	var msg;
 	var day;
@@ -64,6 +62,7 @@ function updateUnreadTab(unreadList) {
 
 
 	addClickListener();
+	markAllUnread();
 
 }
 
@@ -115,6 +114,10 @@ function updateSearchedBrowsePane(input){
 
 	divID='read-table';
 	$("#"+divID).empty();
+	// $('#all-tab').click();
+	$('#myTab a[href="#read-table"]').tab('show');
+	// $('#all-tab').addClass('active');
+	// $('#unread-tab').removeClass('active');
 	//var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
 
 	//setting up search terms
@@ -214,13 +217,22 @@ function createGroup(bucketId, bucketTitle, ulID){
 
 }
 
+function markAllUnread() {
+	var msgs = $('.message');
+	for (var i = 0; i < msgs.length; i++) {
+		var m = msgs[i];
+		var id = m.id;
+		if (unreadCollection.get(id)) {
+			$(m).addClass('unread');
+		}
+	};
+}
+
 /**
 * Converts a single message to HTML to be displayed in the BrowserPane
 *
 */
-function getMessageHTML(msg){
-
-
+function getMessageHTML(msg, unread){
 	var title = msg.get('title');
 	var date = msg.get('date');
 	var dateStr = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
@@ -238,6 +250,9 @@ function getMessageHTML(msg){
 	var li = $(document.createElement('li'))
 		.addClass('message')
 		.attr('id', id);
+	if (unread) {
+		li.addClass('unread');
+	}
 	var metadata = $(document.createElement('div'))
 		.addClass('message-metadata');
 	var timestamp = $(document.createElement('div'))
@@ -261,17 +276,6 @@ function getMessageHTML(msg){
 	$(li).append(metadata);
 	$(li).append(content);
 
-
-	// var output ="<li class = 'message' id='"+id+"'>"+
-	// 			"<div class='message-metadata'><div class='timestamp'>"+dateStr+"</div>"+
-	// 			//"<i class='icon-exclamation-sign icon-color'></i><i class='icon-note icon-color'></i><i class='icon-envelope icon-color'></i></div>"+
-	// 			determineIcons(alert, priority, noteVsIssue)+ "</div>"+
-	// 			"<div class='message-content'>"+
-	// 			"<div class='title'>"+title+"</div><div class='text'>"+text+"</div>"+
-	// 			"</div>"+
-	// 			"</li>";
-	//console.log(output);
-	//return output;
 
 	return li;
 };
@@ -315,19 +319,6 @@ function getDateTableHTML(date, messageList, containerID) {
 	$(containerID).append(group);
 
 }
-
-// /**
-// * Given a list of message ids, return the html corresponding to the id of the filtered 
-// */
-// function getSelectedMessagesHTML(messageList){
-// 	//console.log(messageList);
-// 	var output = "";
-// 	for (i in messageList){
-// 		output+=getMessageHTML(getMessage(messageList[i]), messageList[i]);
-// 	}
-// 	//console.log(output);
-// 	return output;
-// };
 
 
 function getNoUnreadAlert() {
