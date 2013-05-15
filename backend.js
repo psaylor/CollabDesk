@@ -63,8 +63,8 @@ function login(username, password, successCallback, errorCallback) {
 	});
 }
 
-login('Timberlake', '123');
-// login("Adele", 'test');
+// login('Timberlake', '123');
+login("Adele", 'test');
 
 function signup(username, pswd, email) {
 	var user = new Parse.User();
@@ -479,7 +479,12 @@ function markRead(msg) {
 			console.log("saved that user read msg");
 			console.log(obj);
 			cdUser = obj;
-			unreadCollection.remove(obj);
+			console.log('----------');
+			console.log(unreadCollection);
+			updateUnreadCollection();
+			console.log('--------------');
+			console.log(unreadCollection);
+			updateUnreadCount();
 		},
 		error: function(obj, error) {
 			console.log('could not save user reading msg');
