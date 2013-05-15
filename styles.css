@@ -226,6 +226,7 @@
 		text-align: left;
 		width:85%;
 		display:block;
+		padding-bottom: .2em;
 	}
 	.timestamp{
 		font-size:80%;

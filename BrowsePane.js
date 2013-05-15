@@ -33,7 +33,21 @@ function getDayHash(msglist) {
 		}
 	}
 
-	return hash;
+
+	//reversing order of dates (to make correct)
+	var keys=[]
+	for(var i in hash){
+		keys.push(i);
+	}
+	keys.reverse();
+
+	var temp;
+	var reversedHash = {};
+	for(var k in keys){
+		temp=keys[k];
+		reversedHash[temp] = hash[temp];
+	}
+	return reversedHash;
 }
 
 function updateUnreadTab(unreadList) {
@@ -99,7 +113,6 @@ function updateBrowsePane (){
 function updateSearchedBrowsePane(input){
 	console.log("--------------------IN updateSearchBrowsePane()-----------------------");
 
-	//this is a hack...
 	divID='read-table';
 	$("#"+divID).empty();
 	//var output="<div class='group'><div class='bucket' id='search'>Search Results</div><ul id='search-content'>"
