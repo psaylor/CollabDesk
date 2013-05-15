@@ -67,7 +67,11 @@ function msgHandler(msg_object) {
       $('#search-tbox').val(tagText);
       $("#search-button").click();
       updateSearchedBrowsePane('message-table', getMessageIDs(tagText));
-  })
+  });
+
+
+  // Add Tooltips for ReadPane
+  addReadPaneTooltips();
 
   // Display replies 
   getRepliesForMessage(msg_object,replyHandler);

@@ -17,6 +17,15 @@ function addBrowsepaneTooltips () {
 		container: 'body',
 	});
 
+	// Tooltip for issue icon in browse pane
+	$('.icon-question-sign').tooltip({
+		trigger: 'hover',
+		placement: 'top',
+		title: 'Issue',
+		delay: 200,
+		container: 'body',
+	});
+
 	// Tooltip for alert desk captain icon in browse pane
 	$('.icon-user').tooltip({
 		trigger: 'hover',
